@@ -1,4 +1,3 @@
-import { Block, RawBlock } from './types/block';
 import { ParsedQs } from 'qs';
 import { RawTransaction, Transaction } from './types/transaction';
 

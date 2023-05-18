@@ -6,14 +6,17 @@ This repository contains the source code for the UZH course blockchain programmi
 
 For local development and testing, we assume that you have a running UZH Bitcoin node. If not, please follow the official course guidelines on how to compile and run the UZH Bitcoin client.
 
-## Requirements
+## TODO
 
-Throghout this tutorial, we are going to use the following tools:
+1. list of lastest blocks --> /blocks (https://bitcoinexplorer.org/blocks)
+2. click on height of block to get transaction info --> /blocks/height (https://bitcoinexplorer.org/block-height/790323)
 
-1. [eloipool](https://github.com/luke-jr/eloipool) - The Bitcoin mining pool server
-2. [cpuminer](https://github.com/pooler/cpuminer) - A CPU mining client
+- first transaction is coinbase transaction
+- other transactions in the block
 
-## Mining Pool Setup
+3. click on address to get all transactions for address --> /address (https://bitcoinexplorer.org/address/39bitUyBcUu3y3hRTtYprKbTp712t4ZWqK)
+
+# Setup
 
 script to export snapshot of blocks, query using rpc
 store transactions in database
