@@ -31,40 +31,34 @@ make sure target exists
 
 rename files
 
-docker run --name=btcsql -p 3306:3306 -d mysql/mysql-server:latest
-(docker start btcsql)
-docker logs btcsql
-docker logs btcsql 2>&1 | grep GENERATED
+docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d mysql/mysql-server:latest
+docker start btcsql
 
 docker exec -it btcsql mysql -uroot -p
-enter pw (#m0^g32Yqp8&//,%9ygd_Jep7O7jT7eu)
+enter "pw"
 
 \_in mysql:
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'pw';
 SET GLOBAL local_infile=1;
 exit (goes back out of docker)
 
-\_acces bash
+\second terminal window in this directory
 
+`docker cp data/. btcsql:/sql`
+`docker cp blockparser/sql/. btcsql:/sql`
+
+\_verify and access bash
 docker exec -it btcsql bash
-mysql -uroot -p
-
-SHOW VARIABLES LIKE "secure\*file_priv";
-docker cp /mnt/c/github/uzh-blockchain/data btcsql:/sql
-docker cp /mnt/c/github/uzh-blockchain/sql/schema.sql btcsql:/sql
-\_verify
 ls -l1 sql
 
 \_in bash
 cd sql
 mysql -uroot -p --local-infile=1
 source schema.sql;
-
-select user from mysql.user;
-CREATE USER 'usr'@'localhost' IDENTIFIED BY 'pw';
-GRANT SELECT ON btc_blockchain.\* TO 'usr'@'localhost';
-
-SHOW GLOBAL VARIABLES LIKE 'PORT';
+source user.sql;
+`select * from blocks limit 10;` (to verify)
 
 \_good to know:
-exit
+
+- `SHOW GLOBAL VARIABLES LIKE 'PORT';`
+- exit
+- SHOW VARIABLES LIKE "secure\*file_priv";
