@@ -2,7 +2,7 @@ import express from 'express';
 import asyncHandler from 'express-async-handler';
 import { DataResponse } from '../types/response';
 import { firstQueryParam, maybeParseInt } from '../utils';
-import { getBlocks } from '../services';
+import { getBlock, getBlocks } from '../services';
 
 const router = express.Router();
 
@@ -26,7 +26,29 @@ router.get(
       offset: 0,
       sort: 'desc',
     });
-    res.send({ data: data[0] });
+    res.send({ data: data });
+  })
+);
+
+router.get(
+  '/blocks/:height',
+  asyncHandler(async (req, res: DataResponse) => {
+    const height = parseInt(req.params.height);
+    if (isNaN(height)) {
+      res.send({ data: [] });
+      return;
+    }
+    console.log(height);
+    const data = await getBlock({
+      height,
+    });
+    // No block found
+    if (data.length === 0) {
+      res.send({ data: [] });
+      return;
+    }
+    res.send({ data });
+    const block = data[0];
   })
 );
 

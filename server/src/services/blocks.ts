@@ -1,9 +1,14 @@
-import { Connection, RowDataPacket } from 'mysql2';
+import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { Block, RawBlock } from '../types/block';
-import { transformBlocks } from '../utils';
+import {
+  transformBlock,
+  transformBlocks,
+  transformTransactions,
+} from '../utils';
+import { RawTransaction, WithTransactions } from '../types/transaction';
 
-export const getBlockCount = async (): Promise<number> => {
+const getBlockCount = async (): Promise<number> => {
   const [rows] = await db
     .promise()
     .execute<RowDataPacket[]>('select count(*) as cnt from blocks');
@@ -21,7 +26,7 @@ export const getBlocks = async ({
   offset = 0,
   sort = 'desc',
 }: GetBlocksParams): Promise<Block[]> => {
-  let q = 'select * from blocks';
+  let q = 'select * from blocks ';
   if (sort === 'asc' || sort === 'desc') {
     q += ` order by height ${sort}`;
   }
@@ -38,12 +43,23 @@ export const getBlocks = async ({
 };
 
 type GetBlockParams = {
-  db: Connection;
-  hash: string;
+  height: number;
 };
 
-export const getBlock = async ({ hash }: GetBlockParams): Promise<Block> => {
-  const q = `select * from blocks where hash = x'${hash}'`;
-  const [rows] = await db.promise().execute<RawBlock[]>(q);
-  return transformBlocks(rows)[0];
+export const getBlock = async ({
+  height,
+}: GetBlockParams): Promise<WithTransactions<Block>[]> => {
+  const bq = `select * from blocks where height = ${height}`;
+  const [blocks] = await db.promise().execute<RawBlock[]>(bq);
+  if (blocks.length === 0) {
+    return [];
+  }
+  const block: WithTransactions<Block> = {
+    ...transformBlock(blocks[0]),
+    txids: [],
+  };
+  const tq = `select * from transactions where hashBlock = x'${block.hash}'`;
+  const [transactions] = await db.promise().execute<RawTransaction[]>(tq);
+  block.txids = transformTransactions(transactions).map(tx => tx.txid);
+  return [block];
 };

@@ -1,7 +1,7 @@
 import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { RawTransaction, Transaction } from '../types/transaction';
-import { transformTransaction } from '../utils';
+import { transformTransactions } from '../utils';
 
 export const getTransactionCount = async (): Promise<number> => {
   const [rows] = await db
@@ -31,5 +31,5 @@ export const getTransactions = async ({
   }
 
   const [rows] = await db.promise().execute<RawTransaction[]>(q);
-  return transformTransaction(rows);
+  return transformTransactions(rows);
 };

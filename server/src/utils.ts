@@ -1,5 +1,6 @@
 import { ParsedQs } from 'qs';
 import { RawTransaction, Transaction } from './types/transaction';
+import { Block, RawBlock } from './types/block';
 
 export const firstQueryParam = (
   req: ParsedQs,
@@ -18,6 +19,15 @@ export const buffToString = (buff: Buffer): string => {
   return buff.toString('hex');
 };
 
+export function transformBlock(block: RawBlock): Block {
+  return {
+    ...block,
+    hash: buffToString(block.hash),
+    hashMerkleRoot: buffToString(block.hashMerkleRoot),
+    hashPrev: buffToString(block.hashPrev),
+  };
+}
+
 export function transformBlocks<T extends RawBlock>(blocks: T[]): Block[] {
   return blocks.map(block => ({
     ...block,
@@ -27,7 +37,7 @@ export function transformBlocks<T extends RawBlock>(blocks: T[]): Block[] {
   }));
 }
 
-export function transformTransaction<T extends RawTransaction>(
+export function transformTransactions<T extends RawTransaction>(
   blocks: T[]
 ): Transaction[] {
   return blocks.map(block => ({

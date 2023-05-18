@@ -2,7 +2,7 @@ import express from 'express';
 import asyncHandler from 'express-async-handler';
 import { DataResponse } from '../types/response';
 import { firstQueryParam, maybeParseInt } from '../utils';
-import { getBlocks, getTransactions } from '../services';
+import { getTransactions } from '../services';
 
 const router = express.Router();
 
