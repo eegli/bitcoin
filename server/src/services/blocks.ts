@@ -1,18 +1,9 @@
-import mysql, { Connection, RowDataPacket } from 'mysql2';
-import { Block, RawBlock } from './types/block';
-import { transformBlocks } from './utils';
+import { Connection, RowDataPacket } from 'mysql2';
+import db from './db';
+import { Block, RawBlock } from '../types/block';
+import { transformBlocks } from '../utils';
 
-const con = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT as string),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
-
-con.connect();
-
-export const getBlockCount = async (db: Connection): Promise<number> => {
+export const getBlockCount = async (): Promise<number> => {
   const [rows] = await db
     .promise()
     .execute<RowDataPacket[]>('select count(*) as cnt from blocks');
@@ -20,14 +11,12 @@ export const getBlockCount = async (db: Connection): Promise<number> => {
 };
 
 type GetBlocksParams = {
-  db: Connection;
   limit?: number;
   offset?: number;
   sort?: string;
 };
 
 export const getBlocks = async ({
-  db,
   limit = 10,
   offset = 0,
   sort = 'desc',
@@ -53,13 +42,8 @@ type GetBlockParams = {
   hash: string;
 };
 
-export const getBlock = async ({
-  db,
-  hash,
-}: GetBlockParams): Promise<Block> => {
+export const getBlock = async ({ hash }: GetBlockParams): Promise<Block> => {
   const q = `select * from blocks where hash = x'${hash}'`;
   const [rows] = await db.promise().execute<RawBlock[]>(q);
   return transformBlocks(rows)[0];
 };
-
-export default con;
