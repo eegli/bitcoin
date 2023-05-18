@@ -24,41 +24,66 @@ transactions for each address
 goal: reindex existing database
 foreach address, index transactions (coinbase addresses)
 
-cargo build --release
+1. Create database
 
-make sure target exists
-./target/release/rusty-blockparser --blockchain-dir ~/.uzhbitcoin/blocks csvdump /mnt/c/github/uzh-blockchain/data
+```sh
+bash dump_chain.sh
+```
 
-rename files
+2. Create (or start) container
 
+```sh
 docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d mysql/mysql-server:latest
+```
+
+```sh
 docker start btcsql
+```
 
+3. Prepare MySQL for local data loading
+
+```sh
 docker exec -it btcsql mysql -uroot -p
-enter "pw"
+```
 
-\_in mysql:
+Enter pw
+
+```sh
 SET GLOBAL local_infile=1;
-exit (goes back out of docker)
+exit # this will exit docker
+```
 
-\second terminal window in this directory
+4. Copy chain data to the container
 
-`docker cp data/. btcsql:/sql`
-`docker cp blockparser/sql/. btcsql:/sql`
+```sh
+bash copy_chain.sh
+docker exec -it btcsql ls -l1 sql
+```
 
-\_verify and access bash
+5. Access container to load data and create user
+
+```sh
 docker exec -it btcsql bash
-ls -l1 sql
-
-\_in bash
 cd sql
 mysql -uroot -p --local-infile=1
+```
+
+In mysql:
+
+```sql
 source schema.sql;
 source user.sql;
-`select * from blocks limit 10;` (to verify)
+
+# to verify
+select * from blocks limit 10;
+```
 
 \_good to know:
 
 - `SHOW GLOBAL VARIABLES LIKE 'PORT';`
 - exit
 - SHOW VARIABLES LIKE "secure\*file_priv";
+
+```
+
+```
