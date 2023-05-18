@@ -1,0 +1,3 @@
+[submodule "blockparser"]
+	path = blockparser
+	url = git@github.com:eegli/rusty-blockparser.git
