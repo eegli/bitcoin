@@ -5,33 +5,35 @@
  * Checksum: mXsbVt/MMXQA5DKT/VGGQs9ONgiskpS3lEHt3OUjjZ7qtSVRJOM7tuV4xdQhg+Zi80UURbqfsJw/qavyBT6s0g==
  */
 
+import { RowDataPacket } from 'mysql2';
+
 /* eslint-disable */
 // tslint:disable
 
-interface Blocks {
-  blocksize: number
-  hash: unknown
-  hashMerkleRoot: unknown
-  hashPrev: unknown
-  height: number
-  id: number & {readonly __brand?: 'blocks_id'}
-  nBits: number
-  nNonce: number
-  nTime: number
-  version: number
+interface Blocks extends RowDataPacket {
+  blocksize: number;
+  hash: Buffer;
+  hashMerkleRoot: Buffer;
+  hashPrev: Buffer;
+  height: number;
+  id: number & { readonly __brand?: 'blocks_id' };
+  nBits: number;
+  nNonce: number;
+  nTime: number;
+  version: number;
 }
 export default Blocks;
 
 interface Blocks_InsertParameters {
-  blocksize: number
-  hash: unknown
-  hashMerkleRoot: unknown
-  hashPrev: unknown
-  height: number
-  id: number & {readonly __brand?: 'blocks_id'}
-  nBits: number
-  nNonce: number
-  nTime: number
-  version: number
+  blocksize: number;
+  hash: unknown;
+  hashMerkleRoot: unknown;
+  hashPrev: unknown;
+  height: number;
+  id: number & { readonly __brand?: 'blocks_id' };
+  nBits: number;
+  nNonce: number;
+  nTime: number;
+  version: number;
 }
-export type {Blocks_InsertParameters}
+export type { Blocks_InsertParameters };
