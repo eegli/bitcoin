@@ -1,2 +1,2 @@
-docker cp data/. btcsql:/sql`
+docker cp blocks/parsed/. btcsql:/sql`
 docker cp blockparser/sql/. btcsql:/sql`

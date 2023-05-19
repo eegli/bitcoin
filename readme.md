@@ -12,6 +12,14 @@ Furthermore:
 - A somewhat recent version of Node.js (> 14)
 - (Optional) Cargo to build Rust binaries
 
+Initial setup:
+
+```sh
+git clone https://github.com/eegli/bitcoin
+git submodule init
+git submodule update
+```
+
 ## Example Explorer
 
 The block explorer we're building is inspired by https://github.com/janoside/btc-rpc-explorer. You can follow the installations instructions over there and then run it like so, assuming the node is running on port 7332 with username `user` and password `pass`:
@@ -44,66 +52,96 @@ For the full setup, proceed with the following steps.
 
 ## Exporting Chain Data
 
-This step requires a synchronized
+This step requires a synchronized UZH Bitcoin node. If you don't have one, you can skip this step and use the parsed data directly in the next step.
 
-```sh
-bash scripts/dump_chain.sh
-```
+This step further requires Cargo to build the Rust binary that parses the block data.
+
+1. Copy the `blocks` directory from the UZH Bitcoin node to the `blocks/raw` folder
+2. From the root of this repository, invoke the bash script: `bash scripts/dump_chain.sh`
+
+This will output block data in CSV format into the `blocks/parsed` folder.
 
 ## SQL Server Setup
 
-1. Create (or start) container
+In the next section, we will use the mysql docker image to setup a local SQL server. This is not required if you want to use the existing image.
+
+1. Create the container:
+
+   ```sh
+   docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d mysql/mysql-server:latest
+   ```
+
+   If you've already created the container, you can start it with:
+
+   ```sh
+   docker start btcsql
+   ```
+
+2. Prepare MySQL for local data loading
+   We need to bypass the default security settings of MySQL to allow local data loading.
+
+   ```sh
+   docker exec -it btcsql mysql -uroot -p
+   ```
+
+   Enter the password ("pw")
+
+   ```sh
+   SET GLOBAL local_infile=1;
+   exit
+   ```
+
+   You should now be back in your terminal.
+
+3. Copy chain data to the container
+   Do this from the root folder of this repository.
+
+   ```sh
+   bash scripts/copy_chain.sh
+   docker exec -it btcsql ls -l1 sql
+   ```
+
+   You should now see the csv along with some sql files.
+
+4. Access container to load data and create user
+
+   ```sh
+   docker exec -it btcsql bash
+   cd sql
+   mysql -uroot -p --local-infile=1
+   ```
+
+   Now, in the mysql shell, we create the schema, views and user to access the data:
+
+   ```sql
+   source schema.sql;
+   source views.sql;
+   source user.sql;
+   ```
+
+   In order to verify that everything has been loaded, you can run the following query:
+
+   ```sql
+   select * from blocks limit 10;
+   ```
+
+## Webserver Setup
+
+The webserver is a simple Node.js Express server.
+
+### Installation
 
 ```sh
-docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d mysql/mysql-server:latest
+cd server && npm install
 ```
+
+To start the server:
 
 ```sh
-docker start btcsql
+npm run dev
 ```
 
-3. Prepare MySQL for local data loading
-
-```sh
-docker exec -it btcsql mysql -uroot -p
-```
-
-Enter pw
-
-```sh
-SET GLOBAL local_infile=1;
-exit # this will exit docker
-```
-
-4. Copy chain data to the container
-
-```sh
-bash copy_chain.sh
-docker exec -it btcsql ls -l1 sql
-```
-
-5. Access container to load data and create user
-
-```sh
-docker exec -it btcsql bash
-cd sql
-mysql -uroot -p --local-infile=1
-```
-
-In mysql:
-
-```sql
-source schema.sql;
-source views.sql;
-source user.sql;
-
-# to verify
-select * from blocks limit 10;
-```
-
-# Webserver Setup
-
-## API Routes
+### API Routes
 
 | Resource         | Path                | Description                | Example response                                                                                             |
 | ---------------- | ------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------ |
@@ -111,7 +149,7 @@ select * from blocks limit 10;
 | Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON 1](client/mock-data/block.height.1.json), [Sample JSON 2](client/mock-data/block.height.2.json) |
 | Address data     | `/address/:address` | Address history            | [Sample JSON 1](client/mock-data/address.1.json), [Sample JSON 2](client/mock-data/address.2.json)           |
 
-## Filtering
+### Filtering
 
 Both `/address/:address` and `/blocks` support basic filtering and pagination. The following query parameters are supported:
 
@@ -119,12 +157,18 @@ Both `/address/:address` and `/blocks` support basic filtering and pagination. T
 
 Both endpoints have sensible defaults and do not support a limit > 100.
 
-## Test Addresses (With Some History)
+### Test Data
 
-| Height | Transactions |
-| ------ | ------------ |
-| 51376  | 18           |
-| 10571  | 6            |
-| 14505  | 6            |
-| 14513  | 4            |
-| 17076  | 3            |
+Since the UZH blockchain is rather sparse in terms of transactions, the following blocks can be used to test the API:
+
+| Height | Transaction count |
+| ------ | ----------------- |
+| 51376  | 18                |
+| 10571  | 6                 |
+| 14505  | 6                 |
+| 14513  | 4                 |
+| 17076  | 3                 |
+
+## Client Setup
+
+TODO
