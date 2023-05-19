@@ -26,6 +26,12 @@ transactions for each address
 goal: reindex existing database
 foreach address, index transactions (coinbase addresses)
 
+Our inspiration: [rpc-block-explorer](https://github.com/janoside/btc-rpc-explorer). In order to run locally with our Bitcoin config:
+
+```sh
+btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
+```
+
 # Exporting Chain Data
 
 ```sh
