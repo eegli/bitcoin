@@ -4,6 +4,7 @@ import { Block, RawBlock } from '../types/block';
 import { transformTransactions } from '../utils';
 import { BlockTransactionData, RawTransactionInfo } from '../types/transaction';
 
+// Maybe TODO
 const getBlockCount = async (): Promise<number> => {
   const [rows] = await db
     .promise()

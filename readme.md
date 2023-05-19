@@ -6,7 +6,7 @@ This repository contains the source code for the UZH course blockchain programmi
 
 For local development and testing, we assume that you have a running UZH Bitcoin node. If not, please follow the official course guidelines on how to compile and run the UZH Bitcoin client.
 
-## TODO
+## TODO / Goal
 
 1. list of lastest blocks --> /blocks (https://bitcoinexplorer.org/blocks)
 2. click on height of block to get transaction info --> /blocks/height (https://bitcoinexplorer.org/block-height/790323)
@@ -16,8 +16,7 @@ For local development and testing, we assume that you have a running UZH Bitcoin
 
 3. click on address to get all transactions for address --> /address (https://bitcoinexplorer.org/address/39bitUyBcUu3y3hRTtYprKbTp712t4ZWqK)
 
-# Setup
-
+By instructors:
 script to export snapshot of blocks, query using rpc
 store transactions in database
 webserver to query transactions
@@ -27,11 +26,13 @@ transactions for each address
 goal: reindex existing database
 foreach address, index transactions (coinbase addresses)
 
-1. Create database
+# Exporting Chain Data
 
 ```sh
 bash dump_chain.sh
 ```
+
+# SQL Server Setup
 
 2. Create (or start) container
 
@@ -82,45 +83,30 @@ source user.sql;
 select * from blocks limit 10;
 ```
 
-\_good to know:
+# Webserver Setup
 
-- `SHOW GLOBAL VARIABLES LIKE 'PORT';`
-- exit
-- SHOW VARIABLES LIKE "secure\*file_priv";
+## API Routes
 
-testable blocks (height, txs):
-51376 18
-10571 6
-14505 6
-14513 4
-17076 3
-14482 3
-14504 3
-17387 2
-17034 2
-18499 2
-18504 2
-40130 2
-43517 2
-51229 2
-51230 2
-51348 2
-51349 2
-51392 2
-51393 2
-51417 2
-51418 2
-17386 2
-17077 2
-17016 2
-16881 2
-16029 2
-14479 2
-11643 2
-11470 2
-11465 2
-11453 2
-11436 2
-10629 2
-10600 2
-10583 2
+| Resource         | Path                | Description                | Example response                                                                                             |
+| ---------------- | ------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Block data       | `/blocks`           | General                    | [Sample JSON](client/mock-data/block.json)                                                                   |
+| Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON 1](client/mock-data/block.height.1.json), [Sample JSON 2](client/mock-data/block.height.2.json) |
+| Address data     | `/address/:address` | Address history            | [Sample JSON 1](client/mock-data/address.1.json), [Sample JSON 2](client/mock-data/address.2.json)           |
+
+## Filtering
+
+Both `/address/:address` and `/blocks` support basic filtering and pagination. The following query parameters are supported:
+
+- `limit` (int), `offset` (int), `sort` ("asc" or "desc")
+
+Both endpoints have sensible defaults and do not support a limit > 100.
+
+## Test Addresses (With Some History)
+
+| Height | Transactions |
+| ------ | ------------ |
+| 51376  | 18           |
+| 10571  | 6            |
+| 14505  | 6            |
+| 14513  | 4            |
+| 17076  | 3            |
