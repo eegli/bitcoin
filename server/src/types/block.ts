@@ -1,5 +1,4 @@
 import { RowDataPacket } from 'mysql2';
-import { Transaction } from './transaction';
 
 interface BaseBlock {
   blocksize: number;

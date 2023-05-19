@@ -48,7 +48,6 @@ router.get(
       return;
     }
     res.send({ data });
-    const block = data[0];
   })
 );
 
