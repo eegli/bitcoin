@@ -1,48 +1,34 @@
 # UZH - Blockchain Programming
 
-This repository contains the source code for the UZH course blockchain programming. In particular, it describes the steps how (a) a mining pool admin can setup a mining pool on the UZH Bitcoin network and (b) how individual miners can connect to the pool and start mining.
+This repository contains the source code for the UZH course blockchain programming with the goal of building a Blockchain explorer. In particular, it describes the steps on how to parse block data from the UZH Bitcoin network and store it in a MySQL database, from which it can be be queried using a Node.js server and displayed in a web browser.
 
 ## Prerequisites
 
 For local development and testing, we assume that you have a running UZH Bitcoin node. If not, please follow the official course guidelines on how to compile and run the UZH Bitcoin client.
 
-## TODO / Goal
+Furthermore:
 
-1. list of lastest blocks --> /blocks (https://bitcoinexplorer.org/blocks)
-2. click on height of block to get transaction info --> /blocks/height (https://bitcoinexplorer.org/block-height/790323)
+- Docker
+- A somewhat recent version of Node.js (> 14)
+- (Optional) Cargo to build Rust binaries
 
-- first transaction is coinbase transaction
-- other transactions in the block
+## Example Explorer
 
-3. click on address to get all transactions for address --> /address (https://bitcoinexplorer.org/address/39bitUyBcUu3y3hRTtYprKbTp712t4ZWqK)
-
-By instructors:
-script to export snapshot of blocks, query using rpc
-store transactions in database
-webserver to query transactions
-address based index
-transactions for each address
-
-goal: reindex existing database
-foreach address, index transactions (coinbase addresses)
-
-Our inspiration: [rpc-block-explorer](https://github.com/janoside/btc-rpc-explorer). In order to run locally with our Bitcoin config:
+The block explorer we're building is inspired by https://github.com/janoside/btc-rpc-explorer. You can follow the installations instructions over there and then run it like so, assuming the node is running on port 7332 with username `user` and password `pass`:
 
 ```sh
 btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
 ```
 
-# Exporting Chain Data
+## Project Goals
 
-```sh
-bash scripts/dump_chain.sh
-```
+1. List the lastest blocks of the chain. Example: https://bitcoinexplorer.org/blocks
+2. Click on height of block to get its transaction info. First, display the coinbase and then the other transactions. Example: https://bitcoinexplorer.org/block-height/790323
+3. In this view, click on address to get all transactions for the address. Example: https://bitcoinexplorer.org/address/39bitUyBcUu3y3hRTtYprKbTp712t4ZWqK
 
-# SQL Server Setup
+# Setup
 
-## Using An Existing Image
-
-Note: If you want to use the existing image that includes the SQL server, do the following:
+If you want to use the existing image that includes the SQL server, you can skip most of the setup:
 
 1. Pull the image from https://drive.google.com/file/d/1DsuGMAHw7bJ3slW8XGrhotWZoZoAhmOU/view?usp=sharing
 2. Navigate to the folder where the image named is located and run sequentially:
@@ -52,9 +38,19 @@ docker load < btcsql.tar
 docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d btcsql
 ```
 
-3. Start the Node.js server in the `server` folder
+3. Start the Node.js server in the `server` folder (see later instructions)
 
-## Full Setup
+For the full setup, proceed with the following steps.
+
+## Exporting Chain Data
+
+This step requires a synchronized
+
+```sh
+bash scripts/dump_chain.sh
+```
+
+## SQL Server Setup
 
 1. Create (or start) container
 

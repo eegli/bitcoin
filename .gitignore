@@ -1,4 +1,3 @@
-blocks/**
-data/**
+blocks/raw
 **/node_modules
 **/dist
