@@ -35,12 +35,28 @@ btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
 # Exporting Chain Data
 
 ```sh
-bash dump_chain.sh
+bash scripts/dump_chain.sh
 ```
 
 # SQL Server Setup
 
-2. Create (or start) container
+## Using An Existing Image
+
+Note: If you want to use the existing image that includes the SQL server, do the following:
+
+1. Pull the image from https://drive.google.com/file/d/1DsuGMAHw7bJ3slW8XGrhotWZoZoAhmOU/view?usp=sharing
+2. Navigate to the folder where the image named is located and run sequentially:
+
+```sh
+docker load < btcsql.tar
+docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d btcsql
+```
+
+3. Start the Node.js server in the `server` folder
+
+## Full Setup
+
+1. Create (or start) container
 
 ```sh
 docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d mysql/mysql-server:latest
