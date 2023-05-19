@@ -11,9 +11,21 @@
       "nTime": 1636993396,
       "nBits": 471629018,
       "nNonce": 2268213760,
-      "txids": [
-        "3ba91e0801e12e4bf53b83b4c794d384502d66a79592a4857582abd670116cf9"
-      ]
+      "coinbase": [
+        {
+          "txid": "3ba91e0801e12e4bf53b83b4c794d384502d66a79592a4857582abd670116cf9",
+          "to_addr": "bc1q73fyzsk3nnxjd8r8wwftw774e2ux4gqy02j29k",
+          "output_amount": 5000000000,
+          "idx": 0
+        },
+        {
+          "txid": "3ba91e0801e12e4bf53b83b4c794d384502d66a79592a4857582abd670116cf9",
+          "to_addr": "OP_RETURN",
+          "output_amount": 0,
+          "idx": 1
+        }
+      ],
+      "tx": []
     }
   ]
 }

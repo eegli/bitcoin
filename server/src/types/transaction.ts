@@ -39,39 +39,33 @@ export interface TransactionInfo {
   input_amount: number;
 }
 
-export interface DetailedTransaction extends Transaction {
-  from: {
-    txid: string;
-    index: number;
-    address: string;
-    amount: number;
-  }[];
-  output: { address: string; index: number; amount: number }[];
-}
-
-export type WithTransactions<T> = T & {
+export interface TransactionInput {
   txid: string;
-  tx: any[];
-};
-
-export interface BlockTransactionInfo {
-  coinbase: {
-    to_addr: string;
-    output_amount: number;
-    output_idx: number;
-  };
-  tx: {
-    txid: string;
-    inputs: {
-      txid: string;
-      address: string;
-      amount: number;
-      idx: number;
-    }[];
-    outputs: {
-      address: string;
-      amount: number;
-      idx: number;
-    }[];
-  }[];
+  idx: number;
+  address: string;
+  amount: number;
 }
+
+export interface TransactionOutput {
+  address: string;
+  idx: number;
+  amount: number;
+}
+
+export interface DetailedTransaction {
+  inputs: TransactionInput[];
+  outputs: TransactionOutput[];
+  txid: string;
+}
+
+export interface CoinbaseTransaction {
+  txid: string;
+  to_addr: string;
+  output_amount: number;
+  idx: number;
+}
+
+export type BlockTransactionData = {
+  coinbase: CoinbaseTransaction[];
+  tx: DetailedTransaction[];
+};

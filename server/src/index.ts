@@ -4,7 +4,6 @@ dotenv.config();
 
 import express from 'express';
 import blocksRouter from './routes/blocks';
-import transactionsRouter from './routes/transactions';
 
 const app = express();
 
@@ -22,7 +21,6 @@ app.get('/version', (_, res) => {
 });
 
 app.use(blocksRouter);
-app.use(transactionsRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

@@ -6,11 +6,7 @@ import {
   transformBlocks,
   transformTransactions,
 } from '../utils';
-import {
-  RawTransaction,
-  RawTransactionInfo,
-  WithTransactions,
-} from '../types/transaction';
+import { BlockTransactionData, RawTransactionInfo } from '../types/transaction';
 
 const getBlockCount = async (): Promise<number> => {
   const [rows] = await db
@@ -50,13 +46,15 @@ type GetBlockParams = {
   height: number;
 };
 
-export const getBlock = async ({ height }: GetBlockParams): Promise<any> => {
+export const getBlock = async ({
+  height,
+}: GetBlockParams): Promise<(Block & BlockTransactionData)[]> => {
   const bq = `select * from blocks where height = ${height}`;
   const [blocks] = await db.promise().execute<RawBlock[]>(bq);
   if (blocks.length === 0) {
     return [];
   }
-  const block: any = transformBlock(blocks[0]);
+  const block = transformBlock(blocks[0]);
 
   const tq = `
     with trans as (select t.hashBlock, t.txid, i.hashPrevOut, o.indexOut, o.value, o.address
@@ -67,7 +65,7 @@ export const getBlock = async ({ height }: GetBlockParams): Promise<any> => {
   select t.hashBlock   as blockhash,
   t.txid        as curr_txid,
   t.address     as to_addr,
-  t.value       as output_amount,
+  cast(t.value / 100000000 AS DECIMAL (16 , 8))       as output_amount,
   t.indexOut    as to_idxout,
   t.hashPrevOut as prev_txid,
   null          as from_addr,
@@ -81,7 +79,7 @@ export const getBlock = async ({ height }: GetBlockParams): Promise<any> => {
   select t.hashBlock as blockhash,
   t.txid      as curr_txid,
   t.address   as to_addr,
-  t.value     as output_amount,
+  cast(t.value / 100000000 AS DECIMAL (16 , 8))       as output_amount,
   t.indexOut  as to_idxout,
   o.txid      as prev_txid,
   o.address   as from_addr,
@@ -91,14 +89,15 @@ export const getBlock = async ({ height }: GetBlockParams): Promise<any> => {
   tx_out o
   where t.hashBlock = x'${block.hash}'
   and o.txid = t.hashPrevOut
-
-
   `;
   const [transactions] = await db.promise().execute<RawTransactionInfo[]>(tq);
-  console.log(transactions);
   const { coinbase, tx } = transformTransactions(transactions);
-  block.coinbase = coinbase;
-  block.tx = tx;
 
-  return [block];
+  return [
+    {
+      ...block,
+      coinbase,
+      tx,
+    },
+  ];
 };
