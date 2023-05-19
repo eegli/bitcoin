@@ -16,6 +16,7 @@ export interface RawBlock extends RowDataPacket, BaseBlock {
   hashMerkleRoot: Buffer;
   hashPrev: Buffer;
 }
+
 export interface Block extends BaseBlock {
   hash: string;
   hashMerkleRoot: string;

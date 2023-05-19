@@ -75,6 +75,7 @@ In mysql:
 
 ```sql
 source schema.sql;
+source views.sql;
 source user.sql;
 
 # to verify
