@@ -6,7 +6,6 @@ import {
   TransactionInput,
   TransactionOutput,
 } from './types/transaction';
-import { Block, RawBlock } from './types/block';
 
 export const firstQueryParam = (
   req: ParsedQs,
@@ -20,28 +19,6 @@ export const firstQueryParam = (
 export const maybeParseInt = (val: string | undefined): number | undefined => {
   return val ? parseInt(val) : undefined;
 };
-
-export const buffToString = (buff: Buffer): string => {
-  return buff.toString('hex');
-};
-
-export function transformBlock(block: RawBlock): Block {
-  return {
-    ...block,
-    hash: buffToString(block.hash),
-    hashMerkleRoot: buffToString(block.hashMerkleRoot),
-    hashPrev: buffToString(block.hashPrev),
-  };
-}
-
-export function transformBlocks<T extends RawBlock>(blocks: T[]): Block[] {
-  return blocks.map(block => ({
-    ...block,
-    hash: buffToString(block.hash),
-    hashMerkleRoot: buffToString(block.hashMerkleRoot),
-    hashPrev: buffToString(block.hashPrev),
-  }));
-}
 
 export function transformTransactions(
   _tx: RawTransactionInfo[]
@@ -65,7 +42,7 @@ export function transformTransactions(
     string,
     {
       inputs: Map<string, TransactionInput>;
-      outputs: Map<string, TransactionOutput[]>;
+      outputs: Map<string, TransactionOutput>;
       txid: string;
     }
   >();
@@ -94,10 +71,8 @@ export function transformTransactions(
       amount: t.output_amount,
       idx: t.to_idxout,
     };
-    if (output) {
-      output.push(entry);
-    } else {
-      val.outputs.set(t.to_addr, [entry]);
+    if (!output) {
+      val.outputs.set(t.to_addr, entry);
     }
   }
 

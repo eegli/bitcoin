@@ -1,23 +1,16 @@
 import { RowDataPacket } from 'mysql2';
 
-interface BaseBlock {
+export interface Block {
   blocksize: number;
   height: number;
-  id: number & { readonly __brand?: 'blocks_id' };
+  id: number;
   nBits: number;
   nNonce: number;
   nTime: number;
   version: number;
-}
-
-export interface RawBlock extends RowDataPacket, BaseBlock {
-  hash: Buffer;
-  hashMerkleRoot: Buffer;
-  hashPrev: Buffer;
-}
-
-export interface Block extends BaseBlock {
   hash: string;
   hashMerkleRoot: string;
   hashPrev: string;
 }
+
+export interface RawBlock extends RowDataPacket, Block {}

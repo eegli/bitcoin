@@ -1,11 +1,7 @@
 import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { Block, RawBlock } from '../types/block';
-import {
-  transformBlock,
-  transformBlocks,
-  transformTransactions,
-} from '../utils';
+import { transformTransactions } from '../utils';
 import { BlockTransactionData, RawTransactionInfo } from '../types/transaction';
 
 const getBlockCount = async (): Promise<number> => {
@@ -26,7 +22,19 @@ export const getBlocks = async ({
   offset = 0,
   sort = 'desc',
 }: GetBlocksParams): Promise<Block[]> => {
-  let q = 'select * from blocks ';
+  let q = `
+  select id,
+    hex(hash) hash,
+    height,
+    version,
+    blocksize,
+    hex(hashPrev) hashPrev,
+    hex(hashMerkleRoot) hashMerkleRoot,
+    nTime,
+    nBits,
+    nNonce
+  from blocks
+`;
   if (sort === 'asc' || sort === 'desc') {
     q += ` order by height ${sort}`;
   }
@@ -39,7 +47,7 @@ export const getBlocks = async ({
   }
 
   const [rows] = await db.promise().execute<RawBlock[]>(q);
-  return transformBlocks(rows);
+  return rows;
 };
 
 type GetBlockParams = {
@@ -49,13 +57,25 @@ type GetBlockParams = {
 export const getBlock = async ({
   height,
 }: GetBlockParams): Promise<(Block & BlockTransactionData)[]> => {
-  const bq = `select * from blocks where height = ${height}`;
+  const bq = `
+  select id,
+    hex(hash) hash,
+    height,
+    version,
+    blocksize,
+    hex(hashPrev) hashPrev,
+    hex(hashMerkleRoot) hashMerkleRoot,
+    nTime,
+    nBits,
+    nNonce
+  from blocks
+  where height = ${height}
+  `;
   const [blocks] = await db.promise().execute<RawBlock[]>(bq);
   if (blocks.length === 0) {
     return [];
   }
-  const block = transformBlock(blocks[0]);
-
+  const block = blocks[0];
   const tq = `
   with trans as (select t.hashBlock, t.txid, i.hashPrevOut, o.indexOut, o.value, o.address
     from transactions t
@@ -92,9 +112,7 @@ export const getBlock = async ({
   `;
 
   const [transactions] = await db.promise().execute<RawTransactionInfo[]>(tq);
-  console.log(transactions);
   const { coinbase, tx } = transformTransactions(transactions);
-
   return [
     {
       ...block,
