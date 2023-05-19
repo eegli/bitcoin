@@ -13,15 +13,15 @@
       "nNonce": 3751674796,
       "coinbase": [
         {
-          "txid": "176aa0718c8e2609e51f388b84b8531bef2642c34c4d1ac85f1c2a2484178295",
+          "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
           "to_addr": "1NJKrVRQ8NtkzsQq9e7hdftE3sV7Kh5DTP",
-          "output_amount": 5000070500,
+          "output_amount": "50.00070500",
           "idx": 0
         },
         {
-          "txid": "176aa0718c8e2609e51f388b84b8531bef2642c34c4d1ac85f1c2a2484178295",
+          "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
           "to_addr": "OP_RETURN",
-          "output_amount": 0,
+          "output_amount": "0.00000000",
           "idx": 1
         }
       ],
@@ -29,167 +29,167 @@
         {
           "inputs": [
             {
-              "txid": "8eeff458bd2f6be4ae45a614868a593fbfbd0c38d506e20cb650685549baf524",
+              "txid": "8EEFF458BD2F6BE4AE45A614868A593FBFBD0C38D506E20CB650685549BAF524",
               "address": "bc1qpdd62kt5wa5u7kslkn6t30gn5mekrzuf7g4xkh",
-              "amount": 5000000000,
+              "amount": "50.00000000",
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1q3sywt0jhudw20e40pkg667fpwmnn7lcr23drzk",
-              "amount": 4799985900,
+              "amount": "47.99985900",
               "idx": 0
             },
             {
               "address": "bc1q3sywt0jhudw20e40pkg667fpwmnn7lcr23drzk",
-              "amount": 4799985900,
+              "amount": "47.99985900",
               "idx": 0
             },
             {
               "address": "bc1qlp0j0arwzt0ra58t0admnuzz5jyqqn8a6hlc5q",
-              "amount": 200000000,
+              "amount": "2.00000000",
               "idx": 1
             },
             {
               "address": "bc1qlp0j0arwzt0ra58t0admnuzz5jyqqn8a6hlc5q",
-              "amount": 200000000,
+              "amount": "2.00000000",
               "idx": 1
             }
           ],
-          "txid": "a5f4fbcf24bf280399b74bf2a5ddca14899f4b63331fbbcde337d2a8671a605f"
+          "txid": "A5F4FBCF24BF280399B74BF2A5DDCA14899F4B63331FBBCDE337D2A8671A605F"
         },
         {
           "inputs": [
             {
-              "txid": "8fd54a4eb474a0c2c8b05b4d4685cdcffed0e1b0778f217c83b504949040090f",
+              "txid": "8FD54A4EB474A0C2C8B05B4D4685CDCFFED0E1B0778F217C83B504949040090F",
               "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njd4qed66wap",
-              "amount": 222200000,
+              "amount": "2.22200000",
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1q4draacwj64dm7ar6k8m6rje8gjjlmky00696fx",
-              "amount": 3796779788,
+              "amount": "37.96779788",
               "idx": 0
             },
             {
               "address": "bc1q4draacwj64dm7ar6k8m6rje8gjjlmky00696fx",
-              "amount": 3796779788,
+              "amount": "37.96779788",
               "idx": 0
             },
             {
               "address": "bc1q0segz4znt70vukcsdnu86tmzt9s87k8s50uh7g",
-              "amount": 12345600,
+              "amount": "0.12345600",
               "idx": 1
             },
             {
               "address": "bc1q0segz4znt70vukcsdnu86tmzt9s87k8s50uh7g",
-              "amount": 12345600,
+              "amount": "0.12345600",
               "idx": 1
             }
           ],
-          "txid": "1693d80b48718e6f0b934e24c0f8419fdafb0a5b051c11e0e9a4740af921778a"
+          "txid": "1693D80B48718E6F0B934E24C0F8419FDAFB0A5B051C11E0E9A4740AF921778A"
         },
         {
           "inputs": [
             {
-              "txid": "121920e1be345b0f34bdb2f8c306ad1ee1941dcfbd08f0576dbd5260dcde1932",
+              "txid": "121920E1BE345B0F34BDB2F8C306AD1EE1941DCFBD08F0576DBD5260DCDE1932",
               "address": "bc1qgvhvc77773dm402rxus9zz67gq78stwkpxkm9d",
-              "amount": 269690000,
+              "amount": "2.69690000",
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njd4qed66wap",
-              "amount": 696969000,
+              "amount": "6.96969000",
               "idx": 0
             },
             {
               "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njd4qed66wap",
-              "amount": 696969000,
+              "amount": "6.96969000",
               "idx": 0
             },
             {
               "address": "bc1qgl00rxhdl8eepwt5v5vmc0jn4gwnhegvyffaj8",
-              "amount": 3833298700,
+              "amount": "38.33298700",
               "idx": 1
             },
             {
               "address": "bc1qgl00rxhdl8eepwt5v5vmc0jn4gwnhegvyffaj8",
-              "amount": 3833298700,
+              "amount": "38.33298700",
               "idx": 1
             }
           ],
-          "txid": "032a3a970d1215d527951aedc8e6352940cde54d113a8c7d75e9f8484b666b95"
+          "txid": "032A3A970D1215D527951AEDC8E6352940CDE54D113A8C7D75E9F8484B666B95"
         },
         {
           "inputs": [
             {
-              "txid": "d7f2b75a7fefd754f1351d0c9ca5c035f39f18118351a56a74bf251a9079ce23",
+              "txid": "D7F2B75A7FEFD754F1351D0C9CA5C035F39F18118351A56A74BF251A9079CE23",
               "address": "bc1qpdd62kt5wa5u7kslkn6t30gn5mekrzuf7g4xkh",
-              "amount": 5000000000,
+              "amount": "50.00000000",
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1q4n4hzwylvtxvk7g2yqfvkh6j2034pte5wcy0mn",
-              "amount": 4002985900,
+              "amount": "40.02985900",
               "idx": 0
             },
             {
               "address": "bc1q4n4hzwylvtxvk7g2yqfvkh6j2034pte5wcy0mn",
-              "amount": 4002985900,
+              "amount": "40.02985900",
               "idx": 0
             },
             {
               "address": "bc1q6vj4wzaf6jsfjjnjd4v2pwl68kde6p63f8d26t",
-              "amount": 997000000,
+              "amount": "9.97000000",
               "idx": 1
             },
             {
               "address": "bc1q6vj4wzaf6jsfjjnjd4v2pwl68kde6p63f8d26t",
-              "amount": 997000000,
+              "amount": "9.97000000",
               "idx": 1
             }
           ],
-          "txid": "1b2bf160cba1c029fc6ed875b7561e0c08f571c5fc682a1339b386937d304c97"
+          "txid": "1B2BF160CBA1C029FC6ED875B7561E0C08F571C5FC682A1339B386937D304C97"
         },
         {
           "inputs": [
             {
-              "txid": "58989cb7398794b5d48221fba6fb0a12f96934f0dd6d61a6d25e23ad7a57b7e0",
+              "txid": "58989CB7398794B5D48221FBA6FB0A12F96934F0DD6D61A6D25E23AD7A57B7E0",
               "address": "bc1q3sylvae2g2w3lg0hpewt9g3s95598p4s78xvq9",
-              "amount": 5000000000,
+              "amount": "50.00000000",
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1qzxnh9a73sz8nw6a4u4g3nz0ay6qsp5fy6ceqlp",
-              "amount": 1234567890,
+              "amount": "12.34567890",
               "idx": 0
             },
             {
               "address": "bc1qzxnh9a73sz8nw6a4u4g3nz0ay6qsp5fy6ceqlp",
-              "amount": 1234567890,
+              "amount": "12.34567890",
               "idx": 0
             },
             {
               "address": "bc1qm6yuptgwk0a6s4ycdqgduuhm3r94ju7peggw7h",
-              "amount": 3765418010,
+              "amount": "37.65418010",
               "idx": 1
             },
             {
               "address": "bc1qm6yuptgwk0a6s4ycdqgduuhm3r94ju7peggw7h",
-              "amount": 3765418010,
+              "amount": "37.65418010",
               "idx": 1
             }
           ],
-          "txid": "80270b3c49083b29537e302ff0cc174fc3cd08fce269ac4933bb37ebd21fd0a1"
+          "txid": "80270B3C49083B29537E302FF0CC174FC3CD08FCE269AC4933BB37EBD21FD0A1"
         }
       ]
     }

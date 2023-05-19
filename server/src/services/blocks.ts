@@ -57,40 +57,42 @@ export const getBlock = async ({
   const block = transformBlock(blocks[0]);
 
   const tq = `
-    with trans as (select t.hashBlock, t.txid, i.hashPrevOut, o.indexOut, o.value, o.address
-      from transactions t
-              join tx_in i on t.txid = i.txid
-              join tx_out o on t.txid = o.txid)
+  with trans as (select t.hashBlock, t.txid, i.hashPrevOut, o.indexOut, o.value, o.address
+    from transactions t
+             join tx_in i on t.txid = i.txid
+             join tx_out o on t.txid = o.txid)
 
-  select t.hashBlock   as blockhash,
-  t.txid        as curr_txid,
-  t.address     as to_addr,
-  cast(t.value / 100000000 AS DECIMAL (16 , 8))       as output_amount,
-  t.indexOut    as to_idxout,
-  t.hashPrevOut as prev_txid,
-  null          as from_addr,
-  0             as from_idxout,
-  t.value       as input_amount
+  select hex(t.hashBlock)                     as block_hash,
+  hex(t.txid)                                 as curr_txid,
+  t.address                                   as to_addr,
+  cast(t.value / 100000000 AS DECIMAL(16, 8)) as output_amount,
+  t.indexOut                                  as to_idxout,
+  hex(t.hashPrevOut)                          as prev_txid,
+  null                                        as from_addr,
+  0                                           as from_idxout,
+  cast(t.value / 100000000 AS DECIMAL(16, 8)) as input_amount
   from trans t,
   tx_out o
   where t.hashBlock = x'${block.hash}'
   and t.hashPrevOut = x'0000000000000000000000000000000000000000000000000000000000000000'
   union
-  select t.hashBlock as blockhash,
-  t.txid      as curr_txid,
-  t.address   as to_addr,
-  cast(t.value / 100000000 AS DECIMAL (16 , 8))       as output_amount,
-  t.indexOut  as to_idxout,
-  o.txid      as prev_txid,
-  o.address   as from_addr,
-  o.indexOut  as from_idxout,
-  o.value     as input_amount
+  select hex(t.hashBlock)                            as block_hash,
+  hex(t.txid)                                 as curr_txid,
+  t.address                                   as to_addr,
+  cast(t.value / 100000000 AS DECIMAL(16, 8)) as output_amount,
+  t.indexOut                                  as to_idxout,
+  hex(o.txid)                                 as prev_txid,
+  o.address                                   as from_addr,
+  o.indexOut                                  as from_idxout,
+  cast(o.value / 100000000 AS DECIMAL(16, 8)) as input_amount
   from trans t,
   tx_out o
   where t.hashBlock = x'${block.hash}'
   and o.txid = t.hashPrevOut
   `;
+
   const [transactions] = await db.promise().execute<RawTransactionInfo[]>(tq);
+  console.log(transactions);
   const { coinbase, tx } = transformTransactions(transactions);
 
   return [

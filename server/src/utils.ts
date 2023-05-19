@@ -47,14 +47,8 @@ export function transformTransactions(
   _tx: RawTransactionInfo[]
 ): BlockTransactionData {
   const tx = _tx.map(t => ({
-    curr_txid: buffToString(t.curr_txid),
-    prev_txid: buffToString(t.prev_txid),
-    from_addr: t.from_addr,
-    from_idxout: t.from_idxout,
-    input_amount: t.input_amount,
+    ...t,
     to_addr: t.to_addr || 'OP_RETURN',
-    to_idxout: t.to_idxout,
-    output_amount: t.output_amount,
   }));
   const coinbase: CoinbaseTransaction[] = tx
     .filter(t => t.from_addr === null)
