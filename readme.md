@@ -22,13 +22,13 @@ git submodule update
 
 ## Example Explorer
 
-The block explorer we're building is inspired by https://github.com/janoside/btc-rpc-explorer. You can follow the installations instructions over there and then run it like so, assuming the node is running on port 7332 with username `user` and password `pass`:
+The block explorer we're building is inspired by https://github.com/janoside/btc-rpc-explorer. You can follow the installations instructions over there and then run it like so, assuming the Bitcoin node is running on port 7332 with username `user` and password `pass`:
 
 ```sh
 btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
 ```
 
-## Project Goals
+## Block Explorer Goals
 
 1. List the lastest blocks of the chain. Example: https://bitcoinexplorer.org/blocks
 2. Click on height of block to get its transaction info. First, display the coinbase and then the other transactions. Example: https://bitcoinexplorer.org/block-height/790323
@@ -52,9 +52,9 @@ For the full setup, proceed with the following steps.
 
 ## Exporting Chain Data
 
-This step requires a synchronized UZH Bitcoin node. If you don't have one, you can skip this step and use the parsed data directly in the next step.
+This step requires a synchronized UZH Bitcoin node. If you don't have one, you can skip this step and use the parsed csv data in `blocks/parsed` directly in the next step.
 
-This step further requires Cargo to build the Rust binary that parses the block data.
+Otherwise, this step further requires Cargo to build the Rust binary that parses the block data.
 
 1. Copy the `blocks` directory from the UZH Bitcoin node to the `blocks/raw` folder
 2. From the root of this repository, invoke the bash script: `bash scripts/dump_chain.sh`
@@ -78,6 +78,7 @@ In the next section, we will use the mysql docker image to setup a local SQL ser
    ```
 
 2. Prepare MySQL for local data loading
+
    We need to bypass the default security settings of MySQL to allow local data loading.
 
    ```sh
@@ -94,6 +95,7 @@ In the next section, we will use the mysql docker image to setup a local SQL ser
    You should now be back in your terminal.
 
 3. Copy chain data to the container
+
    Do this from the root folder of this repository.
 
    ```sh
