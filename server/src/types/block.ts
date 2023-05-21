@@ -9,6 +9,7 @@ export interface Block {
   nTime: number;
   version: number;
   hash: string;
+  txCnt: number;
   hashMerkleRoot: string;
   hashPrev: string;
 }

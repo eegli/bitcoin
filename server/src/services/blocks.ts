@@ -24,17 +24,19 @@ export const getBlocks = async ({
   sort = 'desc',
 }: GetBlocksParams): Promise<Block[]> => {
   let q = `
-  select id,
+  select b.id,
     hex(hash) hash,
     height,
-    version,
+    b.version,
     blocksize,
     hex(hashPrev) hashPrev,
     hex(hashMerkleRoot) hashMerkleRoot,
+    count(t.txid) txCnt,
     nTime,
     nBits,
     nNonce
-  from blocks
+  from blocks b left outer join transactions t on b.hash = t.hashBlock
+  group by hash
 `;
   if (sort === 'asc' || sort === 'desc') {
     q += ` order by height ${sort}`;

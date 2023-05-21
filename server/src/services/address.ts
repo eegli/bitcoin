@@ -1,5 +1,6 @@
 import db from './db';
 import { RawTransactionInfo } from '../types/transaction';
+import { RawAddressBalance } from '../types/address';
 
 type GetAddressHistoryParams = {
   address: string;
@@ -14,7 +15,15 @@ export const getAddressHistory = async ({
   offset = 0,
   sort = 'desc',
 }: GetAddressHistoryParams): Promise<any> => {
-  let q = `
+  let qb = `
+  SELECT *
+  FROM view_balances
+  WHERE address = '${address}'
+  union
+  select '${address}', 0
+
+  `;
+  let qt = `
   with trans as (select b.nTime,
     b.height,
     i.hashPrevOut,
@@ -52,19 +61,21 @@ export const getAddressHistory = async ({
     and t1.hashPrevOut = 0
   `;
   if (sort === 'asc' || sort === 'desc') {
-    q += ` order by height ${sort}`;
+    qt += ` order by height ${sort}`;
   }
   if (limit > 0) {
     limit = Math.min(limit, 100);
-    q += ` limit ${limit}`;
+    qt += ` limit ${limit}`;
   }
   if (offset > 0) {
-    q += ` offset ${offset}`;
+    qt += ` offset ${offset}`;
   }
 
-  const [transactions] = await db.promise().execute<RawTransactionInfo[]>(q);
+  const [transactions] = await db.promise().execute<RawTransactionInfo[]>(qt);
+  const [balance] = await db.promise().execute<RawAddressBalance[]>(qb);
   const response = {
     address,
+    balance: balance[0].balance,
     transactions,
   };
   return response;
