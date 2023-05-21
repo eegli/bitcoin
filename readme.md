@@ -36,14 +36,11 @@ btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
 
 # Setup
 
-If you want to use the existing image that includes the SQL server, you can skip most of the setup:
-
-1. Pull the image from https://drive.google.com/file/d/1DsuGMAHw7bJ3slW8XGrhotWZoZoAhmOU/view?usp=sharing
-2. Navigate to the folder where the image named is located and run sequentially:
+If you want to use the existing image that includes the SQL server, you can skip most of the setup and pull the pre-built Docker image directly:
 
 ```sh
-docker load < btcsql.tar
-docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d btcsql
+docker pull eegli/btcsql:0.0.1
+docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d eegli/btcsql:0.0.1
 ```
 
 3. Start the Node.js server in the `server` folder (see later instructions)
@@ -57,7 +54,15 @@ This step requires a synchronized UZH Bitcoin node. If you don't have one, you c
 Otherwise, this step further requires Cargo to build the Rust binary that parses the block data.
 
 1. Copy the `blocks` directory from the UZH Bitcoin node to the `blocks/raw` folder
-2. From the root of this repository, invoke the bash script: `bash scripts/dump_chain.sh`
+2. From the root of this repository, run:
+
+```sh
+cd blockparser
+
+cargo build --release
+
+./target/release/rusty-blockparser --blockchain-dir ../blocks/raw csvdump ../blocks/parsed
+```
 
 This will output block data in CSV format into the `blocks/parsed` folder.
 
@@ -99,7 +104,8 @@ In the next section, we will use the mysql docker image to setup a local SQL ser
    Do this from the root folder of this repository.
 
    ```sh
-   bash scripts/copy_chain.sh
+   docker cp blocks/parsed/. btcsql:/sql
+   docker cp blockparser/sql/. btcsql:/sql
    docker exec -it btcsql ls -l1 sql
    ```
 
