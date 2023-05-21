@@ -1,15 +1,16 @@
 import { RowDataPacket } from 'mysql2';
 
-export interface RawTransactionInfo extends RowDataPacket {
+// blocks/:height/ [transactions]
+export interface RawBlockTransactionInfo extends RowDataPacket {
   block_hash: string;
   curr_txid: string;
   to_addr: string | null;
-  output_amount: number;
+  output_amount: string;
   to_idxout: number;
   prev_txid: string;
   from_addr: string | null;
   from_idxout: number;
-  input_amount: number;
+  input_amount: string;
 }
 
 export interface TransactionInput {

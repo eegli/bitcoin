@@ -1,7 +1,7 @@
 {
   "data": {
     "address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
-    "balance": "2581300.00581451",
+    "balance": 2581300.00581451,
     "transactions": [
       {
         "nTime": 1684345449,
@@ -10,7 +10,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684344415,
@@ -19,7 +19,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684344395,
@@ -28,7 +28,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684344335,
@@ -37,7 +37,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684343505,
@@ -46,7 +46,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684342574,
@@ -55,7 +55,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684342174,
@@ -64,7 +64,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684341873,
@@ -73,7 +73,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684340603,
@@ -82,7 +82,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       },
       {
         "nTime": 1684339898,
@@ -91,7 +91,7 @@
         "type": "receiver",
         "to_address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
         "from_address": "0",
-        "amount": 5000000000
+        "amount": 50
       }
     ]
   }

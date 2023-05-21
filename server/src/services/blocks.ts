@@ -1,8 +1,11 @@
 import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { Block, RawBlock } from '../types/block';
-import { transformTransactions } from '../utils';
-import { BlockTransactionData, RawTransactionInfo } from '../types/transaction';
+import { transformBlockTransactions } from '../utils';
+import {
+  BlockTransactionData,
+  RawBlockTransactionInfo,
+} from '../types/transaction';
 
 // Maybe TODO
 const getBlockCount = async (): Promise<number> => {
@@ -114,8 +117,10 @@ export const getBlock = async ({
   and o.txid = t.hashPrevOut
   `;
 
-  const [transactions] = await db.promise().execute<RawTransactionInfo[]>(tq);
-  const { coinbase, tx } = transformTransactions(transactions);
+  const [transactions] = await db
+    .promise()
+    .execute<RawBlockTransactionInfo[]>(tq);
+  const { coinbase, tx } = transformBlockTransactions(transactions);
   return [
     {
       ...block,

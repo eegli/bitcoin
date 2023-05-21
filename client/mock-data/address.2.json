@@ -1,7 +1,7 @@
 {
   "data": {
     "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njdqed66wap",
-    "balance": "0.00000000",
+    "balance": 0,
     "transactions": []
   }
 }

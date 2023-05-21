@@ -2,12 +2,12 @@
   "data": [
     {
       "id": 14506,
-      "hash": "000000001047ecc16e0996cc1e6818c242125b2034436fa4ae53a1461b80dd7a",
+      "hash": "000000001047ECC16E0996CC1E6818C242125B2034436FA4AE53A1461B80DD7A",
       "height": 14505,
       "version": 536870912,
       "blocksize": 1362,
-      "hashPrev": "0000000009630e0954d7c3dfc6054b82136e4c938fd78c4150b351a0e90d448f",
-      "hashMerkleRoot": "6f2c440ca20fa8bd29aabe0127e4682b0e8e11d7fa9f315976a9d087cb3038ac",
+      "hashPrev": "0000000009630E0954D7C3DFC6054B82136E4C938FD78C4150B351A0E90D448F",
+      "hashMerkleRoot": "6F2C440CA20FA8BD29AABE0127E4682B0E8E11D7FA9F315976A9D087CB3038AC",
       "nTime": 1636993370,
       "nBits": 471629018,
       "nNonce": 3751674796,
@@ -15,13 +15,13 @@
         {
           "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
           "to_addr": "1NJKrVRQ8NtkzsQq9e7hdftE3sV7Kh5DTP",
-          "output_amount": "50.00070500",
+          "output_amount": 50.000705,
           "idx": 0
         },
         {
           "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
           "to_addr": "OP_RETURN",
-          "output_amount": "0.00000000",
+          "output_amount": 0,
           "idx": 1
         }
       ],
@@ -31,29 +31,19 @@
             {
               "txid": "8EEFF458BD2F6BE4AE45A614868A593FBFBD0C38D506E20CB650685549BAF524",
               "address": "bc1qpdd62kt5wa5u7kslkn6t30gn5mekrzuf7g4xkh",
-              "amount": "50.00000000",
+              "amount": 50,
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1q3sywt0jhudw20e40pkg667fpwmnn7lcr23drzk",
-              "amount": "47.99985900",
-              "idx": 0
-            },
-            {
-              "address": "bc1q3sywt0jhudw20e40pkg667fpwmnn7lcr23drzk",
-              "amount": "47.99985900",
+              "amount": 47.999859,
               "idx": 0
             },
             {
               "address": "bc1qlp0j0arwzt0ra58t0admnuzz5jyqqn8a6hlc5q",
-              "amount": "2.00000000",
-              "idx": 1
-            },
-            {
-              "address": "bc1qlp0j0arwzt0ra58t0admnuzz5jyqqn8a6hlc5q",
-              "amount": "2.00000000",
+              "amount": 2,
               "idx": 1
             }
           ],
@@ -64,29 +54,19 @@
             {
               "txid": "8FD54A4EB474A0C2C8B05B4D4685CDCFFED0E1B0778F217C83B504949040090F",
               "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njd4qed66wap",
-              "amount": "2.22200000",
+              "amount": 2.222,
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1q4draacwj64dm7ar6k8m6rje8gjjlmky00696fx",
-              "amount": "37.96779788",
-              "idx": 0
-            },
-            {
-              "address": "bc1q4draacwj64dm7ar6k8m6rje8gjjlmky00696fx",
-              "amount": "37.96779788",
+              "amount": 37.96779788,
               "idx": 0
             },
             {
               "address": "bc1q0segz4znt70vukcsdnu86tmzt9s87k8s50uh7g",
-              "amount": "0.12345600",
-              "idx": 1
-            },
-            {
-              "address": "bc1q0segz4znt70vukcsdnu86tmzt9s87k8s50uh7g",
-              "amount": "0.12345600",
+              "amount": 0.123456,
               "idx": 1
             }
           ],
@@ -97,29 +77,19 @@
             {
               "txid": "121920E1BE345B0F34BDB2F8C306AD1EE1941DCFBD08F0576DBD5260DCDE1932",
               "address": "bc1qgvhvc77773dm402rxus9zz67gq78stwkpxkm9d",
-              "amount": "2.69690000",
+              "amount": 2.6969,
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njd4qed66wap",
-              "amount": "6.96969000",
-              "idx": 0
-            },
-            {
-              "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njd4qed66wap",
-              "amount": "6.96969000",
+              "amount": 6.96969,
               "idx": 0
             },
             {
               "address": "bc1qgl00rxhdl8eepwt5v5vmc0jn4gwnhegvyffaj8",
-              "amount": "38.33298700",
-              "idx": 1
-            },
-            {
-              "address": "bc1qgl00rxhdl8eepwt5v5vmc0jn4gwnhegvyffaj8",
-              "amount": "38.33298700",
+              "amount": 38.332987,
               "idx": 1
             }
           ],
@@ -130,29 +100,19 @@
             {
               "txid": "D7F2B75A7FEFD754F1351D0C9CA5C035F39F18118351A56A74BF251A9079CE23",
               "address": "bc1qpdd62kt5wa5u7kslkn6t30gn5mekrzuf7g4xkh",
-              "amount": "50.00000000",
+              "amount": 50,
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1q4n4hzwylvtxvk7g2yqfvkh6j2034pte5wcy0mn",
-              "amount": "40.02985900",
-              "idx": 0
-            },
-            {
-              "address": "bc1q4n4hzwylvtxvk7g2yqfvkh6j2034pte5wcy0mn",
-              "amount": "40.02985900",
+              "amount": 40.029859,
               "idx": 0
             },
             {
               "address": "bc1q6vj4wzaf6jsfjjnjd4v2pwl68kde6p63f8d26t",
-              "amount": "9.97000000",
-              "idx": 1
-            },
-            {
-              "address": "bc1q6vj4wzaf6jsfjjnjd4v2pwl68kde6p63f8d26t",
-              "amount": "9.97000000",
+              "amount": 9.97,
               "idx": 1
             }
           ],
@@ -163,29 +123,19 @@
             {
               "txid": "58989CB7398794B5D48221FBA6FB0A12F96934F0DD6D61A6D25E23AD7A57B7E0",
               "address": "bc1q3sylvae2g2w3lg0hpewt9g3s95598p4s78xvq9",
-              "amount": "50.00000000",
+              "amount": 50,
               "idx": 0
             }
           ],
           "outputs": [
             {
               "address": "bc1qzxnh9a73sz8nw6a4u4g3nz0ay6qsp5fy6ceqlp",
-              "amount": "12.34567890",
-              "idx": 0
-            },
-            {
-              "address": "bc1qzxnh9a73sz8nw6a4u4g3nz0ay6qsp5fy6ceqlp",
-              "amount": "12.34567890",
+              "amount": 12.3456789,
               "idx": 0
             },
             {
               "address": "bc1qm6yuptgwk0a6s4ycdqgduuhm3r94ju7peggw7h",
-              "amount": "37.65418010",
-              "idx": 1
-            },
-            {
-              "address": "bc1qm6yuptgwk0a6s4ycdqgduuhm3r94ju7peggw7h",
-              "amount": "37.65418010",
+              "amount": 37.6541801,
               "idx": 1
             }
           ],

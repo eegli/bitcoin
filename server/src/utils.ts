@@ -2,7 +2,7 @@ import { ParsedQs } from 'qs';
 import {
   BlockTransactionData,
   CoinbaseTransaction,
-  RawTransactionInfo,
+  RawBlockTransactionInfo,
   TransactionInput,
   TransactionOutput,
 } from './types/transaction';
@@ -20,8 +20,8 @@ export const maybeParseInt = (val: string | undefined): number | undefined => {
   return val ? parseInt(val) : undefined;
 };
 
-export function transformTransactions(
-  _tx: RawTransactionInfo[]
+export function transformBlockTransactions(
+  _tx: RawBlockTransactionInfo[]
 ): BlockTransactionData {
   const tx = _tx.map(t => ({
     ...t,
@@ -33,7 +33,7 @@ export function transformTransactions(
     .map(t => ({
       txid: t.curr_txid,
       to_addr: t.to_addr,
-      output_amount: t.output_amount,
+      output_amount: parseFloat(t.output_amount),
       idx: t.to_idxout,
     }));
 
@@ -61,14 +61,14 @@ export function transformTransactions(
       val!.inputs.set(t.prev_txid, {
         txid: t.prev_txid,
         address: t.from_addr!,
-        amount: t.input_amount,
+        amount: parseFloat(t.input_amount),
         idx: t.from_idxout,
       });
     }
     const output = val.outputs.get(t.to_addr);
     const entry = {
       address: t.to_addr,
-      amount: t.output_amount,
+      amount: parseFloat(t.output_amount),
       idx: t.to_idxout,
     };
     if (!output) {
