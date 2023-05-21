@@ -145,7 +145,7 @@ In the next section, we will use the mysql docker image to setup a local SQL ser
 
 ## Webserver Setup
 
-The webserver is a simple Node.js Express server.
+The webserver is a simple Node.js Express server. It requires a running MySQL server with the block data.
 
 ### Installation
 
@@ -193,12 +193,17 @@ E.g., with a running server (and Python installed for pretty-printing):
 # get the latest block
 curl -G http://localhost:8000/blocks/latest | python -mjson.tool
 
-# get the first block
+# get the genesis block
 curl -G http://localhost:8000/blocks \
    -d 'limit=1' -d 'sort=asc' | python -mjson.tool
 
 # get the block with height 51376
 curl -G http://localhost:8000/blocks/51376 | python -mjson.tool
+
+# get latest 5 transactions for an addres and balance info
+curl -G http://localhost:8000/address/bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk \
+   -d 'limit=5' -d 'sort=desc' \
+   | python -mjson.tool
 ```
 
 ## Client Setup
