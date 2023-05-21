@@ -2,6 +2,12 @@
   "data": {
     "address": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
     "balance": 2581300.00581451,
+    "pagination": {
+      "limit": 10,
+      "offset": 0,
+      "sort": "desc",
+      "total": 51643
+    },
     "transactions": [
       {
         "nTime": 1684345449,

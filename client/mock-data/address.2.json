@@ -2,6 +2,12 @@
   "data": {
     "address": "bc1qhx3a2lexy7efjqfwyw9s7xnrh5njdqed66wap",
     "balance": 0,
+    "pagination": {
+      "limit": 10,
+      "offset": 0,
+      "sort": "desc",
+      "total": 0
+    },
     "transactions": []
   }
 }

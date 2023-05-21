@@ -6,14 +6,7 @@ import {
   BlockTransactionData,
   RawBlockTransactionInfo,
 } from '../types/transaction';
-
-// Maybe TODO
-const getBlockCount = async (): Promise<number> => {
-  const [rows] = await db
-    .promise()
-    .execute<RowDataPacket[]>('select count(*) as cnt from blocks');
-  return rows[0]['cnt'];
-};
+import { Pagination } from '../types/response';
 
 type GetBlocksParams = {
   limit?: number;
@@ -25,8 +18,10 @@ export const getBlocks = async ({
   limit = 10,
   offset = 0,
   sort = 'desc',
-}: GetBlocksParams): Promise<Block[]> => {
-  let q = `
+}: GetBlocksParams): Promise<
+  { pagination: Pagination } & { blocks: Block[] }
+> => {
+  let qb = `
   select b.id,
     hex(hash) hash,
     height,
@@ -41,28 +36,44 @@ export const getBlocks = async ({
   from blocks b left outer join transactions t on b.hash = t.hashBlock
   group by hash
 `;
+
   if (sort === 'asc' || sort === 'desc') {
-    q += ` order by height ${sort}`;
+    qb += ` order by height ${sort}`;
   }
   if (limit > 0) {
     limit = Math.min(limit, 100);
-    q += ` limit ${limit}`;
+    qb += ` limit ${limit}`;
   }
   if (offset > 0) {
-    q += ` offset ${offset}`;
+    qb += ` offset ${offset}`;
   }
 
-  const [rows] = await db.promise().execute<RawBlock[]>(q);
-  return rows;
+  const qt = `
+  select count(*) count from blocks;
+  `;
+
+  const [rows] = await db.promise().execute<RawBlock[]>(qb);
+  const [count] = await db.promise().execute<RowDataPacket[]>(qt);
+  return {
+    pagination: {
+      limit,
+      offset,
+      total: count[0]['count'],
+      sort,
+    },
+    blocks: rows,
+  };
 };
 
 type GetBlockParams = {
   height: number;
 };
 
+type GetBlockResponse = (Block & BlockTransactionData)[];
+
 export const getBlock = async ({
   height,
-}: GetBlockParams): Promise<(Block & BlockTransactionData)[]> => {
+}: GetBlockParams): Promise<GetBlockResponse> => {
   const bq = `
   select id,
     hex(hash) hash,

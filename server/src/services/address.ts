@@ -1,6 +1,13 @@
 import db from './db';
 
-import { RawAddressBalance, RawAddressTransactions } from '../types/address';
+import {
+  AddressBalance,
+  AddressTransactions,
+  RawAddressBalance,
+  RawAddressTransactions,
+} from '../types/address';
+import { Pagination } from '../types/response';
+import { RowDataPacket } from 'mysql2';
 
 type GetAddressHistoryParams = {
   address: string;
@@ -9,12 +16,17 @@ type GetAddressHistoryParams = {
   sort?: string;
 };
 
+type GetAddressHistoryResponse = AddressBalance & {
+  transactions: AddressTransactions[];
+  pagination: Pagination;
+};
+
 export const getAddressHistory = async ({
   address,
   limit = 10,
   offset = 0,
   sort = 'desc',
-}: GetAddressHistoryParams): Promise<Record<string, unknown>> => {
+}: GetAddressHistoryParams): Promise<GetAddressHistoryResponse> => {
   let qb = `
   SELECT *
   FROM view_balances
@@ -71,18 +83,42 @@ export const getAddressHistory = async ({
     qt += ` offset ${offset}`;
   }
 
-  const [transactions] = await db
-    .promise()
-    .execute<RawAddressTransactions[]>(qt);
-  console.log(transactions);
-  const [balance] = await db.promise().execute<RawAddressBalance[]>(qb);
-  const response = {
+  const transactions: AddressTransactions[] = (
+    await db.promise().execute<RawAddressTransactions[]>(qt)
+  )[0].map(t => ({
+    ...t,
+    amount: parseFloat(t.amount),
+  }));
+
+  const [balances] = await db.promise().execute<RawAddressBalance[]>(qb);
+
+  const qtotal = `
+  with trans as (select b.nTime,
+    b.height,
+    i.hashPrevOut,
+    i.indexPrevOut,
+    t.txid,
+    cast(o.value / 100000000 AS DECIMAL(16, 8)) value,
+    o.address
+  from blocks b
+        join transactions t on b.hash = t.hashBlock
+        join tx_in i on t.txid = i.txid
+        join tx_out o on i.txid = o.txid)
+
+  select COALESCE(count(*), 0) cnt
+  from trans
+  where address = '${address}'
+  `;
+  const [total] = await db.promise().execute<RowDataPacket[]>(qtotal);
+  return {
     address,
-    balance: parseFloat(balance[0].balance),
-    transactions: transactions.map(t => ({
-      ...t,
-      amount: parseFloat(t.amount),
-    })),
+    balance: parseFloat(balances[0].balance),
+    pagination: {
+      limit,
+      offset,
+      sort,
+      total: total[0]['cnt'],
+    },
+    transactions,
   };
-  return response;
 };

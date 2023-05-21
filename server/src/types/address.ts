@@ -1,17 +1,32 @@
 import { RowDataPacket } from 'mysql2';
 
-export interface RawAddressBalance extends RowDataPacket {
+interface BaseAddressBalance {
   address: string;
-  balance: string;
 }
 
 // address/:address/ [transactions]
-export interface RawAddressTransactions extends RowDataPacket {
+interface BaseAddressTransactions {
   nTime: number;
   height: number;
   txid: string;
   type: string;
   to_address: string;
   from_address: string | null;
+}
+
+export interface AddressTransactions extends BaseAddressTransactions {
+  amount: number;
+}
+
+export interface AddressBalance extends BaseAddressBalance {
+  balance: number;
+}
+
+export interface RawAddressTransactions
+  extends RowDataPacket,
+    BaseAddressTransactions {
   amount: string;
+}
+export interface RawAddressBalance extends RowDataPacket, BaseAddressBalance {
+  balance: string;
 }

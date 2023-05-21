@@ -173,7 +173,9 @@ Both `/address/:address` and `/blocks` support basic filtering and pagination. T
 
 - `limit` (int), `offset` (int), `sort` ("asc" or "desc")
 
-Both endpoints have sensible defaults and do not support a limit > 100.
+Both endpoints have sensible defaults (`asc` sort, limit `10`, offset `0`) and do not support a limit > 100.
+
+As of now, there's no pagination for the transactions of a block (`/blocks/:height`). For the UZH blockchain, this is not an issue, since the blocks are rather small (>= 18 transactions) but a real implementation would need to account for this.
 
 ### Testing
 
