@@ -14,7 +14,7 @@ export const getAddressHistory = async ({
   limit = 10,
   offset = 0,
   sort = 'desc',
-}: GetAddressHistoryParams): Promise<unknown> => {
+}: GetAddressHistoryParams): Promise<Record<string, unknown>> => {
   let qb = `
   SELECT *
   FROM view_balances

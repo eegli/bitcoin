@@ -25,7 +25,10 @@ git submodule update
 The block explorer we're building is inspired by https://github.com/janoside/btc-rpc-explorer. You can follow the installations instructions over there and then run it like so, assuming the Bitcoin node is running on port 7332 with username `user` and password `pass`:
 
 ```sh
-btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
+btc-rpc-explorer \
+   --port 8080 \
+   --bitcoind-port 7332 \
+   -u user -w pass
 ```
 
 ## Block Explorer Goals
@@ -36,16 +39,19 @@ btc-rpc-explorer --port 8080 --bitcoind-port 7332 -u user -w pass
 
 # Setup
 
-If you want to use the existing image that includes the SQL server, you can skip most of the setup and pull the pre-built Docker image directly:
+If you want to use the existing image that includes the preconfigured SQL server with block data, you can skip most of the setup and pull/run the pre-built Docker image directly:
 
 ```sh
-docker pull eegli/btcsql:0.0.1
-docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d eegli/btcsql:0.0.1
+docker run --name=btcsql \
+   -p 3306:3306 \
+   -d eegli/btcsql:0.0.1
 ```
 
-3. Start the Node.js server in the `server` folder (see later instructions)
+Then, start the Node.js server in the `server` folder (see later instructions in [Webserver Setup](#webserver-setup)).
 
-For the full setup, proceed with the following steps.
+Finally, start the client in the `client` folder (see later instructions in [Client Setup](#client-setup)).
+
+For the full setup from scratch, proceed with the following steps.
 
 ## Exporting Chain Data
 
@@ -61,7 +67,9 @@ cd blockparser
 
 cargo build --release
 
-./target/release/rusty-blockparser --blockchain-dir ../blocks/raw csvdump ../blocks/parsed
+./target/release/rusty-blockparser \
+   --blockchain-dir ../blocks/raw \
+   csvdump ../blocks/parsed
 ```
 
 This will output block data in CSV format into the `blocks/parsed` folder.
@@ -73,7 +81,9 @@ In the next section, we will use the mysql docker image to setup a local SQL ser
 1. Create the container:
 
    ```sh
-   docker run --name=btcsql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=pw -d mysql/mysql-server:latest
+   docker run --name=btcsql -p 3306:3306 \
+      -e MYSQL_ROOT_PASSWORD=pw
+      -d mysql/mysql-server:latest
    ```
 
    If you've already created the container, you can start it with:
@@ -165,9 +175,9 @@ Both `/address/:address` and `/blocks` support basic filtering and pagination. T
 
 Both endpoints have sensible defaults and do not support a limit > 100.
 
-### Test Data
+### Testing
 
-Since the UZH blockchain is rather sparse in terms of transactions, the following blocks can be used to test the API:
+Since the UZH blockchain is rather sparse in terms of transactions, the following (rich) blocks can be used to test the API:
 
 | Height | Transaction count |
 | ------ | ----------------- |
@@ -176,6 +186,20 @@ Since the UZH blockchain is rather sparse in terms of transactions, the followin
 | 14505  | 6                 |
 | 14513  | 4                 |
 | 17076  | 3                 |
+
+E.g., with a running server (and Python installed for pretty-printing):
+
+```sh
+# get the latest block
+curl -G http://localhost:8000/blocks/latest | python -mjson.tool
+
+# get the first block
+curl -G http://localhost:8000/blocks \
+   -d 'limit=1' -d 'sort=asc' | python -mjson.tool
+
+# get the block with height 51376
+curl -G http://localhost:8000/blocks/51376 | python -mjson.tool
+```
 
 ## Client Setup
 
