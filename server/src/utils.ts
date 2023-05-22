@@ -27,15 +27,18 @@ export function transformBlockTransactions(
     ...t,
     to_addr: t.to_addr || 'OP_RETURN',
   }));
+  let coinbaseTxid = '';
   const coinbase: CoinbaseTransaction[] = tx
     .filter(t => t.from_addr === null)
     .sort((a, b) => a.to_idxout - b.to_idxout)
-    .map(t => ({
-      txid: t.curr_txid,
-      to_addr: t.to_addr,
-      output_amount: parseFloat(t.output_amount),
-      idx: t.to_idxout,
-    }));
+    .map(t => {
+      coinbaseTxid = t.curr_txid;
+      return {
+        to_addr: t.to_addr,
+        output_amount: parseFloat(t.output_amount),
+        idx: t.to_idxout,
+      };
+    });
 
   const transactions = tx.filter(t => t.from_addr !== null);
   const map = new Map<
@@ -77,7 +80,10 @@ export function transformBlockTransactions(
   }
 
   return {
-    coinbase,
+    coinbase: {
+      txid: coinbaseTxid,
+      outputs: coinbase,
+    },
     tx: Array.from(map.values()).map(v => {
       const inputs = Array.from(v.inputs.values()).flat();
       const outputs = Array.from(v.outputs.values()).flat();

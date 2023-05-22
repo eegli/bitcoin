@@ -11,20 +11,21 @@
       "nTime": 1636993370,
       "nBits": 471629018,
       "nNonce": 3751674796,
-      "coinbase": [
-        {
-          "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
-          "to_addr": "1NJKrVRQ8NtkzsQq9e7hdftE3sV7Kh5DTP",
-          "output_amount": 50.000705,
-          "idx": 0
-        },
-        {
-          "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
-          "to_addr": "OP_RETURN",
-          "output_amount": 0,
-          "idx": 1
-        }
-      ],
+      "coinbase": {
+        "txid": "176AA0718C8E2609E51F388B84B8531BEF2642C34C4D1AC85F1C2A2484178295",
+        "outputs": [
+          {
+            "to_addr": "1NJKrVRQ8NtkzsQq9e7hdftE3sV7Kh5DTP",
+            "output_amount": 50.000705,
+            "idx": 0
+          },
+          {
+            "to_addr": "OP_RETURN",
+            "output_amount": 0,
+            "idx": 1
+          }
+        ]
+      },
       "tx": [
         {
           "inputs": [

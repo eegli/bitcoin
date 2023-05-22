@@ -98,34 +98,19 @@ export const getBlock = async ({
     from transactions t
              join tx_in i on t.txid = i.txid
              join tx_out o on t.txid = o.txid)
+  select hex(t1.txid)                                       curr_txid,
+  hex(t1.hashPrevOut)                                       prev_txid,
+  t1.indexOut                                               to_idxout,
+  cast(t1.value / 100000000 AS DECIMAL(16, 8))              output_amount,
+  t1.address                                                to_addr,
+  coalesce(t2.indexOut, 0)                                  from_idxout,
+  coalesce(cast(t2.value / 100000000 AS DECIMAL(16, 8)), 0) input_amount,
+  t2.address                                                from_addr
+  from trans t1
+  left join
+  trans t2 on t1.hashPrevOut = t2.txid
+  where t1.hashBlock = x'${block.hash}'
 
-  select hex(t.hashBlock)                     as block_hash,
-  hex(t.txid)                                 as curr_txid,
-  t.address                                   as to_addr,
-  cast(t.value / 100000000 AS DECIMAL(16, 8)) as output_amount,
-  t.indexOut                                  as to_idxout,
-  hex(t.hashPrevOut)                          as prev_txid,
-  null                                        as from_addr,
-  0                                           as from_idxout,
-  cast(t.value / 100000000 AS DECIMAL(16, 8)) as input_amount
-  from trans t,
-  tx_out o
-  where t.hashBlock = x'${block.hash}'
-  and t.hashPrevOut = x'0000000000000000000000000000000000000000000000000000000000000000'
-  union
-  select hex(t.hashBlock)                            as block_hash,
-  hex(t.txid)                                 as curr_txid,
-  t.address                                   as to_addr,
-  cast(t.value / 100000000 AS DECIMAL(16, 8)) as output_amount,
-  t.indexOut                                  as to_idxout,
-  hex(o.txid)                                 as prev_txid,
-  o.address                                   as from_addr,
-  o.indexOut                                  as from_idxout,
-  cast(o.value / 100000000 AS DECIMAL(16, 8)) as input_amount
-  from trans t,
-  tx_out o
-  where t.hashBlock = x'${block.hash}'
-  and o.txid = t.hashPrevOut
   `;
 
   const [transactions] = await db
