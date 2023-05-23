@@ -10,7 +10,6 @@ export interface BaseAddressTransaction {
   nTime: number;
   height: number;
   txid: string;
-  role: 'sender' | 'receiver';
 }
 
 export interface AddressTransaction
@@ -23,11 +22,16 @@ export interface AddressTransaction
 export interface RawAddressTransaction
   extends RowDataPacket,
     BaseAddressTransaction {
-  in_amount: string;
-  out_amount: string;
-  // Empty string in case of coinbase
-  to_address: string;
-  from_address: string | null;
+  nTime: number;
+  height: number;
+  curr_txid: string;
+  prev_txid: string;
+  to_addr: string | null;
+  from_addr: string | null;
+  output_amount: string;
+  input_amount: string;
+  to_idxout: number;
+  from_idxout: number;
 }
 
 interface BaseAddressBalance {

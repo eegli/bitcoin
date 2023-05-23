@@ -56,33 +56,33 @@ export function mapBlockTransactions(
       txid: string;
     }
   >();
-  for (const t of transactions) {
-    const _val = map.get(t.curr_txid);
+  for (const row of transactions) {
+    const _val = map.get(row.curr_txid);
     if (!_val) {
-      map.set(t.curr_txid, {
+      map.set(row.curr_txid, {
         inputs: new Map(),
         outputs: new Map(),
-        txid: t.curr_txid,
+        txid: row.curr_txid,
       });
     }
-    const val = map.get(t.curr_txid)!;
-    const prevTxid = val.inputs.get(t.prev_txid);
+    const val = map.get(row.curr_txid)!;
+    const prevTxid = val.inputs.get(row.prev_txid);
     if (!prevTxid) {
-      val!.inputs.set(t.prev_txid, {
-        txid: t.prev_txid,
-        address: t.from_addr!,
-        amount: parseFloat(t.input_amount),
-        idx: t.from_idxout,
+      val!.inputs.set(row.prev_txid, {
+        txid: row.prev_txid,
+        address: row.from_addr!,
+        amount: parseFloat(row.input_amount),
+        idx: row.from_idxout,
       });
     }
-    const output = val.outputs.get(t.to_addr);
+    const output = val.outputs.get(row.to_addr);
     const entry = {
-      address: t.to_addr,
-      amount: parseFloat(t.output_amount),
-      idx: t.to_idxout,
+      address: row.to_addr,
+      amount: parseFloat(row.output_amount),
+      idx: row.to_idxout,
     };
     if (!output) {
-      val.outputs.set(t.to_addr, entry);
+      val.outputs.set(row.to_addr, entry);
     }
   }
 
@@ -115,26 +115,32 @@ export function mapAddressTransactions(
     } & BaseAddressTransaction
   >();
   for (const row of rows) {
-    const _txid = map.get(row.txid);
-    if (!_txid) {
-      map.set(row.txid, {
+    const _val = map.get(row.curr_txid);
+    if (!_val) {
+      map.set(row.curr_txid, {
         inputs: new Map(),
         outputs: new Map(),
-        txid: row.txid,
+        txid: row.curr_txid,
         height: row.height,
         nTime: row.nTime,
-        role: row.role,
       });
     }
-    const txid = map.get(row.txid)!;
-    txid.inputs.set(row.from_address || '', {
-      address: row.from_address || '',
-      amount: parseFloat(row.in_amount),
-    });
-    txid.outputs.set(row.to_address || '', {
-      address: row.to_address || '',
-      amount: parseFloat(row.out_amount),
-    });
+    const val = map.get(row.curr_txid)!;
+    const prevTxid = val.inputs.get(row.prev_txid);
+    if (!prevTxid) {
+      val!.inputs.set(row.prev_txid, {
+        address: row.from_addr,
+        amount: parseFloat(row.input_amount),
+      });
+    }
+    const output = val.outputs.get(row.to_addr || '');
+    const entry = {
+      address: row.to_addr || '',
+      amount: parseFloat(row.output_amount),
+    };
+    if (!output) {
+      val.outputs.set(row.to_addr || '', entry);
+    }
   }
   return Array.from(map.values()).map(v => {
     const inputs = Array.from(v.inputs.values()).flat();
@@ -142,7 +148,7 @@ export function mapAddressTransactions(
     return {
       height: v.height,
       nTime: v.nTime,
-      role: v.role,
+
       inputs,
       outputs,
       txid: v.txid,

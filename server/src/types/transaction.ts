@@ -26,7 +26,7 @@ export interface BlockTransactionOutput {
 }
 
 export type AddressTransactionInput = {
-  address: string;
+  address: string | null;
   amount: number;
 };
 
