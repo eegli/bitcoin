@@ -7,6 +7,7 @@ import {
   RawAddressTransaction,
 } from '../types/address';
 import { Pagination } from '../types/response';
+import { RowDataPacket } from 'mysql2';
 
 type GetAddressHistoryParams = {
   address: string;
@@ -100,6 +101,15 @@ export const getAddressHistory = async ({
   if (offset > 0) {
     qtransactions += ` OFFSET ${offset}`;
   }
+
+  const qtotal = `
+  SELECT Count(i.txid) cnt
+  FROM   tx_in i
+         JOIN tx_out o
+           ON i.txid = o.txid
+              AND address = '${address}'
+  GROUP  BY o.address  
+  `;
 
   const [[transactions], [balances]] = await Promise.all([
     db.promise().execute<RawAddressTransaction[]>(qtransactions),
