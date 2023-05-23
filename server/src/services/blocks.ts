@@ -2,10 +2,7 @@ import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { Block, RawBlock } from '../types/block';
 import { mapBlockTransactions } from '../utils';
-import {
-  BlockTransactions,
-  RawBlockTransactionInfo,
-} from '../types/transaction';
+import { BlockTransactions, RawBlockTransactionInfo } from '../types/block';
 import { Pagination } from '../types/response';
 
 type GetBlocksParams = {

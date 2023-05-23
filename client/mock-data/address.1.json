@@ -5,206 +5,214 @@
     "pagination": { "limit": 30, "offset": 0, "sort": "desc" },
     "transactions": [
       {
-        "height": 10600,
         "amount": 100,
         "role": "receiver",
-        "inputs": [
-          "bc1qtvyp72zscuzzw7ee4t0tu5d82tyhdqnz9y987s",
-          "bc1qtxdehzkf9yfgnet42jgw3fmfw6fmhl00vz05vm",
-          "bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"
-        ],
-        "outputs": [
-          "bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs",
-          "bc1qqcusjlhsd9xplre6fgvedj47ed9xfdn3h7x9gh"
-        ],
-        "txid": "52FF2508B2D44F53E3EFDBD82483ED318E9FEAA7B77278F30DE03687E97F2773"
+        "txid": "52FF2508B2D44F53E3EFDBD82483ED318E9FEAA7B77278F30DE03687E97F2773",
+        "height": 10600,
+        "time": 1634645678
       },
       {
-        "height": 10571,
-        "amount": 48.99999859,
+        "amount": 50,
         "role": "sender",
-        "inputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "outputs": [
-          "bc1qtvyp72zscuzzw7ee4t0tu5d82tyhdqnz9y987s",
-          "bc1qtxdehzkf9yfgnet42jgw3fmfw6fmhl00vz05vm"
-        ],
-        "txid": "574B7229E125BC9878F91186E641708CECFB336234A11D82D71F1DE8F6E9FF0F"
+        "txid": "52FF2508B2D44F53E3EFDBD82483ED318E9FEAA7B77278F30DE03687E97F2773",
+        "height": 10600,
+        "time": 1634645678
       },
       {
+        "amount": 50,
+        "role": "sender",
+        "txid": "574B7229E125BC9878F91186E641708CECFB336234A11D82D71F1DE8F6E9FF0F",
+        "height": 10571,
+        "time": 1634563430
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "579DA94532BBBD27483A3937E8DC4FC4D56C66FFD9FD489F81D326DF39B6DC48",
         "height": 511,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "579DA94532BBBD27483A3937E8DC4FC4D56C66FFD9FD489F81D326DF39B6DC48"
+        "time": 1629394782
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "9A387D8E2AFD5592864AD06A6A7BDB5C2351FE496BA475E6384C11DB24531D30",
         "height": 510,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "9A387D8E2AFD5592864AD06A6A7BDB5C2351FE496BA475E6384C11DB24531D30"
+        "time": 1629394517
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "355898DCFE3DD1A6E28CD4FFF70A9B337BF172D6EB51B4573FA65CA874203701",
         "height": 509,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "355898DCFE3DD1A6E28CD4FFF70A9B337BF172D6EB51B4573FA65CA874203701"
+        "time": 1629394467
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "EBB92DF05C514B0DC51DD89ABE1F5149E9FB87EA0AEB1D1BA8F74F973D1A5C8F",
         "height": 508,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "EBB92DF05C514B0DC51DD89ABE1F5149E9FB87EA0AEB1D1BA8F74F973D1A5C8F"
+        "time": 1629394457
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "E8FEC29BB05360A5C78E0366396B3C25946EB37B8068B9B21C75306854298BDC",
         "height": 507,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "E8FEC29BB05360A5C78E0366396B3C25946EB37B8068B9B21C75306854298BDC"
+        "time": 1629394352
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "96419797196DC55481936EF3E4B79C51CC793D1C21A0DE0D4F63A5BFCEC1800C",
         "height": 506,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "96419797196DC55481936EF3E4B79C51CC793D1C21A0DE0D4F63A5BFCEC1800C"
+        "time": 1629394302
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "44D029CF313F2E8E3E14709AF31207EE1BE585399AD845186E8766FF4E41267F",
         "height": 502,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "44D029CF313F2E8E3E14709AF31207EE1BE585399AD845186E8766FF4E41267F"
+        "time": 1629394187
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "EC2D9DF3F0BEC5B1DB91A565AC8E044ADA7B31EB39A80EDEFC0D95D4BC24EAFF",
         "height": 501,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "EC2D9DF3F0BEC5B1DB91A565AC8E044ADA7B31EB39A80EDEFC0D95D4BC24EAFF"
+        "time": 1629394127
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "68CB676576D67CB95E36AFF7286D1A10E5FC82CA8BBD3ABA1F6E70D706D26838",
         "height": 500,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "68CB676576D67CB95E36AFF7286D1A10E5FC82CA8BBD3ABA1F6E70D706D26838"
+        "time": 1629393987
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "826A991C3EC3472F5692323B3A72B98A8C6498585CD827B6AE4B41B2502FBA25",
         "height": 499,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "826A991C3EC3472F5692323B3A72B98A8C6498585CD827B6AE4B41B2502FBA25"
+        "time": 1629393882
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "FA57AF6E469A9CAB30A5E12EEAE6F9BDB02585CA78C5E413E363C092C732A87E",
         "height": 496,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "FA57AF6E469A9CAB30A5E12EEAE6F9BDB02585CA78C5E413E363C092C732A87E"
+        "time": 1629393207
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "96750775C0D0E51480DADEFB8DC49A5DDF03656A3F672BCAA2A18DB8FDE367EE",
         "height": 494,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "96750775C0D0E51480DADEFB8DC49A5DDF03656A3F672BCAA2A18DB8FDE367EE"
+        "time": 1629392842
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "65FE309371E9A8A652330D13FCF6504F4E5293992D849075876DAD903BEEA4F0",
         "height": 490,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "65FE309371E9A8A652330D13FCF6504F4E5293992D849075876DAD903BEEA4F0"
+        "time": 1629392307
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "69D7E20386767ABF11F81494F1CAA7ECCC0F78F88D31DAEAC48BEF71E797D44F",
         "height": 489,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "69D7E20386767ABF11F81494F1CAA7ECCC0F78F88D31DAEAC48BEF71E797D44F"
+        "time": 1629392287
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "D1F94DF65D3FB988DA76232626539738C7387CA668692F0AB13D35E78F2841CB",
         "height": 487,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "D1F94DF65D3FB988DA76232626539738C7387CA668692F0AB13D35E78F2841CB"
+        "time": 1629392057
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "8863F9470992BC1A6E1D4E64FDF024862629B1B941F3DABA5C3348BCD2AE8253",
         "height": 485,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "8863F9470992BC1A6E1D4E64FDF024862629B1B941F3DABA5C3348BCD2AE8253"
+        "time": 1629391777
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "71765AB8780096EDF44F0AF0A89647517080D73FAE7C1EFA230516D88A608FA7",
         "height": 483,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "71765AB8780096EDF44F0AF0A89647517080D73FAE7C1EFA230516D88A608FA7"
+        "time": 1629391687
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "5C0EBCFA1CFF0D3BB8926282A099CB8E3B80F5AEAD11A6AF00F19A96CCA29B1E",
         "height": 482,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "5C0EBCFA1CFF0D3BB8926282A099CB8E3B80F5AEAD11A6AF00F19A96CCA29B1E"
+        "time": 1629391567
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "26841E5687DC2500D717FC038B43177F56E26847C67238844093708A80F5AA7A",
         "height": 480,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "26841E5687DC2500D717FC038B43177F56E26847C67238844093708A80F5AA7A"
+        "time": 1629391112
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "12184CB777BF73E99D7E617C8719EB864B6FD07935B5AD38C9FED6C7929842FC",
         "height": 476,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "12184CB777BF73E99D7E617C8719EB864B6FD07935B5AD38C9FED6C7929842FC"
+        "time": 1629390727
       },
       {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "8F3F57B0F4DAE85207744FD15B4FFB044442B40D088B455FAE76A2FE7B14740F",
         "height": 472,
-        "amount": 50,
-        "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "8F3F57B0F4DAE85207744FD15B4FFB044442B40D088B455FAE76A2FE7B14740F"
+        "time": 1629389732
       },
       {
-        "height": 471,
         "amount": 50,
         "role": "receiver",
-        "inputs": [],
-        "outputs": ["bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs"],
-        "txid": "89B28E3748776EF93F247419D1E6B4829EF0F16C073EE850D6A21EAEACA35FC2"
+        "txid": "89B28E3748776EF93F247419D1E6B4829EF0F16C073EE850D6A21EAEACA35FC2",
+        "height": 471,
+        "time": 1629389557
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "648C5AB9A34AA69EB93BB86EE76A40745A8FCDEBED84EF4ACCFEA40B8482E6F5",
+        "height": 470,
+        "time": 1629389492
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "A9BCA4DD38F1A1D9781AEDBA2E606616FBF3BB7A6481F4B5E119E74B4E8B5481",
+        "height": 469,
+        "time": 1629389387
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "37CB47D5DC6FEEA8AD92E65058D3DBBCFE4935D001F3F67B182D94AB3E07047D",
+        "height": 468,
+        "time": 1629389172
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "66F3603C156B12610C9D96BB8A8760B6D2B12BF8E5BDEAED1FD1674F6958645C",
+        "height": 465,
+        "time": 1629388322
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "txid": "43E74B53B0F622715892C3C5A13D097394D34BE8CD2BFA36AF8CEE535A0B79FA",
+        "height": 463,
+        "time": 1629388277
       }
     ]
   }

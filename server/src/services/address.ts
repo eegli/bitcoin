@@ -7,8 +7,6 @@ import {
   RawAddressTransaction,
 } from '../types/address';
 import { Pagination } from '../types/response';
-import { RowDataPacket } from 'mysql2';
-import { mapAddressTransactions } from '../utils';
 
 type GetAddressHistoryParams = {
   address: string;
@@ -43,46 +41,53 @@ export const getAddressHistory = async ({
 
   let qtransactions = `
   WITH trans
-  AS (SELECT
+  AS (SELECT b.height,
              b.nTime,
-             b.height,
-             t.txid,
              i.hashprevout,
+             i.indexprevout,
+             t.txid,
              o.indexout,
-             o.VALUE,
-             o.address
-      FROM transactions t
+             o.address,
+             o.value
+      FROM blocks b
+               JOIN transactions t
+                    ON b.hash = t.hashblock
                JOIN tx_in i
                     ON t.txid = i.txid
                JOIN tx_out o
-                    ON t.txid = o.txid
-               join blocks b on b.hash = t.hashBlock)
-
-SELECT t1.ntime,
-t1.height,
-Hex(t1.txid)                                              curr_txid,
-Hex(t1.hashprevout)                                       prev_txid,
-t1.indexout                                               to_idxout,
-CAST(t1.VALUE / 100000000 AS DECIMAL(16, 8))              output_amount,
-t1.address                                                to_addr,
-Coalesce(t2.indexout, 0)                                  from_idxout,
-Coalesce(CAST(t2.VALUE / 100000000 AS DECIMAL(16, 8)), 0) input_amount,
-t2.address                                                from_addr
-FROM trans t1
-  LEFT JOIN trans t2
-            ON t1.hashprevout = t2.txid
+                    ON i.txid = o.txid),
+  address_trans
+    AS (SELECT t1.height                                    height,
+              t1.ntime                                     nTime,
+              Hex(t1.txid)                                 txid,
+              t1.address                                   to_addr,
+              Cast(t1.value / 100000000 AS DECIMAL(16, 8)) to_amount,
+              t2.address                                   from_addr,
+              Cast(t2.value / 100000000 AS DECIMAL(16, 8)) from_amount
+        FROM trans t1
+                left join trans t2
+                          ON t1.hashprevout = t2.txid and t1.indexPrevOut = t2.indexOut)
+  SELECT DISTINCT IF(to_addr = '${address}',
+              to_amount,
+              from_amount) amount,
+          IF(to_addr = '${address}',
+              'receiver', 'sender')
+                          role,
+          txid,
+          height,
+          ntime time
+  FROM address_trans
   `;
 
   if (role === 'sender') {
-    qtransactions += `WHERE t2.address = '${address}'`;
+    qtransactions += `WHERE from_addr = '${address}'`;
   } else if (role === 'receiver') {
-    if (no_coinbase) {
-      qtransactions += `WHERE t1.address = '${address}' AND t2.address IS NOT NULL`;
-    } else {
-      qtransactions += `WHERE t1.address = '${address}'`;
-    }
+    qtransactions += `WHERE to_addr = '${address}'`;
   } else {
-    qtransactions += `WHERE t1.address = '${address}' OR t2.address = '${address}'`;
+    qtransactions += `WHERE from_addr = '${address}' OR to_addr = '${address}'`;
+  }
+  if (no_coinbase) {
+    qtransactions += ` AND from_addr IS NOT NULL`;
   }
 
   if (sort === 'asc' || sort === 'desc') {
@@ -109,6 +114,9 @@ FROM trans t1
       offset,
       sort,
     },
-    transactions: mapAddressTransactions(transactions),
+    transactions: transactions.map(t => ({
+      ...t,
+      amount: parseFloat(t.amount),
+    })),
   };
 };
