@@ -14,6 +14,8 @@ router.get(
       limit: maybeParseInt(firstQueryParam(req.query, 'limit')),
       offset: maybeParseInt(firstQueryParam(req.query, 'offset')),
       sort: firstQueryParam(req.query, 'sort'),
+      role: firstQueryParam(req.query, 'role'),
+      no_coinbase: firstQueryParam(req.query, 'no_coinbase') === 'true',
     });
     res.send({ data });
   })

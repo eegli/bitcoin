@@ -2,114 +2,123 @@ import db from './db';
 
 import {
   AddressBalance,
-  AddressTransactions,
+  AddressTransaction,
   RawAddressBalance,
-  RawAddressTransactions,
+  RawAddressTransaction,
 } from '../types/address';
 import { Pagination } from '../types/response';
 import { RowDataPacket } from 'mysql2';
+import { mapAddressTransactions } from '../utils';
 
 type GetAddressHistoryParams = {
   address: string;
   limit?: number;
   offset?: number;
   sort?: string;
+  role?: string;
+  no_coinbase?: boolean;
 };
 
 type GetAddressHistoryResponse = AddressBalance & {
-  transactions: AddressTransactions[];
+  transactions: AddressTransaction[];
   pagination: Pagination;
 };
 
 export const getAddressHistory = async ({
   address,
-  limit = 10,
+  limit = 30,
   offset = 0,
   sort = 'desc',
+  no_coinbase = false,
+  role = '',
 }: GetAddressHistoryParams): Promise<GetAddressHistoryResponse> => {
-  let qb = `
+  const qbalance = `
   SELECT *
   FROM view_balances
   WHERE address = '${address}'
-  union
-  select '${address}', 0
+  UNION
+  SELECT '${address}',
+         0
+  `;
+
+  let qtransactions = `
+  WITH trans AS
+  (
+         SELECT b.ntime,
+                b.height,
+                i.hashprevout,
+                t.txid,
+                o.value,
+                o.address
+         FROM   blocks b
+         JOIN   transactions t
+         ON     b.hash = t.hashblock
+         JOIN   tx_in i
+         ON     t.txid = i.txid
+         JOIN   tx_out o
+         ON     i.txid = o.txid)
+  SELECT    t1.ntime,
+            t1.height,
+            Hex(t1.txid) txid,
+            t1.address   to_address,
+            t2.address   from_address,
+            CASE
+                      WHEN t1.address = '${address}' THEN 'receiver'
+                      ELSE 'sender'
+            END                                          role,
+            Cast(t1.value / 100000000 AS DECIMAL(16, 8)) amount
+  FROM      trans t1
+  LEFT JOIN trans t2
+  ON        t1.hashprevout = t2.txid
 
   `;
-  let qt = `
-  with trans as (select b.nTime,
-    b.height,
-    i.hashPrevOut,
-    i.indexPrevOut,
-    t.txid,
-    cast(o.value / 100000000 AS DECIMAL(16, 8)) value,
-    o.address
-    from blocks b
-        join transactions t on b.hash = t.hashBlock
-        join tx_in i on t.txid = i.txid
-        join tx_out o on i.txid = o.txid)
 
-    SELECT t1.nTime,
-    t1.height,
-    hex(t1.txid)                                                                                             txid,
-    case when t1.address = '${address}' then 'receiver' else 'sender' end as type,
-    t1.address                                                                                            as to_address,
-    t2.address                                                                                            as from_address,
-    t1.value                                                                                              as amount
-    from trans t1
-    join
-    trans t2 on t1.hashPrevOut = t2.txid
-    where t1.address = '${address}'
-    or t2.address = '${address}'
-    union
-    SELECT t1.nTime,
-    t1.height,
-    hex(t1.txid)  txid,
-    'receiver' as type,
-    t1.address as to_address,
-    bin(0)     as from_address,
-    t1.value   as amount
-    from trans t1
-    where t1.address = '${address}'
-    and t1.hashPrevOut = 0
-  `;
+  if (role === 'sender') {
+    qtransactions += `WHERE t2.address = '${address}'`;
+  } else if (role === 'receiver') {
+    if (no_coinbase) {
+      qtransactions += `WHERE t1.address = '${address}' AND t2.address IS NOT NULL`;
+    } else {
+      qtransactions += `WHERE t1.address = '${address}'`;
+    }
+  } else {
+    qtransactions += `WHERE t1.address = '${address}' OR t2.address = '${address}'`;
+  }
+
   if (sort === 'asc' || sort === 'desc') {
-    qt += ` order by height ${sort}`;
+    qtransactions += ` ORDER BY height ${sort}`;
   }
   if (limit > 0) {
     limit = Math.min(limit, 100);
-    qt += ` limit ${limit}`;
+    qtransactions += ` LIMIT ${limit}`;
   }
   if (offset > 0) {
-    qt += ` offset ${offset}`;
+    qtransactions += ` OFFSET ${offset}`;
   }
 
-  const transactions: AddressTransactions[] = (
-    await db.promise().execute<RawAddressTransactions[]>(qt)
-  )[0].map(t => ({
-    ...t,
-    amount: parseFloat(t.amount),
-  }));
-
-  const [balances] = await db.promise().execute<RawAddressBalance[]>(qb);
-
   const qtotal = `
-  with trans as (select b.nTime,
-    b.height,
-    i.hashPrevOut,
-    i.indexPrevOut,
+  with trans as (select i.hashPrevOut,
     t.txid,
-    cast(o.value / 100000000 AS DECIMAL(16, 8)) value,
     o.address
   from blocks b
         join transactions t on b.hash = t.hashBlock
         join tx_in i on t.txid = i.txid
         join tx_out o on i.txid = o.txid)
 
-  select COALESCE(count(*), 0) cnt
-  from trans
-  where address = '${address}'
+  SELECT count(*) cnt
+  from trans t1
+  left join
+  trans t2 on t1.hashPrevOut = t2.txid
+  where t1.address = '${address}'
+  or t2.address = '${address}'
   `;
-  const [total] = await db.promise().execute<RowDataPacket[]>(qtotal);
+
+  const [[transactions], [balances], [totals]] = await Promise.all([
+    db.promise().execute<RawAddressTransaction[]>(qtransactions),
+    db.promise().execute<RawAddressBalance[]>(qbalance),
+    db.promise().execute<RowDataPacket[]>(qtotal),
+  ]);
+
   return {
     address,
     balance: parseFloat(balances[0].balance),
@@ -117,8 +126,8 @@ export const getAddressHistory = async ({
       limit,
       offset,
       sort,
-      total: total[0]['cnt'],
+      total: totals[0]['cnt'],
     },
-    transactions,
+    transactions: mapAddressTransactions(transactions),
   };
 };

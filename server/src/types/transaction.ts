@@ -12,22 +12,26 @@ export interface RawBlockTransactionInfo extends RowDataPacket {
   from_idxout: number;
 }
 
-export interface TransactionInput {
+export interface BlockTransactionInput {
   txid: string;
   idx: number;
-  address: string;
+  address: string | null;
   amount: number;
 }
 
-export interface TransactionOutput {
+export interface BlockTransactionOutput {
   address: string;
+  amount: number;
   idx: number;
-  amount: number;
 }
 
-export interface DetailedTransaction {
-  inputs: TransactionInput[];
-  outputs: TransactionOutput[];
+export type AddressTransactionInput = string[];
+
+export type AddressTransactionOutput = string[];
+
+export interface DetailedTransaction<I, O> {
+  inputs: I;
+  outputs: O;
   txid: string;
 }
 
@@ -37,10 +41,13 @@ export interface CoinbaseTransaction {
   idx: number;
 }
 
-export type BlockTransactionData = {
+export type BlockTransactions = {
   coinbase: {
     txid: string;
     outputs: CoinbaseTransaction[];
   };
-  tx: DetailedTransaction[];
+  transactions: DetailedTransaction<
+    BlockTransactionInput[],
+    BlockTransactionOutput[]
+  >[];
 };

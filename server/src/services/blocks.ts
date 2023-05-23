@@ -1,9 +1,9 @@
 import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { Block, RawBlock } from '../types/block';
-import { transformBlockTransactions } from '../utils';
+import { mapBlockTransactions } from '../utils';
 import {
-  BlockTransactionData,
+  BlockTransactions,
   RawBlockTransactionInfo,
 } from '../types/transaction';
 import { Pagination } from '../types/response';
@@ -15,7 +15,7 @@ type GetBlocksParams = {
 };
 
 export const getBlocks = async ({
-  limit = 10,
+  limit = 30,
   offset = 0,
   sort = 'desc',
 }: GetBlocksParams): Promise<
@@ -69,7 +69,7 @@ type GetBlockParams = {
   height: number;
 };
 
-type GetBlockResponse = (Block & BlockTransactionData)[];
+type GetBlockResponse = (Block & BlockTransactions)[];
 
 export const getBlock = async ({
   height,
@@ -113,15 +113,15 @@ export const getBlock = async ({
 
   `;
 
-  const [transactions] = await db
+  const [_transactions] = await db
     .promise()
     .execute<RawBlockTransactionInfo[]>(tq);
-  const { coinbase, tx } = transformBlockTransactions(transactions);
+  const { coinbase, transactions } = mapBlockTransactions(_transactions);
   return [
     {
       ...block,
       coinbase,
-      tx,
+      transactions,
     },
   ];
 };

@@ -1,11 +1,18 @@
 import { ParsedQs } from 'qs';
 import {
-  BlockTransactionData,
+  AddressTransactionInput,
+  AddressTransactionOutput,
+  BlockTransactionInput,
+  BlockTransactionOutput,
+  BlockTransactions,
   CoinbaseTransaction,
   RawBlockTransactionInfo,
-  TransactionInput,
-  TransactionOutput,
 } from './types/transaction';
+import {
+  AddressTransaction,
+  BaseAddressTransaction,
+  RawAddressTransaction,
+} from './types/address';
 
 export const firstQueryParam = (
   req: ParsedQs,
@@ -20,9 +27,9 @@ export const maybeParseInt = (val: string | undefined): number | undefined => {
   return val ? parseInt(val) : undefined;
 };
 
-export function transformBlockTransactions(
+export function mapBlockTransactions(
   _tx: RawBlockTransactionInfo[]
-): BlockTransactionData {
+): BlockTransactions {
   const tx = _tx.map(t => ({
     ...t,
     to_addr: t.to_addr || 'OP_RETURN',
@@ -44,8 +51,8 @@ export function transformBlockTransactions(
   const map = new Map<
     string,
     {
-      inputs: Map<string, TransactionInput>;
-      outputs: Map<string, TransactionOutput>;
+      inputs: Map<string, BlockTransactionInput>;
+      outputs: Map<string, BlockTransactionOutput>;
       txid: string;
     }
   >();
@@ -84,7 +91,7 @@ export function transformBlockTransactions(
       txid: coinbaseTxid,
       outputs: coinbase,
     },
-    tx: Array.from(map.values()).map(v => {
+    transactions: Array.from(map.values()).map(v => {
       const inputs = Array.from(v.inputs.values()).flat();
       const outputs = Array.from(v.outputs.values()).flat();
       return {
@@ -94,4 +101,50 @@ export function transformBlockTransactions(
       };
     }),
   };
+}
+
+export function mapAddressTransactions(
+  rows: RawAddressTransaction[]
+): AddressTransaction[] {
+  const map = new Map<
+    string,
+    {
+      inputs: Set<string>;
+      outputs: Set<string>;
+      txid: string;
+      amount: string;
+    } & BaseAddressTransaction
+  >();
+  for (const row of rows) {
+    const _txid = map.get(row.txid);
+    if (!_txid) {
+      map.set(row.txid, {
+        inputs: new Set(),
+        outputs: new Set(),
+        txid: row.txid,
+        height: row.height,
+        nTime: row.nTime,
+        amount: row.amount,
+        role: row.role,
+      });
+    }
+    const txid = map.get(row.txid)!;
+    if (row.from_address) {
+      txid.inputs.add(row.from_address);
+    }
+    if (row.to_address) {
+      txid.outputs.add(row.to_address);
+    }
+  }
+  return Array.from(map.values()).map(v => {
+    return {
+      height: v.height,
+      nTime: v.nTime,
+      amount: parseFloat(v.amount),
+      role: v.role,
+      inputs: [...v.inputs],
+      outputs: [...v.outputs],
+      txid: v.txid,
+    };
+  });
 }

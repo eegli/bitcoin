@@ -171,9 +171,16 @@ npm run dev
 
 Both `/address/:address` and `/blocks` support basic filtering and pagination. The following query parameters are supported:
 
-- `limit` (int), `offset` (int), `sort` ("asc" or "desc")
+- `limit` (int) [how many items to fetch]
+- `offset` (int) [how many items to skip]
+- `sort` ("asc" or "desc") [sort order]
 
-Both endpoints have sensible defaults (`asc` sort, limit `10`, offset `0`) and do not support a limit > 100.
+Both endpoints have sensible defaults (`asc` sort, limit `30`, offset `0`) and do not support a limit > 100.
+
+In addition, `/address/:address` supports the following two query parameters:
+
+- `role` ("sender" or "receiver") [filter by transaction role for this address]
+- `no_coinbase` (boolean) [exclude coinbase transactions]
 
 As of now, there's no pagination for the transactions of a block (`/blocks/:height`). For the UZH blockchain, this is not an issue, since the blocks are rather small (>= 18 transactions) but a real implementation would need to account for this.
 
@@ -181,13 +188,20 @@ As of now, there's no pagination for the transactions of a block (`/blocks/:heig
 
 Since the UZH blockchain is rather sparse in terms of transactions, the following (rich) blocks can be used to test the API:
 
-| Height | Transaction count |
-| ------ | ----------------- |
-| 51376  | 18                |
-| 10571  | 6                 |
-| 14505  | 6                 |
-| 14513  | 4                 |
-| 17076  | 3                 |
+| Height | Transaction count   |
+| ------ | ------------------- |
+| 51376  | 18                  |
+| 10571  | 6                   |
+| 14505  | 6                   |
+| 14513  | 4                   |
+| 17076  | 3                   |
+| 10600  | 2 (multiple inputs) |
+
+Along with the following addresses:
+
+- `bc1q39waylre62fwrnff7n637c9yyh0jdaealr9d3g`
+- `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
+- `bc1qdfvx7x0d4hxmwsndr4xvykv08exlfdz05lgz34qggl`
 
 E.g., with a running server (and Python installed for pretty-printing):
 
