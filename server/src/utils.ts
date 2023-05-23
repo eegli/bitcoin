@@ -109,41 +109,42 @@ export function mapAddressTransactions(
   const map = new Map<
     string,
     {
-      inputs: Set<string>;
-      outputs: Set<string>;
+      inputs: Map<string, AddressTransactionInput>;
+      outputs: Map<string, AddressTransactionOutput>;
       txid: string;
-      amount: string;
     } & BaseAddressTransaction
   >();
   for (const row of rows) {
     const _txid = map.get(row.txid);
     if (!_txid) {
       map.set(row.txid, {
-        inputs: new Set(),
-        outputs: new Set(),
+        inputs: new Map(),
+        outputs: new Map(),
         txid: row.txid,
         height: row.height,
         nTime: row.nTime,
-        amount: row.amount,
         role: row.role,
       });
     }
     const txid = map.get(row.txid)!;
-    if (row.from_address) {
-      txid.inputs.add(row.from_address);
-    }
-    if (row.to_address) {
-      txid.outputs.add(row.to_address);
-    }
+    txid.inputs.set(row.from_address || '', {
+      address: row.from_address || '',
+      amount: parseFloat(row.in_amount),
+    });
+    txid.outputs.set(row.to_address || '', {
+      address: row.to_address || '',
+      amount: parseFloat(row.out_amount),
+    });
   }
   return Array.from(map.values()).map(v => {
+    const inputs = Array.from(v.inputs.values()).flat();
+    const outputs = Array.from(v.outputs.values()).flat();
     return {
       height: v.height,
       nTime: v.nTime,
-      amount: parseFloat(v.amount),
       role: v.role,
-      inputs: [...v.inputs],
-      outputs: [...v.outputs],
+      inputs,
+      outputs,
       txid: v.txid,
     };
   });

@@ -25,9 +25,15 @@ export interface BlockTransactionOutput {
   idx: number;
 }
 
-export type AddressTransactionInput = string[];
+export type AddressTransactionInput = {
+  address: string;
+  amount: number;
+};
 
-export type AddressTransactionOutput = string[];
+export type AddressTransactionOutput = {
+  address: string;
+  amount: number;
+};
 
 export interface DetailedTransaction<I, O> {
   inputs: I;

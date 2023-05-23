@@ -21,7 +21,7 @@ type GetAddressHistoryParams = {
 
 type GetAddressHistoryResponse = AddressBalance & {
   transactions: AddressTransaction[];
-  pagination: Pagination;
+  pagination: Omit<Pagination, 'total'>;
 };
 
 export const getAddressHistory = async ({
@@ -66,7 +66,8 @@ export const getAddressHistory = async ({
                       WHEN t1.address = '${address}' THEN 'receiver'
                       ELSE 'sender'
             END                                          role,
-            Cast(t1.value / 100000000 AS DECIMAL(16, 8)) amount
+            cast(t1.value / 100000000 AS DECIMAL(16, 8)) in_amount,
+            cast(t2.value / 100000000 AS DECIMAL(16, 8)) out_amount
   FROM      trans t1
   LEFT JOIN trans t2
   ON        t1.hashprevout = t2.txid
@@ -96,27 +97,9 @@ export const getAddressHistory = async ({
     qtransactions += ` OFFSET ${offset}`;
   }
 
-  const qtotal = `
-  with trans as (select i.hashPrevOut,
-    t.txid,
-    o.address
-  from blocks b
-        join transactions t on b.hash = t.hashBlock
-        join tx_in i on t.txid = i.txid
-        join tx_out o on i.txid = o.txid)
-
-  SELECT count(*) cnt
-  from trans t1
-  left join
-  trans t2 on t1.hashPrevOut = t2.txid
-  where t1.address = '${address}'
-  or t2.address = '${address}'
-  `;
-
-  const [[transactions], [balances], [totals]] = await Promise.all([
+  const [[transactions], [balances]] = await Promise.all([
     db.promise().execute<RawAddressTransaction[]>(qtransactions),
     db.promise().execute<RawAddressBalance[]>(qbalance),
-    db.promise().execute<RowDataPacket[]>(qtotal),
   ]);
 
   return {
@@ -126,7 +109,6 @@ export const getAddressHistory = async ({
       limit,
       offset,
       sort,
-      total: totals[0]['cnt'],
     },
     transactions: mapAddressTransactions(transactions),
   };

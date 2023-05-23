@@ -15,14 +15,16 @@ export interface BaseAddressTransaction {
 
 export interface AddressTransaction
   extends BaseAddressTransaction,
-    DetailedTransaction<AddressTransactionInput, AddressTransactionOutput> {
-  amount: number;
-}
+    DetailedTransaction<
+      AddressTransactionInput[],
+      AddressTransactionOutput[]
+    > {}
 
 export interface RawAddressTransaction
   extends RowDataPacket,
     BaseAddressTransaction {
-  amount: string;
+  in_amount: string;
+  out_amount: string;
   // Empty string in case of coinbase
   to_address: string;
   from_address: string | null;

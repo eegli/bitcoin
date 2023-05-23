@@ -2,7 +2,7 @@
   "data": {
     "address": "bc1qurywmx9z826wm5g9sslr6yhlelu9rskp70u5hs",
     "balance": 3300,
-    "pagination": { "limit": 30, "offset": 0, "sort": "desc", "total": 75 },
+    "pagination": { "limit": 30, "offset": 0, "sort": "desc" },
     "transactions": [
       {
         "height": 10600,
