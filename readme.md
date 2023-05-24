@@ -44,7 +44,7 @@ If you want to use the existing image that includes the preconfigured SQL server
 ```sh
 docker run --name=btcsql \
    -p 3306:3306 \
-   -d eegli/btcsql:0.0.1
+   -d eegli/btcsql:0.0.2
 ```
 
 Then, start the Node.js server in the `server` folder (see later instructions in [Webserver Setup](#webserver-setup)).
