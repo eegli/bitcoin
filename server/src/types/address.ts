@@ -10,12 +10,14 @@ export interface BaseAddressTransaction {
 
 export interface AddressTransaction extends BaseAddressTransaction {
   amount: number;
+  is_coinbase: boolean;
 }
 
 export interface RawAddressTransaction
   extends RowDataPacket,
     BaseAddressTransaction {
   amount: string;
+  is_coinbase: number;
 }
 
 interface BaseAddressBalance {

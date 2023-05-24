@@ -202,6 +202,8 @@ Along with the following addresses:
 - `bc1q39waylre62fwrnff7n637c9yyh0jdaealr9d3g`
 - `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
 - `bc1qdfvx7x0d4hxmwsndr4xvykv08exlfdz05lgz34qggl`
+- `bc1qzf5tqh0kaqnv4859k28axyqlc7j57z5ngshzua`
+- `bc1quwf6mgkug469jgzm8flrz39c7d3uqr6wseuh6w`
 
 E.g., with a running server (and Python installed for pretty-printing):
 

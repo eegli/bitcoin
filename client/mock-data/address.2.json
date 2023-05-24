@@ -1,8 +1,49 @@
 {
   "data": {
-    "address": "bcase128asdvxrtnc0w9j6sxvakjtekmjk",
-    "balance": 0,
+    "address": "bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3",
+    "balance": 50.000367,
     "pagination": { "limit": 30, "offset": 0, "sort": "desc" },
-    "transactions": []
+    "transactions": [
+      {
+        "amount": 50.000367,
+        "role": "receiver",
+        "is_coinbase": true,
+        "txid": "BDB0AACD504E683DA2CE013C1E423F5AB63B8422BA7A2E1B83CEB0A188EA9ED2",
+        "height": 77484,
+        "time": 1684914706
+      },
+      {
+        "amount": 50,
+        "role": "sender",
+        "is_coinbase": false,
+        "txid": "8509AB9051F30FAAF1811EA6DB09B38F5C6018B00A7FA27BB123003A177B2C91",
+        "height": 77484,
+        "time": 1684914706
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "is_coinbase": true,
+        "txid": "3ABA9A11B5405278CEF82239AE47AD98AE8249060274CE2549A5F3B0C55F3961",
+        "height": 77482,
+        "time": 1684913922
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "is_coinbase": true,
+        "txid": "557B83C60C4E527AEA18ED2F55C030DFAFC749FFB791387C3715AE460B8AFC6B",
+        "height": 77481,
+        "time": 1684913897
+      },
+      {
+        "amount": 50,
+        "role": "receiver",
+        "is_coinbase": true,
+        "txid": "B52EBE4643A8A87C27EB7EE6F8395CB5A5AFDCD63B4D01C9F300CBE234BA7E6B",
+        "height": 77480,
+        "time": 1684913500
+      }
+    ]
   }
 }

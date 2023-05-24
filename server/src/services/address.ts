@@ -74,6 +74,7 @@ export const getAddressHistory = async ({
           IF(to_addr = '${address}',
               'receiver', 'sender')
                           role,
+          IF(from_addr IS NULL, true, false) is_coinbase,                          
           txid,
           height,
           ntime time
@@ -85,7 +86,7 @@ export const getAddressHistory = async ({
   } else if (role === 'receiver') {
     qtransactions += `WHERE to_addr = '${address}'`;
   } else {
-    qtransactions += `WHERE from_addr = '${address}' OR to_addr = '${address}'`;
+    qtransactions += `WHERE (from_addr = '${address}' OR to_addr = '${address}')`;
   }
   if (no_coinbase) {
     qtransactions += ` AND from_addr IS NOT NULL`;
@@ -126,6 +127,7 @@ export const getAddressHistory = async ({
     },
     transactions: transactions.map(t => ({
       ...t,
+      is_coinbase: t.is_coinbase === 1,
       amount: parseFloat(t.amount),
     })),
   };
