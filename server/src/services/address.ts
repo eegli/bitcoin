@@ -37,49 +37,46 @@ export const getAddressHistory = async ({
   WHERE address = '${address}'
   UNION
   SELECT '${address}',
-         0
+        0  
   `;
 
   let qtransactions = `
   WITH trans
   AS (SELECT b.height,
-             b.nTime,
+             b.ntime,
              i.hashprevout,
              i.indexprevout,
              t.txid,
              o.indexout,
              o.address,
              o.value
-      FROM blocks b
-               JOIN transactions t
-                    ON b.hash = t.hashblock
-               JOIN tx_in i
-                    ON t.txid = i.txid
-               JOIN tx_out o
-                    ON i.txid = o.txid),
+        FROM blocks b
+             join transactions t
+               ON b.hash = t.hashblock
+             join tx_in i
+               ON t.txid = i.txid
+             join tx_out o
+               ON i.txid = o.txid),
   address_trans
-    AS (SELECT t1.height                                    height,
-              t1.ntime                                     nTime,
-              Hex(t1.txid)                                 txid,
-              t1.address                                   to_addr,
-              Cast(t1.value / 100000000 AS DECIMAL(16, 8)) to_amount,
-              t2.address                                   from_addr,
-              Cast(t2.value / 100000000 AS DECIMAL(16, 8)) from_amount
+  AS (SELECT t1.height                                    height,
+             t1.ntime                                     nTime,
+             LOWER(HEX(t1.txid))                          txid,
+             t1.address                                   to_addr,
+             CAST(t1.value / 100000000 AS DECIMAL(16, 8)) to_amount,
+             t2.address                                   from_addr,
+             CAST(t2.value / 100000000 AS DECIMAL(16, 8)) from_amount
         FROM trans t1
-                left join trans t2
-                          ON t1.hashprevout = t2.txid and t1.indexPrevOut = t2.indexOut)
-  SELECT DISTINCT IF(to_addr = '${address}',
-              to_amount,
-              from_amount) amount,
-          IF(to_addr = '${address}',
-              'receiver', 'sender')
-                          role,
-          IF(from_addr IS NULL, true, false) is_coinbase,                          
-          txid,
-          height,
-          ntime time
-  FROM address_trans
-  `;
+             left join trans t2
+                    ON t1.hashprevout = t2.txid
+                       AND t1.indexprevout = t2.indexout)
+  SELECT DISTINCT IF(to_addr = '${address}', to_amount, from_amount) amount,
+              IF(to_addr = '${address}', 'receiver', 'sender')   ROLE,
+              IF(from_addr IS NULL, TRUE, FALSE)                 is_coinbase,
+              txid,
+              height,
+              ntime                                              TIME
+  FROM address_trans  
+    `;
 
   if (role === 'sender') {
     qtransactions += `WHERE from_addr = '${address}'`;
@@ -102,15 +99,6 @@ export const getAddressHistory = async ({
   if (offset > 0) {
     qtransactions += ` OFFSET ${offset}`;
   }
-
-  const qtotal = `
-  SELECT Count(i.txid) cnt
-  FROM   tx_in i
-         JOIN tx_out o
-           ON i.txid = o.txid
-              AND address = '${address}'
-  GROUP  BY o.address  
-  `;
 
   const [[transactions], [balances]] = await Promise.all([
     db.promise().execute<RawAddressTransaction[]>(qtransactions),
