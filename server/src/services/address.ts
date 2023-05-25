@@ -70,11 +70,11 @@ export const getAddressHistory = async ({
                     ON t1.hashprevout = t2.txid
                        AND t1.indexprevout = t2.indexout)
   SELECT DISTINCT IF(to_addr = '${address}', to_amount, from_amount) amount,
-              IF(to_addr = '${address}', 'receiver', 'sender')   ROLE,
+              IF(to_addr = '${address}', 'receiver', 'sender')   role,
               IF(from_addr IS NULL, TRUE, FALSE)                 is_coinbase,
               txid,
               height,
-              ntime                                              TIME
+              ntime                                              ntime
   FROM address_trans  
     `;
 

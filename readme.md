@@ -153,7 +153,7 @@ The webserver is a simple Node.js Express server. It requires a running MySQL se
 cd server && npm install
 ```
 
-To start the server:
+To start the server (in the `server` directory):
 
 ```sh
 npm run dev

@@ -20,13 +20,13 @@ export const getBlocks = async ({
 > => {
   let qb = `
   SELECT b.id,
-    Hex(hash)           hash,
+    LOWER(HEX(hash))           hash,
     height,
     b.version,
     blocksize,
-    Hex(hashprev)       hashPrev,
-    Hex(hashmerkleroot) hashMerkleRoot,
-    Count(t.txid)       txCnt,
+    LOWER(HEX(hashprev))       hashPrev,
+    LOWER(HEX(hashmerkleroot)) hashMerkleRoot,
+    COUNT(t.txid)              txCnt,
     ntime,
     nbits,
     nnonce
@@ -48,11 +48,14 @@ export const getBlocks = async ({
   }
 
   const qt = `
-  select count(*) count from blocks;
+  SELECT Max(height) count
+  FROM   blocks;  
   `;
+  const [[rows], [count]] = await Promise.all([
+    db.promise().execute<RawBlock[]>(qb),
+    db.promise().execute<RowDataPacket[]>(qt),
+  ]);
 
-  const [rows] = await db.promise().execute<RawBlock[]>(qb);
-  const [count] = await db.promise().execute<RowDataPacket[]>(qt);
   return {
     pagination: {
       limit,
