@@ -1,0 +1,8 @@
+{
+  "data": {
+    "address": "bcase128asdvxrtnc0w9j6sxvakjtekmjk",
+    "balance": 0,
+    "pagination": { "limit": 30, "offset": 0, "sort": "desc" },
+    "transactions": []
+  }
+}
