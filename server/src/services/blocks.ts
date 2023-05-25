@@ -2,10 +2,7 @@ import { RowDataPacket } from 'mysql2';
 import db from './db';
 import { Block, RawBlock } from '../types/block';
 import { mapBlockTransactions } from '../utils';
-import {
-  BlockTransactions,
-  RawBlockTransactionInfo,
-} from '../types/transaction';
+import { BlockTransactions, RawBlockTransactionInfo } from '../types/block';
 import { Pagination } from '../types/response';
 
 type GetBlocksParams = {
@@ -23,13 +20,13 @@ export const getBlocks = async ({
 > => {
   let qb = `
   SELECT b.id,
-    Hex(hash)           hash,
+    LOWER(HEX(hash))           hash,
     height,
     b.version,
     blocksize,
-    Hex(hashprev)       hashPrev,
-    Hex(hashmerkleroot) hashMerkleRoot,
-    Count(t.txid)       txCnt,
+    LOWER(HEX(hashprev))       hashPrev,
+    LOWER(HEX(hashmerkleroot)) hashMerkleRoot,
+    COUNT(t.txid)              txCnt,
     ntime,
     nbits,
     nnonce
@@ -51,11 +48,14 @@ export const getBlocks = async ({
   }
 
   const qt = `
-  select count(*) count from blocks;
+  SELECT Max(height) count
+  FROM   blocks;  
   `;
+  const [[rows], [count]] = await Promise.all([
+    db.promise().execute<RawBlock[]>(qb),
+    db.promise().execute<RowDataPacket[]>(qt),
+  ]);
 
-  const [rows] = await db.promise().execute<RawBlock[]>(qb);
-  const [count] = await db.promise().execute<RowDataPacket[]>(qt);
   return {
     pagination: {
       limit,
@@ -78,12 +78,12 @@ export const getBlock = async ({
 }: GetBlockParams): Promise<GetBlockResponse> => {
   const bq = `
   SELECT id,
-    Hex(hash) hash,
+    Lower(HEX(hash)) hash,
     height,
     version,
     blocksize,
-    Hex(hashprev)       hashprev,
-    Hex(hashmerkleroot) hashmerkleroot,
+    Lower(HEX(hashprev))       hashprev,
+    Lower(HEX(hashmerkleroot)) hashmerkleroot,
     ntime,
     nbits,
     nnonce
@@ -100,26 +100,28 @@ export const getBlock = async ({
   AS (SELECT t.hashblock,
              t.txid,
              i.hashprevout,
+             i.indexprevout,
              o.indexout,
              o.VALUE,
              o.address
-      FROM   transactions t
+        FROM transactions t
              JOIN tx_in i
                ON t.txid = i.txid
              JOIN tx_out o
                ON t.txid = o.txid)
-  SELECT Hex(t1.txid)                                              curr_txid,
-      Hex(t1.hashprevout)                                       prev_txid,
+  SELECT LOWER(HEX(t1.txid))                                       curr_txid,
+      LOWER(HEX(t1.hashprevout))                                prev_txid,
       t1.indexout                                               to_idxout,
       CAST(t1.VALUE / 100000000 AS DECIMAL(16, 8))              output_amount,
       t1.address                                                to_addr,
-      Coalesce(t2.indexout, 0)                                  from_idxout,
-      Coalesce(CAST(t2.VALUE / 100000000 AS DECIMAL(16, 8)), 0) input_amount,
+      COALESCE(t2.indexout, 0)                                  from_idxout,
+      COALESCE(CAST(t2.VALUE / 100000000 AS DECIMAL(16, 8)), 0) input_amount,
       t2.address                                                from_addr
-  FROM   trans t1
+  FROM trans t1
       LEFT JOIN trans t2
             ON t1.hashprevout = t2.txid
-  WHERE  t1.hashblock = x'${block.hash}'  
+                AND t1.indexprevout = t2.indexout
+  WHERE t1.hashblock = x'${block.hash}'  
   `;
 
   const [_transactions] = await db

@@ -1,18 +1,11 @@
 import { ParsedQs } from 'qs';
 import {
-  AddressTransactionInput,
-  AddressTransactionOutput,
   BlockTransactionInput,
   BlockTransactionOutput,
   BlockTransactions,
   CoinbaseTransaction,
   RawBlockTransactionInfo,
-} from './types/transaction';
-import {
-  AddressTransaction,
-  BaseAddressTransaction,
-  RawAddressTransaction,
-} from './types/address';
+} from './types/block';
 
 export const firstQueryParam = (
   req: ParsedQs,
@@ -101,57 +94,4 @@ export function mapBlockTransactions(
       };
     }),
   };
-}
-
-export function mapAddressTransactions(
-  rows: RawAddressTransaction[]
-): AddressTransaction[] {
-  const map = new Map<
-    string,
-    {
-      inputs: Map<string, AddressTransactionInput>;
-      outputs: Map<string, AddressTransactionOutput>;
-      txid: string;
-    } & BaseAddressTransaction
-  >();
-  for (const row of rows) {
-    const _val = map.get(row.curr_txid);
-    if (!_val) {
-      map.set(row.curr_txid, {
-        inputs: new Map(),
-        outputs: new Map(),
-        txid: row.curr_txid,
-        height: row.height,
-        nTime: row.nTime,
-      });
-    }
-    const val = map.get(row.curr_txid)!;
-    const prevTxid = val.inputs.get(row.prev_txid);
-    if (!prevTxid) {
-      val!.inputs.set(row.prev_txid, {
-        address: row.from_addr,
-        amount: parseFloat(row.input_amount),
-      });
-    }
-    const output = val.outputs.get(row.to_addr || '');
-    const entry = {
-      address: row.to_addr || '',
-      amount: parseFloat(row.output_amount),
-    };
-    if (!output) {
-      val.outputs.set(row.to_addr || '', entry);
-    }
-  }
-  return Array.from(map.values()).map(v => {
-    const inputs = Array.from(v.inputs.values()).flat();
-    const outputs = Array.from(v.outputs.values()).flat();
-    return {
-      height: v.height,
-      nTime: v.nTime,
-
-      inputs,
-      outputs,
-      txid: v.txid,
-    };
-  });
 }

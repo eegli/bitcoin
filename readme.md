@@ -44,7 +44,7 @@ If you want to use the existing image that includes the preconfigured SQL server
 ```sh
 docker run --name=btcsql \
    -p 3306:3306 \
-   -d eegli/btcsql:0.0.1
+   -d eegli/btcsql:0.0.2
 ```
 
 Then, start the Node.js server in the `server` folder (see later instructions in [Webserver Setup](#webserver-setup)).
@@ -153,7 +153,7 @@ The webserver is a simple Node.js Express server. It requires a running MySQL se
 cd server && npm install
 ```
 
-To start the server:
+To start the server (in the `server` directory):
 
 ```sh
 npm run dev
@@ -202,6 +202,8 @@ Along with the following addresses:
 - `bc1q39waylre62fwrnff7n637c9yyh0jdaealr9d3g`
 - `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
 - `bc1qdfvx7x0d4hxmwsndr4xvykv08exlfdz05lgz34qggl`
+- `bc1qzf5tqh0kaqnv4859k28axyqlc7j57z5ngshzua`
+- `bc1quwf6mgkug469jgzm8flrz39c7d3uqr6wseuh6w`
 
 E.g., with a running server (and Python installed for pretty-printing):
 

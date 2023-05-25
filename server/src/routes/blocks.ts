@@ -38,7 +38,6 @@ router.get(
       res.send({ data: [] });
       return;
     }
-    console.log(height);
     const data = await getBlock({
       height,
     });

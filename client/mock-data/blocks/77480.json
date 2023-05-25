@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": 77481,
+      "hash": "000000002e28264e3880ee544bd34526d35fa3c553779650263588d1cc42564b",
+      "height": 77480,
+      "version": 536870912,
+      "blocksize": 250,
+      "hashprev": "000000000f6be5ac1c462a3d111881697b2d85fa5510bd6e1cf4d0882fce8ad9",
+      "hashmerkleroot": "b52ebe4643a8a87c27eb7ee6f8395cb5a5afdcd63b4d01c9f300cbe234ba7e6b",
+      "ntime": 1684913500,
+      "nbits": 486604799,
+      "nnonce": 1734740483,
+      "coinbase": {
+        "txid": "b52ebe4643a8a87c27eb7ee6f8395cb5a5afdcd63b4d01c9f300cbe234ba7e6b",
+        "outputs": [
+          {
+            "to_addr": "bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3",
+            "output_amount": 50,
+            "idx": 0
+          },
+          {
+            "to_addr": "OP_RETURN",
+            "output_amount": 0,
+            "idx": 1
+          }
+        ]
+      },
+      "transactions": []
+    }
+  ]
+}
