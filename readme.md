@@ -226,4 +226,26 @@ curl -G http://localhost:8000/address/bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk
 
 ## Client Setup
 
-TODO
+## Frontend Framework
+Vue3
+## Prerequisites
+- Node.js version 16.0 or later installed
+- "dependencies": {
+      "axios": "^1.4.0",
+      "element-plus": "^2.3.5",
+      "swiper": "^8.1.6",
+      "vue": "^3.3.2",
+      "vue-router": "^4.2.1"
+   }
+
+  ```sh
+  npm install -save packagename
+  ```
+
+## Explorer Setup
+```sh
+cd explorer \
+npm install \ 
+npm run dev
+```
+Then copy the web link to any explorer.
