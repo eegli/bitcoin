@@ -1,21 +1,18 @@
 <template>
     <div id="app">
-        <Blocks />
+      <router-view></router-view>
     </div>
-
 </template>
-
+  
 <script>
-import Blocks from './components/Blocks.vue';
-
-export default {
-    components:{
-    Blocks
-}
-}
-
+    export default {
+        name: "App",
+    }
 </script>
-
+  
 <style>
-
+#app {
+    margin: 0 auto;
+}
 </style>
+  

@@ -3,7 +3,6 @@
         <div class="blocklist-wrapper">
             <BlockList/>
         </div>
-        
     </div>
 </template>
 
@@ -18,14 +17,15 @@ export default{
 
 <style scoped>
 .mainbody{
-    margin:auto;
-    width:100%;
+    margin: 0;
+    width: 100%;
     height: 900px;
     border: 1px solid #000000;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    background-color: beige;
+    background-color: #a0cfff;
+    min-height: 90vh;
 }
 .blocklist-wrapper {
     flex-grow: 1;

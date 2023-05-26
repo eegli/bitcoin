@@ -1,7 +1,8 @@
-// router.js
+// index.js
 import {createRouter,  createWebHashHistory} from 'vue-router'
 import Blocks from '../components/Blocks.vue'
 import Transactions from '../components/Transactions.vue'
+import Address from '../components/Address.vue'
 
 const routes = [
     {
@@ -10,9 +11,14 @@ const routes = [
         component: Blocks
     },
     {
-        path: '/transactions',
+        path: '/transactions/:height',
         name: 'transactions',
         component: Transactions
+    },
+    {
+        path: '/address/:address',
+        name: 'address',
+        component: Address
     }
 ]
 
