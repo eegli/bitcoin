@@ -20,7 +20,7 @@ type GetAddressHistoryParams = {
 
 type GetAddressHistoryResponse = AddressBalance & {
   transactions: AddressTransaction[];
-  pagination: Omit<Pagination, 'total'>;
+  pagination: Pagination;
 };
 
 export const getAddressHistory = async ({
@@ -38,6 +38,13 @@ export const getAddressHistory = async ({
   UNION
   SELECT '${address}',
         0  
+  `;
+
+  const qtotal = `
+  SELECT Count(txid) cnt
+  FROM   view_transactions
+  WHERE  address = '${address}'
+  GROUP  BY address  
   `;
 
   let qtransactions = `
@@ -100,9 +107,10 @@ export const getAddressHistory = async ({
     qtransactions += ` OFFSET ${offset}`;
   }
 
-  const [[transactions], [balances]] = await Promise.all([
+  const [[transactions], [balances], [total]] = await Promise.all([
     db.promise().execute<RawAddressTransaction[]>(qtransactions),
     db.promise().execute<RawAddressBalance[]>(qbalance),
+    db.promise().execute<RowDataPacket[]>(qtotal),
   ]);
 
   return {
@@ -112,6 +120,7 @@ export const getAddressHistory = async ({
       limit,
       offset,
       sort,
+      total: total[0]?.cnt || 0,
     },
     transactions: transactions.map(t => ({
       ...t,
