@@ -161,11 +161,11 @@ npm run dev
 
 ### API Routes
 
-| Resource         | Path                | Description                | Example response                                                                                             |
-| ---------------- | ------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Block data       | `/blocks`           | General                    | [Sample JSON](client/mock-data/block.json)                                                                   |
-| Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON 1](client/mock-data/block.height.1.json), [Sample JSON 2](client/mock-data/block.height.2.json) |
-| Address data     | `/address/:address` | Address history            | [Sample JSON 1](client/mock-data/address.1.json), [Sample JSON 2](client/mock-data/address.2.json)           |
+| Resource         | Path                | Description                | Example response                                                                        |
+| ---------------- | ------------------- | -------------------------- | --------------------------------------------------------------------------------------- |
+| Block data       | `/blocks`           | General                    | [Sample JSON](client/mock-data/block.json)                                              |
+| Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON](client/mock-data/blocks/77487.json)                                       |
+| Address data     | `/address/:address` | Address history            | [Sample JSON](client/mock-data/address/bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep.json) |
 
 ### Filtering
 
