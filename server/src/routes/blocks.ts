@@ -14,6 +14,11 @@ router.get(
       offset: maybeParseInt(firstQueryParam(req.query, 'offset')),
       sort: firstQueryParam(req.query, 'sort'),
     });
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     res.send({ data });
   })
 );
@@ -26,6 +31,11 @@ router.get(
       offset: 0,
       sort: 'desc',
     });
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     res.send({ data: data });
   })
 );
@@ -46,6 +56,11 @@ router.get(
       res.send({ data: [] });
       return;
     }
+
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     res.send({ data });
   })
 );
