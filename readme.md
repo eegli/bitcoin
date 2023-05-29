@@ -210,7 +210,7 @@ In addition, `/address/:address` supports the following two query parameters:
 - `role` ("sender" or "receiver") [filter by transaction role for this address]
 - `no_coinbase` (boolean) [exclude coinbase transactions]
 
-As of now, there's no pagination for the transactions of a block (`/blocks/:height`). For the UZH blockchain, this is not an issue, since the blocks are rather small (>= 18 transactions) but a real implementation would need to account for this.
+As of now, there's no pagination for the transactions of a block (`/blocks/:height`). For the UZH blockchain, this is not an issue since the blocks are rather small (all less than 18 transactions) but a real implementation would need to account for this.
 
 ### Testing
 
