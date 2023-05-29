@@ -5,24 +5,22 @@
     "pagination": {
       "limit": 30,
       "offset": 0,
-      "sort": "desc"
+      "sort": "desc",
+      "total": 1
+    },
+    "filters": {
+      "sent_only": false,
+      "received_only": false,
+      "no_coinbase": false
     },
     "transactions": [
       {
-        "amount": 39.309492,
-        "role": "sender",
-        "is_coinbase": false,
-        "txid": "55af2ffd02da9a1c800e32c73f2e0b5e6112c24029c478f0be80034eef85e5c9",
-        "height": 77487,
-        "ntime": 1684916485
-      },
-      {
-        "amount": 39.309492,
+        "height": 77486,
+        "ntime": 1684915820,
+        "txid": "da63fb77df663516cd7b9a76ca26abafc07e70308f9622d1080cff726584b149",
         "role": "receiver",
         "is_coinbase": false,
-        "txid": "da63fb77df663516cd7b9a76ca26abafc07e70308f9622d1080cff726584b149",
-        "height": 77486,
-        "ntime": 1684915820
+        "amount": 39.309492
       }
     ]
   }

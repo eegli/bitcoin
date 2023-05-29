@@ -5,248 +5,254 @@
     "pagination": {
       "limit": 30,
       "offset": 0,
-      "sort": "desc"
+      "sort": "desc",
+      "total": 53033
+    },
+    "filters": {
+      "sent_only": false,
+      "received_only": false,
+      "no_coinbase": false
     },
     "transactions": [
       {
-        "amount": 50,
-        "role": "receiver",
-        "is_coinbase": true,
-        "txid": "2292decb8b262429ad614eedf0e458452da8037ded156dcbc1d6390081909db8",
         "height": 77491,
-        "ntime": 1684917593
-      },
-      {
-        "amount": 50,
+        "ntime": 1684917593,
+        "txid": "2292decb8b262429ad614eedf0e458452da8037ded156dcbc1d6390081909db8",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "bda97ab9a15ae5450b8780e55a555b692d035db54c9835afa887f4e3ac152b7f",
+        "amount": 50
+      },
+      {
         "height": 77490,
-        "ntime": 1684917335
-      },
-      {
-        "amount": 50,
+        "ntime": 1684917335,
+        "txid": "bda97ab9a15ae5450b8780e55a555b692d035db54c9835afa887f4e3ac152b7f",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "fab8071ca95d670f91d889e5f797e62d3bdf255597b70052752e3c5ac76dd12f",
-        "height": 77488,
-        "ntime": 1684916635
+        "amount": 50
       },
       {
-        "amount": 0.8,
+        "height": 77488,
+        "ntime": 1684916635,
+        "txid": "fab8071ca95d670f91d889e5f797e62d3bdf255597b70052752e3c5ac76dd12f",
+        "role": "receiver",
+        "is_coinbase": true,
+        "amount": 50
+      },
+      {
+        "height": 77487,
+        "ntime": 1684916485,
+        "txid": "55af2ffd02da9a1c800e32c73f2e0b5e6112c24029c478f0be80034eef85e5c9",
         "role": "receiver",
         "is_coinbase": false,
-        "txid": "55af2ffd02da9a1c800e32c73f2e0b5e6112c24029c478f0be80034eef85e5c9",
-        "height": 77487,
-        "ntime": 1684916485
+        "amount": 0.8
       },
       {
-        "amount": 50,
-        "role": "receiver",
-        "is_coinbase": true,
-        "txid": "ebeb760900048af7f29c8b2a5398e185f281811400f9ada3aeff7c897fb8e63f",
         "height": 77483,
-        "ntime": 1684913928
-      },
-      {
-        "amount": 50,
+        "ntime": 1684913928,
+        "txid": "ebeb760900048af7f29c8b2a5398e185f281811400f9ada3aeff7c897fb8e63f",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "52a26401be39fa3389e039a85ec30b1337f5a03154c0b5716456b015f8526966",
+        "amount": 50
+      },
+      {
         "height": 77479,
-        "ntime": 1684913178
-      },
-      {
-        "amount": 50,
+        "ntime": 1684913178,
+        "txid": "52a26401be39fa3389e039a85ec30b1337f5a03154c0b5716456b015f8526966",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "4ea49abf46f5858cd458edd25e166cc1ed9c915ee8fd8e90c86cacfb44ffc862",
+        "amount": 50
+      },
+      {
         "height": 77477,
-        "ntime": 1684913082
-      },
-      {
-        "amount": 50,
+        "ntime": 1684913082,
+        "txid": "4ea49abf46f5858cd458edd25e166cc1ed9c915ee8fd8e90c86cacfb44ffc862",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "5f752b1c39a577a522b8cfb65b11fc3afcfaaee06855f843b7e12807d5eaf8b8",
+        "amount": 50
+      },
+      {
         "height": 77476,
-        "ntime": 1684913002
-      },
-      {
-        "amount": 50,
+        "ntime": 1684913002,
+        "txid": "5f752b1c39a577a522b8cfb65b11fc3afcfaaee06855f843b7e12807d5eaf8b8",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "7fbc5cd39ecd75f7e8b008059dfb61c8d9764be54371fc55485a3cf104399511",
+        "amount": 50
+      },
+      {
         "height": 77475,
-        "ntime": 1684912082
-      },
-      {
-        "amount": 50,
+        "ntime": 1684912082,
+        "txid": "7fbc5cd39ecd75f7e8b008059dfb61c8d9764be54371fc55485a3cf104399511",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "3c0f96b5fd0ae728375bcfe227afdbb1a0699983f4834b72ee4f69ded4411cc7",
+        "amount": 50
+      },
+      {
         "height": 77474,
-        "ntime": 1684911012
-      },
-      {
-        "amount": 50,
+        "ntime": 1684911012,
+        "txid": "3c0f96b5fd0ae728375bcfe227afdbb1a0699983f4834b72ee4f69ded4411cc7",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "2ddbf029d10408a7fdfd589ed0b2772533f25202bf4c84b287ce514e00ff125f",
+        "amount": 50
+      },
+      {
         "height": 77471,
-        "ntime": 1684910512
-      },
-      {
-        "amount": 50,
+        "ntime": 1684910512,
+        "txid": "2ddbf029d10408a7fdfd589ed0b2772533f25202bf4c84b287ce514e00ff125f",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "f5bc284fbd8202f93c47c645528e28650252ac33bde60a95f00725f7e12790e8",
+        "amount": 50
+      },
+      {
         "height": 77470,
-        "ntime": 1684910147
-      },
-      {
-        "amount": 50,
+        "ntime": 1684910147,
+        "txid": "f5bc284fbd8202f93c47c645528e28650252ac33bde60a95f00725f7e12790e8",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "32d296a5eb11decde213f426ae6f3c2068d5bd449ec400429e45516c22a29d9b",
+        "amount": 50
+      },
+      {
         "height": 77468,
-        "ntime": 1684909473
-      },
-      {
-        "amount": 50,
+        "ntime": 1684909473,
+        "txid": "32d296a5eb11decde213f426ae6f3c2068d5bd449ec400429e45516c22a29d9b",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "bb6873ae5e2f8345fbce08d192465cbef613e9230c770089276e0c33eb6cd5c0",
+        "amount": 50
+      },
+      {
         "height": 77467,
-        "ntime": 1684909163
-      },
-      {
-        "amount": 50,
+        "ntime": 1684909163,
+        "txid": "bb6873ae5e2f8345fbce08d192465cbef613e9230c770089276e0c33eb6cd5c0",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "0c84ce55ab91bb72cad94e6485a3ac6a0049663fbb07bc87c607170cef949bf0",
+        "amount": 50
+      },
+      {
         "height": 77466,
-        "ntime": 1684908546
-      },
-      {
-        "amount": 50,
+        "ntime": 1684908546,
+        "txid": "0c84ce55ab91bb72cad94e6485a3ac6a0049663fbb07bc87c607170cef949bf0",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "71db1762f4b49d35bef4480c894b0a412da7b2693ed851b4042c01bd59930969",
+        "amount": 50
+      },
+      {
         "height": 77465,
-        "ntime": 1684908416
-      },
-      {
-        "amount": 50,
+        "ntime": 1684908416,
+        "txid": "71db1762f4b49d35bef4480c894b0a412da7b2693ed851b4042c01bd59930969",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "0dc3566949a96846580c7cac39ce0d616b090e297bc3328de7c0eeda10271e5c",
+        "amount": 50
+      },
+      {
         "height": 77463,
-        "ntime": 1684907403
-      },
-      {
-        "amount": 50,
+        "ntime": 1684907403,
+        "txid": "0dc3566949a96846580c7cac39ce0d616b090e297bc3328de7c0eeda10271e5c",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "9d23e717dfbbb8bb7d072e725286809e2d188f29a7ba8b7125c6cc49e30d34e3",
+        "amount": 50
+      },
+      {
         "height": 77461,
-        "ntime": 1684906773
-      },
-      {
-        "amount": 50,
+        "ntime": 1684906773,
+        "txid": "9d23e717dfbbb8bb7d072e725286809e2d188f29a7ba8b7125c6cc49e30d34e3",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "69fe0786745fc8fa6d45e11452e0535c08cdef797053cd1d249632372d9de204",
+        "amount": 50
+      },
+      {
         "height": 77460,
-        "ntime": 1684906703
-      },
-      {
-        "amount": 50,
+        "ntime": 1684906703,
+        "txid": "69fe0786745fc8fa6d45e11452e0535c08cdef797053cd1d249632372d9de204",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "03a1c237770bf200bf4fb9b40c07e1aa722d078a7bf4d096f54562fcb077a483",
+        "amount": 50
+      },
+      {
         "height": 77458,
-        "ntime": 1684906128
-      },
-      {
-        "amount": 50,
+        "ntime": 1684906128,
+        "txid": "03a1c237770bf200bf4fb9b40c07e1aa722d078a7bf4d096f54562fcb077a483",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "da7c2a97deecb83db0e370d38d0cfc254f6ef09be8ab29d1998c43361bf111c0",
+        "amount": 50
+      },
+      {
         "height": 77457,
-        "ntime": 1684906123
-      },
-      {
-        "amount": 50,
+        "ntime": 1684906123,
+        "txid": "da7c2a97deecb83db0e370d38d0cfc254f6ef09be8ab29d1998c43361bf111c0",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "c0c35d87670cdd32f982946bcc3b4c61676177ccda95ed7ba12ed4cc0cf62e40",
+        "amount": 50
+      },
+      {
         "height": 77456,
-        "ntime": 1684905893
-      },
-      {
-        "amount": 50,
+        "ntime": 1684905893,
+        "txid": "c0c35d87670cdd32f982946bcc3b4c61676177ccda95ed7ba12ed4cc0cf62e40",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "e29c32fcf5b0704f0d85f8138abdcb84f2d8333f3338cb556867c6dd8a8e1dff",
+        "amount": 50
+      },
+      {
         "height": 77455,
-        "ntime": 1684904923
-      },
-      {
-        "amount": 50,
+        "ntime": 1684904923,
+        "txid": "e29c32fcf5b0704f0d85f8138abdcb84f2d8333f3338cb556867c6dd8a8e1dff",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "fc27d9404118c4a9eae832fd873ff12ed0809f29fdb7bedd66c3bdef7edf772f",
+        "amount": 50
+      },
+      {
         "height": 77454,
-        "ntime": 1684904748
-      },
-      {
-        "amount": 50,
+        "ntime": 1684904748,
+        "txid": "fc27d9404118c4a9eae832fd873ff12ed0809f29fdb7bedd66c3bdef7edf772f",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "9e54837ff90970d4bb852ac46cbe904f73ce309c111bc51c2ec143428c24770e",
+        "amount": 50
+      },
+      {
         "height": 77453,
-        "ntime": 1684904438
-      },
-      {
-        "amount": 50,
+        "ntime": 1684904438,
+        "txid": "9e54837ff90970d4bb852ac46cbe904f73ce309c111bc51c2ec143428c24770e",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "25e66b601eeea99a54b45cbd910b6ec4c485cb39e5389cb80663cd3406ac7bc4",
+        "amount": 50
+      },
+      {
         "height": 77452,
-        "ntime": 1684904348
-      },
-      {
-        "amount": 50,
+        "ntime": 1684904348,
+        "txid": "25e66b601eeea99a54b45cbd910b6ec4c485cb39e5389cb80663cd3406ac7bc4",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "6c63139452ec31ed7de50c229c7da9617144342b4daa49cb2ba18692a889eb76",
+        "amount": 50
+      },
+      {
         "height": 77450,
-        "ntime": 1684904158
-      },
-      {
-        "amount": 50,
+        "ntime": 1684904158,
+        "txid": "6c63139452ec31ed7de50c229c7da9617144342b4daa49cb2ba18692a889eb76",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "2b453cacfe3226547cee55a08d4fe60da5d29dd0e09f18a7b9bb97efde5ba804",
+        "amount": 50
+      },
+      {
         "height": 77446,
-        "ntime": 1684902324
-      },
-      {
-        "amount": 50,
+        "ntime": 1684902324,
+        "txid": "2b453cacfe3226547cee55a08d4fe60da5d29dd0e09f18a7b9bb97efde5ba804",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "0c1b53696852a895a757a08b835b044384138752f32c2ec31e87fb4f85ddc76b",
+        "amount": 50
+      },
+      {
         "height": 77444,
-        "ntime": 1684902199
-      },
-      {
-        "amount": 50,
+        "ntime": 1684902199,
+        "txid": "0c1b53696852a895a757a08b835b044384138752f32c2ec31e87fb4f85ddc76b",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "0e6d7e99e740e7a6ac7042ada8b34461d25030875f0334626f0aa9bb5e6a3c7e",
+        "amount": 50
+      },
+      {
         "height": 77443,
-        "ntime": 1684902159
+        "ntime": 1684902159,
+        "txid": "0e6d7e99e740e7a6ac7042ada8b34461d25030875f0334626f0aa9bb5e6a3c7e",
+        "role": "receiver",
+        "is_coinbase": true,
+        "amount": 50
       }
     ]
   }
