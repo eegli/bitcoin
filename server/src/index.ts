@@ -3,11 +3,13 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '../.env', override: false });
 
 import express from 'express';
+import morgan from 'morgan';
 import blocksRouter from './routes/blocks';
 import addressRouter from './routes/address';
 
 const app = express();
 
+app.use(morgan('common'));
 app.use(express.json());
 app.use(
   express.urlencoded({
