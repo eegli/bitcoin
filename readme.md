@@ -41,9 +41,9 @@ btc-rpc-explorer \
 
 There are two ways to run this project:
 
-1. All-in-one (Docker)
-2. Pre-built database
-3. Manually
+1. [All-in-one (Docker)](#all-in-one-docker-setup)
+2. [Pre-built database](#pre-built-database-setup)
+3. [Manually](#manual-setup)
 
 ## All-In-One Docker Setup
 
