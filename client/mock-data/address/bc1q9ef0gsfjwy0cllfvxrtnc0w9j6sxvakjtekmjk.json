@@ -9,8 +9,7 @@
       "total": 53033
     },
     "filters": {
-      "sent_only": false,
-      "received_only": false,
+      "role": "all",
       "no_coinbase": false
     },
     "transactions": [

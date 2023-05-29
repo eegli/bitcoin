@@ -22,8 +22,7 @@ type GetAddressHistoryResponse = AddressBalance & {
   transactions: AddressTransaction[];
   pagination: Pagination;
   filters: {
-    sent_only: boolean;
-    received_only: boolean;
+    role: string;
     no_coinbase: boolean;
   };
 };
@@ -34,7 +33,7 @@ export const getAddressHistory = async ({
   offset = 0,
   sort = 'desc',
   no_coinbase = false,
-  role = '',
+  role = 'all',
 }: GetAddressHistoryParams): Promise<GetAddressHistoryResponse> => {
   const qbalance = `
   SELECT *
@@ -46,7 +45,7 @@ export const getAddressHistory = async ({
   `;
 
   const qtotal = `
-  SELECT Count(distinct txid) cnt
+  SELECT Count(DISTINCT txid) cnt
   FROM   view_transactions
   WHERE  address = '${address}'
   GROUP  BY address  
@@ -97,10 +96,10 @@ export const getAddressHistory = async ({
                   SELECT DISTINCT height,
                                   ntime,
                                   address,
-                  if(hashprevout = cast(0b00 AS binary(32)), true, false) is_coinbase,
-                  lower(hex(txid)) txid,
+                  IF(hashprevout = CAST(0b00 AS binary(32)), true, false) is_coinbase,
+                  LOWER(hex(txid)) txid,
                   IF(address = '${address}', 'receiver', 'sender') role,
-                  cast(value / 100000000 AS decimal(16, 8)) amount FROM addr_outer)
+                  CAST(value / 100000000 AS decimal(16, 8)) amount FROM addr_outer)
   SELECT *
   FROM   addr_io
   WHERE  address = '${address}'
@@ -143,8 +142,7 @@ export const getAddressHistory = async ({
       total: total[0]?.cnt || 0,
     },
     filters: {
-      sent_only: role === 'sender',
-      received_only: role === 'receiver',
+      role,
       no_coinbase,
     },
     transactions: transactions.map(t => ({
