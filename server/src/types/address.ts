@@ -2,7 +2,7 @@ import { RowDataPacket } from 'mysql2';
 
 // address/:address/ [transactions]
 export interface BaseAddressTransaction {
-  nTime: number;
+  ntime: number;
   height: number;
   txid: string;
   role: 'receiver' | 'sender';

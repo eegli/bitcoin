@@ -1,0 +1,31 @@
+version: '3'
+name: uzh-btc
+services:
+  db:
+    image: eegli/btcsql:0.0.2
+    restart: always
+    env_file: .env
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    expose:
+      - ${DB_PORT}
+    networks:
+      - be
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    environment:
+      - PORT=${API_PORT}
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    networks:
+      - be
+    depends_on:
+      - db
+networks:
+  be:
