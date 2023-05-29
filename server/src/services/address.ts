@@ -21,13 +21,10 @@ type GetAddressHistoryParams = {
 type GetAddressHistoryResponse = AddressBalance & {
   transactions: AddressTransaction[];
   pagination: Pagination;
-<<<<<<< HEAD
-=======
   filters: {
     role: string;
     no_coinbase: boolean;
   };
->>>>>>> 5512add0b3e5315d15b12eb642c5c7194c08d196
 };
 
 export const getAddressHistory = async ({
@@ -53,13 +50,6 @@ export const getAddressHistory = async ({
   GROUP BY address
   UNION
   SELECT 0
-  `;
-
-  const qtotal = `
-  SELECT Count(txid) cnt
-  FROM   view_transactions
-  WHERE  address = '${address}'
-  GROUP  BY address  
   `;
 
   let qtransactions = `
@@ -150,15 +140,11 @@ export const getAddressHistory = async ({
       limit,
       offset,
       sort,
-<<<<<<< HEAD
-      total: total[0]?.cnt || 0,
-=======
       total: total[0].tr_cnt,
     },
     filters: {
       role,
       no_coinbase,
->>>>>>> 5512add0b3e5315d15b12eb642c5c7194c08d196
     },
     transactions: transactions.map(t => ({
       height: t.height,
