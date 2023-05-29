@@ -36,19 +36,20 @@ export const getAddressHistory = async ({
   role = 'all',
 }: GetAddressHistoryParams): Promise<GetAddressHistoryResponse> => {
   const qbalance = `
-  SELECT *
+  SELECT balance
   FROM view_balances
   WHERE address = '${address}'
   UNION
-  SELECT '${address}',
-        0  
+  SELECT 0
   `;
 
   const qtotal = `
-  SELECT Count(DISTINCT txid) cnt
-  FROM   view_transactions
-  WHERE  address = '${address}'
-  GROUP  BY address  
+  SELECT Count(DISTINCT txid) tr_cnt
+  FROM view_transactions
+  WHERE address = '${address}'
+  GROUP BY address
+  UNION
+  SELECT 0
   `;
 
   let qtransactions = `
@@ -97,7 +98,7 @@ export const getAddressHistory = async ({
                                   ntime,
                                   address,
                   IF(hashprevout = CAST(0b00 AS binary(32)), true, false) is_coinbase,
-                  LOWER(hex(txid)) txid,
+                  LOWER(HEX(txid)) txid,
                   IF(address = '${address}', 'receiver', 'sender') role,
                   CAST(value / 100000000 AS decimal(16, 8)) amount FROM addr_outer)
   SELECT *
@@ -139,7 +140,7 @@ export const getAddressHistory = async ({
       limit,
       offset,
       sort,
-      total: total[0]?.cnt || 0,
+      total: total[0].tr_cnt,
     },
     filters: {
       role,
