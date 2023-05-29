@@ -5,48 +5,45 @@
     "pagination": {
       "limit": 30,
       "offset": 0,
-      "sort": "desc"
+      "sort": "desc",
+      "total": 4
+    },
+    "filters": {
+      "role": "all",
+      "no_coinbase": false
     },
     "transactions": [
       {
-        "amount": 50.000367,
-        "role": "receiver",
-        "is_coinbase": true,
+        "height": 77484,
+        "ntime": 1684914706,
         "txid": "bdb0aacd504e683da2ce013c1e423f5ab63b8422ba7a2e1b83ceb0a188ea9ed2",
-        "height": 77484,
-        "ntime": 1684914706
-      },
-      {
-        "amount": 50,
-        "role": "sender",
-        "is_coinbase": false,
-        "txid": "8509ab9051f30faaf1811ea6db09b38f5c6018b00a7fa27bb123003a177b2c91",
-        "height": 77484,
-        "ntime": 1684914706
-      },
-      {
-        "amount": 50,
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "3aba9a11b5405278cef82239ae47ad98ae8249060274ce2549a5f3b0c55f3961",
+        "amount": 50.000367
+      },
+      {
         "height": 77482,
-        "ntime": 1684913922
-      },
-      {
-        "amount": 50,
+        "ntime": 1684913922,
+        "txid": "3aba9a11b5405278cef82239ae47ad98ae8249060274ce2549a5f3b0c55f3961",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "557b83c60c4e527aea18ed2f55c030dfafc749ffb791387c3715ae460b8afc6b",
+        "amount": 50
+      },
+      {
         "height": 77481,
-        "ntime": 1684913897
-      },
-      {
-        "amount": 50,
+        "ntime": 1684913897,
+        "txid": "557b83c60c4e527aea18ed2f55c030dfafc749ffb791387c3715ae460b8afc6b",
         "role": "receiver",
         "is_coinbase": true,
-        "txid": "b52ebe4643a8a87c27eb7ee6f8395cb5a5afdcd63b4d01c9f300cbe234ba7e6b",
+        "amount": 50
+      },
+      {
         "height": 77480,
-        "ntime": 1684913500
+        "ntime": 1684913500,
+        "txid": "b52ebe4643a8a87c27eb7ee6f8395cb5a5afdcd63b4d01c9f300cbe234ba7e6b",
+        "role": "receiver",
+        "is_coinbase": true,
+        "amount": 50
       }
     ]
   }

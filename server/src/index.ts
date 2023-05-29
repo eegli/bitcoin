@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 import express from 'express';
 import blocksRouter from './routes/blocks';
@@ -15,7 +15,7 @@ app.use(
   })
 );
 
-const port = process.env.PORT;
+const port = process.env.API_PORT;
 
 app.get('/version', (_, res) => {
   res.send('1.0.0');

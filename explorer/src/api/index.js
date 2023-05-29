@@ -35,12 +35,14 @@ export default {
         const url = `${path.server_height}${height}`
         return axios.get(url)
     },
-    getAddress(address, offset, limit){
+    getAddress(address, limit, offset, role) {
         const params = new URLSearchParams();
-        params.append('offset', offset);
         params.append('limit', limit);
+        params.append('offset', offset);
+        params.append('role', role);
       
         const url = `${path.server_address}${address}?${params.toString()}`;
-        return axios.get(url)
-    }
+        return axios.get(url);
+      }
+      
 }

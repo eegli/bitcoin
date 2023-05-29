@@ -9,7 +9,7 @@ For local development and testing, we assume that you have a running UZH Bitcoin
 Furthermore:
 
 - Docker
-- A somewhat recent version of Node.js (> 14)
+- (Optional) Node.js >= 16
 - (Optional) Cargo to build Rust binaries
 
 Initial setup:
@@ -39,7 +39,35 @@ btc-rpc-explorer \
 
 # Setup
 
-If you want to use the existing image that includes the preconfigured SQL server with block data, you can skip most of the setup and pull/run the pre-built Docker image directly:
+There are three ways to run this project:
+
+1. [All-in-one (Docker)](#all-in-one-docker-setup) [_recommended_]
+2. [Pre-built database](#pre-built-database-setup)
+3. [Manually](#manual-setup)
+
+## All-In-One Docker Setup
+
+This allows you to run everything (MySQL DB, REST API, FE client) at once using a multi-container setup with Docker Compose.
+
+In the root directory, run:
+
+```sh
+docker-compose up
+```
+
+With the default environment variables (in `.env`), this will:
+
+1. Start a MySQL server on port 3306 with the block data
+2. Start a Node.js REST API on port 8000
+3. Start a Vue client on port 3000
+
+All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:3000`](http://localhost:3000).
+
+## Pre-Built Database Setup
+
+This setup is especially useful for development since the database is static (no updates atm) but the API and client are not (during development).
+
+If you want to use the existing image that includes **only** the MySQL database, populated with block data, you can still skip most of the setup and pull/run the pre-built Docker image directly:
 
 ```sh
 docker run --name=btcsql \
@@ -47,9 +75,9 @@ docker run --name=btcsql \
    -d eegli/btcsql:0.0.2
 ```
 
-Then, start the Node.js server in the `server` folder (see later instructions in [Webserver Setup](#webserver-setup)).
+Note that only running only the database will require you to compile and run the API and FE client locally using Node.js. Once the database is running, you can skip to the [Webserver Setup](#webserver-setup) and [Client Setup](#client-setup) sections.
 
-Finally, start the client in the `client` folder (see later instructions in [Client Setup](#client-setup)).
+## Manual Setup
 
 For the full setup from scratch, proceed with the following steps.
 
@@ -163,7 +191,7 @@ npm run dev
 
 | Resource         | Path                | Description                | Example response                                                                        |
 | ---------------- | ------------------- | -------------------------- | --------------------------------------------------------------------------------------- |
-| Block data       | `/blocks`           | General                    | [Sample JSON](client/mock-data/block.json)                                              |
+| Block data       | `/blocks`           | General                    | [Sample JSON](client/mock-data/blocks.json)                                             |
 | Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON](client/mock-data/blocks/77487.json)                                       |
 | Address data     | `/address/:address` | Address history            | [Sample JSON](client/mock-data/address/bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep.json) |
 
@@ -182,7 +210,7 @@ In addition, `/address/:address` supports the following two query parameters:
 - `role` ("sender" or "receiver") [filter by transaction role for this address]
 - `no_coinbase` (boolean) [exclude coinbase transactions]
 
-As of now, there's no pagination for the transactions of a block (`/blocks/:height`). For the UZH blockchain, this is not an issue, since the blocks are rather small (>= 18 transactions) but a real implementation would need to account for this.
+As of now, there's no pagination for the transactions of a block (`/blocks/:height`). For the UZH blockchain, this is not an issue since the blocks are rather small (all less than 18 transactions) but a real implementation would need to account for this.
 
 ### Testing
 
