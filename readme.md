@@ -39,9 +39,9 @@ btc-rpc-explorer \
 
 # Setup
 
-There are two ways to run this project:
+There are three ways to run this project:
 
-1. [All-in-one (Docker)](#all-in-one-docker-setup)
+1. [All-in-one (Docker)](#all-in-one-docker-setup) [_recommended_]
 2. [Pre-built database](#pre-built-database-setup)
 3. [Manually](#manual-setup)
 
@@ -61,7 +61,7 @@ With the default environment variables (in `.env`), this will:
 2. Start a Node.js REST API on port 8000
 3. Start a Vue client on port 3000
 
-All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`).
+All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:3000`](http://localhost:3000).
 
 ## Pre-Built Database Setup
 
