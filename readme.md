@@ -9,7 +9,7 @@ For local development and testing, we assume that you have a running UZH Bitcoin
 Furthermore:
 
 - Docker
-- A somewhat recent version of Node.js (> 14)
+- (Optional) Node.js >= 16
 - (Optional) Cargo to build Rust binaries
 
 Initial setup:
@@ -39,7 +39,35 @@ btc-rpc-explorer \
 
 # Setup
 
-If you want to use the existing image that includes the preconfigured SQL server with block data, you can skip most of the setup and pull/run the pre-built Docker image directly:
+There are two ways to run this project:
+
+1. All-in-one (Docker)
+2. Pre-built database
+3. Manually
+
+## All-In-One Docker Setup
+
+This allows you to run everything (MySQL DB, REST API, FE client) at once using a multi-container setup with Docker Compose.
+
+In the root directory, run:
+
+```sh
+docker-compose up
+```
+
+With the default environment variables (in `.env`), this will:
+
+1. Start a MySQL server on port 3306 with the block data
+2. Start a Node.js REST API on port 8000
+3. Start a Vue client on port 3000
+
+All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`).
+
+## Pre-Built Database Setup
+
+This setup is especially useful for development since the database is static (no updates atm) but the API and client are not (during development).
+
+If you want to use the existing image that includes **only** the MySQL database, populated with block data, you can still skip most of the setup and pull/run the pre-built Docker image directly:
 
 ```sh
 docker run --name=btcsql \
@@ -47,9 +75,9 @@ docker run --name=btcsql \
    -d eegli/btcsql:0.0.2
 ```
 
-Then, start the Node.js server in the `server` folder (see later instructions in [Webserver Setup](#webserver-setup)).
+Note that only running only the database will require you to compile and run the API and FE client locally using Node.js. Once the database is running, you can skip to the [Webserver Setup](#webserver-setup) and [Client Setup](#client-setup) sections.
 
-Finally, start the client in the `client` folder (see later instructions in [Client Setup](#client-setup)).
+## Manual Setup
 
 For the full setup from scratch, proceed with the following steps.
 
