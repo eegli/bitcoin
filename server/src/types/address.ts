@@ -5,12 +5,12 @@ export interface BaseAddressTransaction {
   ntime: number;
   height: number;
   txid: string;
-  role: 'receiver' | 'sender';
 }
 
 export interface AddressTransaction extends BaseAddressTransaction {
   amount: number;
   is_coinbase: boolean;
+  role: 'receiver' | 'sender';
 }
 
 export interface RawAddressTransaction
@@ -18,6 +18,7 @@ export interface RawAddressTransaction
     BaseAddressTransaction {
   amount: string;
   is_coinbase: number;
+  role: 'r' | 's';
 }
 
 interface BaseAddressBalance {

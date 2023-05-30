@@ -44,72 +44,54 @@ export const getAddressHistory = async ({
   `;
 
   const qtotal = `
-  SELECT Count(DISTINCT txid) tr_cnt
-  FROM view_transactions
-  WHERE address = '${address}'
-  GROUP BY address
+  SELECT COUNT(DISTINCT (t1.txid)) tr_cnt
+  FROM view_transactions_ext t1
+           LEFT JOIN view_transactions_ext t2 ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
+  WHERE t1.address = '${address}'
+     OR t2.address = '${address}'
   UNION
   SELECT 0
   `;
 
+  // TODO make left join instead of full join
   let qtransactions = `
-  WITH full_transactions AS
-  (
-         SELECT b.hash,
-                b.height,
-                b.ntime,
-                i.hashprevout,
-                i.indexprevout,
-                t.txid,
-                o.indexout,
-                o.address,
-                o.value
-         FROM   blocks b
-         JOIN   transactions t
-         ON     b.hash = t.hashblock
-         JOIN   tx_in i
-         ON     t.txid = i.txid
-         JOIN   tx_out o
-         ON     i.txid = o.txid), addr_outer AS
-  (
-            SELECT    t1.height,
-                      t1.ntime,
-                      t1.txid,
-                      t1.address,
-                      t1.value,
-                      t1.hashprevout
-            FROM      full_transactions t1
-            LEFT JOIN full_transactions t2
-            ON        t1.hashprevout = t2.txid
-            AND       t1.indexprevout = t2.indexout
-            UNION
-            SELECT    t1.height,
-                      t1.ntime,
-                      t1.txid,
-                      t1.address,
-                      t1.value,
-                      t1.hashprevout
-            FROM      full_transactions t1
-            LEFT JOIN full_transactions t2
-            ON        t1.hashprevout = t2.txid
-            AND       t1.indexprevout = t2.indexout), addr_io AS
-  (
-                  SELECT DISTINCT height,
-                                  ntime,
-                                  address,
-                  IF(hashprevout = CAST(0b00 AS binary(32)), true, false) is_coinbase,
-                  LOWER(HEX(txid)) txid,
-                  IF(address = '${address}', 'receiver', 'sender') role,
-                  CAST(value / 100000000 AS decimal(16, 8)) amount FROM addr_outer)
-  SELECT *
-  FROM   addr_io
-  WHERE  address = '${address}'
+  WITH addr_io AS (SELECT t1.height,
+    t1.txid,
+    t1.address,
+    t1.value,
+    IF(t2.hashprevout IS NULL, TRUE, FALSE) is_coinbase,
+    'r'                                     role
+  FROM view_transactions_ext t1
+        LEFT JOIN view_transactions_ext t2
+                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
+  UNION
+  SELECT t1.height,
+      t1.txid,
+      t2.address,
+      AVG(t2.value),
+      FALSE,
+      's'               role
+  FROM view_transactions_ext t1
+        LEFT JOIN view_transactions_ext t2
+                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
+  GROUP BY t1.height, t1.txid, t2.address, FALSE, 's')
+
+
+  SELECT a.height,
+  ntime,
+  LOWER(HEX(txid))                          txid,
+  is_coinbase,
+  CAST(value / 100000000 AS DECIMAL(16, 8)) amount,
+  role
+  FROM addr_io a
+  JOIN blocks b ON a.height = b.height
+  WHERE address = '${address}'
  `;
 
   if (role === 'receiver') {
-    qtransactions += ` AND role = 'receiver'`;
+    qtransactions += ` AND role = 'r'`;
   } else if (role === 'sender') {
-    qtransactions += ` AND role = 'sender'`;
+    qtransactions += ` AND role = 's'`;
   }
 
   if (no_coinbase) {
@@ -117,7 +99,7 @@ export const getAddressHistory = async ({
   }
 
   if (sort === 'asc' || sort === 'desc') {
-    qtransactions += ` ORDER BY height ${sort}`;
+    qtransactions += ` ORDER BY a.height ${sort}`;
   }
   if (limit > 0) {
     limit = Math.min(limit, 100);
@@ -150,7 +132,7 @@ export const getAddressHistory = async ({
       height: t.height,
       ntime: t.ntime,
       txid: t.txid,
-      role: t.role,
+      role: t.role === 'r' ? 'receiver' : 'sender',
       is_coinbase: t.is_coinbase === 1,
       amount: parseFloat(t.amount),
     })),
