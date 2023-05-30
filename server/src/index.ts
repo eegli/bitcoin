@@ -26,6 +26,11 @@ app.get('/version', (_, res) => {
 app.use(blocksRouter);
 app.use(addressRouter);
 
+app.use((_, res, next) => {
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  return next();
+});
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
