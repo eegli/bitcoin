@@ -72,7 +72,7 @@ If you want to use the existing image that includes **only** the MySQL database,
 ```sh
 docker run --name=btcsql \
    -p 3306:3306 \
-   -d eegli/btcsql:0.0.2
+   -d eegli/btcsql:0.0.3
 ```
 
 Note that only running only the database will require you to compile and run the API and FE client locally using Node.js. Once the database is running, you can skip to the [Webserver Setup](#webserver-setup) and [Client Setup](#client-setup) sections.
