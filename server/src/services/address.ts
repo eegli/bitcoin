@@ -87,7 +87,6 @@ export const getAddressHistory = async ({
   FROM addr_io a
   JOIN blocks b ON a.height = b.height
   WHERE address = '${address}'
-  GROUP BY a.height, ntime, txid, address, is_coinbase, role
  `;
 
   if (role === 'receiver') {
@@ -99,6 +98,10 @@ export const getAddressHistory = async ({
   if (no_coinbase) {
     qtransactions += ` AND is_coinbase = false`;
   }
+
+  qtransactions += `
+  GROUP BY a.height, ntime, txid, address, is_coinbase, role
+  `;
 
   if (sort === 'asc' || sort === 'desc') {
     qtransactions += ` ORDER BY a.height ${sort}`;
