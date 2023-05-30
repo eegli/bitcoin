@@ -228,9 +228,9 @@ Since the UZH blockchain is rather sparse in terms of transactions, the followin
 
 Along with the following addresses:
 
+- `bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3`
 - `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
 - `bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep`
-- `bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3`
 - `bc1quwf6mgkug469jgzm8flrz39c7d3uqr6wseuh6w`
 
 E.g., with a running server (and Python installed for pretty-printing):

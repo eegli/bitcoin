@@ -58,6 +58,7 @@ export const getAddressHistory = async ({
   WITH addr_io AS (SELECT t1.height,
     t1.txid,
     t1.address,
+    t1.hashprevout,
     t1.value,
     IF(t2.hashprevout IS NULL, TRUE, FALSE) is_coinbase,
     'r'                                     role
@@ -68,24 +69,25 @@ export const getAddressHistory = async ({
   SELECT t1.height,
       t1.txid,
       t2.address,
-      AVG(t2.value),
+      t1.hashprevout,
+      t2.value,
       FALSE,
-      's'               role
+      's' role
   FROM view_transactions_ext t1
         LEFT JOIN view_transactions_ext t2
-                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
-  GROUP BY t1.height, t1.txid, t2.address, FALSE, 's')
+                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout)
 
 
   SELECT a.height,
   ntime,
-  LOWER(HEX(txid))                          txid,
+  LOWER(HEX(txid))                               txid,
+  CAST(SUM(value) / 100000000 AS DECIMAL(16, 8)) amount,
   is_coinbase,
-  CAST(value / 100000000 AS DECIMAL(16, 8)) amount,
   role
   FROM addr_io a
   JOIN blocks b ON a.height = b.height
   WHERE address = '${address}'
+  GROUP BY a.height, ntime, txid, address, is_coinbase, role
  `;
 
   if (role === 'receiver') {
