@@ -203,7 +203,7 @@ Both `/address/:address` and `/blocks` support basic filtering and pagination. T
 - `offset` (int) [how many items to skip]
 - `sort` ("asc" or "desc") [sort order]
 
-Both endpoints have sensible defaults (`asc` sort, limit `30`, offset `0`) and do not support a limit > 100.
+Both endpoints have sensible defaults (sort `desc`, limit `30`, offset `0`) and do not support a `limit` > 100.
 
 In addition, `/address/:address` supports the following two query parameters:
 
