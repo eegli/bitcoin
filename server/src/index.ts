@@ -31,6 +31,15 @@ app.use((_, res, next) => {
   return next();
 });
 
+app.get('*', (_, res) => {
+  res.status(404).send({
+    error: {
+      message: 'Not Found',
+      status: 404,
+    },
+  });
+});
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });

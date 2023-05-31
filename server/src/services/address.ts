@@ -53,7 +53,6 @@ export const getAddressHistory = async ({
   SELECT 0
   `;
 
-  // TODO make left join instead of full join
   let qtransactions = `
   WITH addr_io AS (SELECT t1.height,
     t1.txid,
@@ -79,14 +78,16 @@ export const getAddressHistory = async ({
 
 
   SELECT a.height,
-  ntime,
-  LOWER(HEX(txid))                               txid,
-  CAST(SUM(value) / 100000000 AS DECIMAL(16, 8)) amount,
-  is_coinbase,
-  role
+  b.ntime,
+  LOWER(HEX(a.txid))                               txid,
+  CAST(SUM(a.value) / 100000000 AS DECIMAL(16, 8)) amount,
+  a.is_coinbase,
+  a.role,
+  IF(t.unspent = b'01', TRUE, FALSE)               unspent
   FROM addr_io a
   JOIN blocks b ON a.height = b.height
-  WHERE address = '${address}'
+  LEFT JOIN tx_out t ON a.txid = t.txid AND a.address = t.address
+  WHERE a.address = '${address}'
  `;
 
   if (role === 'receiver') {
@@ -100,7 +101,7 @@ export const getAddressHistory = async ({
   }
 
   qtransactions += `
-  GROUP BY a.height, ntime, txid, address, is_coinbase, role
+  GROUP BY a.height, b.ntime, a.txid, a.address, a.is_coinbase, a.role, t.unspent
   `;
 
   if (sort === 'asc' || sort === 'desc') {
@@ -140,6 +141,7 @@ export const getAddressHistory = async ({
       role: t.role === 'r' ? 'receiver' : 'sender',
       is_coinbase: t.is_coinbase === 1,
       amount: parseFloat(t.amount),
+      unspent: t.unspent === 1,
     })),
   };
 };
