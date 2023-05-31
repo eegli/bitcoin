@@ -45,8 +45,8 @@ export const getAddressHistory = async ({
 
   const qtotal = `
   SELECT COUNT(DISTINCT (t1.txid)) tr_cnt
-  FROM view_transactions_ext t1
-           LEFT JOIN view_transactions_ext t2 ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
+  FROM view_transactions t1
+           LEFT JOIN view_transactions t2 ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
   WHERE t1.address = '${address}'
      OR t2.address = '${address}'
   UNION
@@ -61,8 +61,8 @@ export const getAddressHistory = async ({
     t1.value,
     IF(t2.hashprevout IS NULL, TRUE, FALSE) is_coinbase,
     'r'                                     role
-  FROM view_transactions_ext t1
-        LEFT JOIN view_transactions_ext t2
+  FROM view_transactions t1
+        LEFT JOIN view_transactions t2
                   ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
   UNION
   SELECT t1.height,
@@ -72,8 +72,8 @@ export const getAddressHistory = async ({
       t2.value,
       FALSE,
       's' role
-  FROM view_transactions_ext t1
-        LEFT JOIN view_transactions_ext t2
+  FROM view_transactions t1
+        LEFT JOIN view_transactions t2
                   ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout)
 
 
