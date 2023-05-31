@@ -2,7 +2,7 @@ version: '3'
 name: uzh-btc
 services:
   db:
-    image: eegli/btcsql:0.0.3
+    image: eegli/btcsql:0.0.4
     restart: always
     env_file: .env
     ports:
