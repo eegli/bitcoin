@@ -5,7 +5,8 @@ import 'vue-loading-overlay/dist/css/index.css';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from 'axios'
-import router from "./router"
+// import router from "./router"
+import router from "./api/router.js"
 
 
 const app = createApp(App);

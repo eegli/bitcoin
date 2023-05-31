@@ -253,5 +253,43 @@ curl -G http://localhost:8000/address/bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk
 ```
 
 ## Client Setup
+This setup is help to build and initialize a vue3 framewoork and open our website on your computer.
+## Frontend Framework
+Vue3: An approachable, performant and versatile framework for building web user interfaces.
+## Prerequisites
+- Node.js version 16.0 or later installed
+- "dependencies": {
+      "axios": "^1.4.0",
+      "element-plus": "^2.3.5",
+      "swiper": "^8.1.6",
+      "vue": "^3.3.2",
+      "vue-router": "^4.2.1",
+      "vue-loading-overlay"
+   }
 
-TODO
+  ```sh
+  npm install -save packagename
+  ```
+
+## Explorer Setup
+```sh
+cd explorer \
+npm install \ 
+npm run dev
+```
+Then copy the web link to any explorer. Usually it is http://localhost:5173/. 
+
+The configuration is necessary when making cross-origin requests from a web application to a server, add the below code in server route files:
+```sh
+res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+```
+## Description of Folder Contents
+- /public: store test data.
+- /src/api: store router and address, handle system corresponding.
+- /src/assets: store open source resource(existing when download)
+- /src/components: store main father webpages.
+- /src/pages: store child pages, the components of father pages.
+- /App.vue: the root component.
+- /main.js: is responsible for initializing the Vue application and mounting it to the DOM.
