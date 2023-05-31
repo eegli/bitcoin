@@ -1,6 +1,7 @@
 <!-- TransactionsList.vue -->
 
 <template>
+  <loading :active='isLoading' :is-full-page="fullPage" :loader='loader' />
   <div class="title">
     Coinbase Transaction
   </div>
@@ -80,39 +81,48 @@
   
 <script>
 import api from "../api/index";
+
   
-  export default {
-    data() {
-      return {
-        block: null,
-      };
+export default {
+  data() {
+    return {
+      block: null,
+      isLoading: false,
+      fullPage: false,
+      loader: 'bars'
+    };
+  },
+  mounted() {
+    this.fetchBlock();
+  },
+  methods: {
+    // fetchBlock() {
+    //   const height = this.$route.params.height;
+    //   api.getTransactionTest(height)
+    //     .then(response => {
+    //       this.block = response.data.data[0];
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // },
+    fetchBlock() {
+      this.isLoading = true;
+
+      const height = this.$route.params.height;
+      api.getTransaction(height)
+        .then(response => {
+          this.block = response.data.data[0];
+          this.isLoading = false;
+
+        })
+        .catch(error => {
+          console.log(error);
+          this.loading = false;
+        });
     },
-    mounted() {
-      this.fetchBlock();
-    },
-    methods: {
-      // fetchBlock() {
-      //   const height = this.$route.params.height;
-      //   api.getTransactionTest(height)
-      //     .then(response => {
-      //       this.block = response.data.data[0];
-      //     })
-      //     .catch(error => {
-      //       console.log(error);
-      //     });
-      // },
-      fetchBlock() {
-        const height = this.$route.params.height;
-        api.getTransaction(height)
-          .then(response => {
-            this.block = response.data.data[0];
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      },
-    },
-  };
+  },
+};
 </script>
   
 <style scoped>

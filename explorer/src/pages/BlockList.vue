@@ -1,6 +1,7 @@
 <!-- BlockList.vue -->
 
 <template>
+    <loading :active='isLoading' :is-full-page="fullPage" :loader='loader' />
     <div class="blocklist">
         <el-row justify="center" class="search">
             <el-input v-model="searchNumber" placeholder="Insert Block Height" @keyup.enter="goToBlock" />
@@ -62,6 +63,7 @@
 
 <script>
 import api from "../api/index"
+import { ElMessage } from 'element-plus'
 
 export default {
     data(){
@@ -75,6 +77,9 @@ export default {
             displayedBlocks:[],
             previousOffset: 0,
             previousLimit: 30,
+            isLoading: false,
+            fullPage: false,
+            loader: 'bars'
         };
     },
     mounted(){
@@ -95,6 +100,8 @@ export default {
         //     // });
 
         fetchBlocks() {
+            this.isLoading = true;
+
             const offset = this.previousOffset + this.previousLimit;
             const limit = this.pageSize;
 
@@ -105,9 +112,12 @@ export default {
                     this.previousOffset = offset;
                     this.previousLimit = limit;
                     this.updateDisplayedBlocks();
+
+                    this.isLoading = false;
                 })
                 .catch(error => {
                     console.log(error);
+                    this.isLoading = false;
                 });
         },
 
@@ -125,9 +135,13 @@ export default {
         goToBlock() {
             const number = parseInt(this.searchNumber);
             if (!isNaN(number)) {
-                this.$router.push({ name: 'transactions', params: { height: number } });
+                if (number > this.total) {
+                    ElMessage.error('Block does not exit');
+                } else {
+                    this.$router.push({ name: 'transactions', params: { height: number } });
+                }
             } else {
-                console.log('please insert a number');
+                ElMessage.error('please insert a number');
             }
         },
 

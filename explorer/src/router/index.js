@@ -13,12 +13,16 @@ const routes = [
     {
         path: '/transactions/:height',
         name: 'transactions',
-        component: Transactions
+        // component: Transactions,
+        component: () => 
+        import('../components/Transactions.vue')
     },
     {
         path: '/address/:address',
         name: 'address',
-        component: Address
+        // component: Address,
+        component: () =>
+        import('../components/Address.vue')
     }
 ]
 

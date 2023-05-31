@@ -2,6 +2,7 @@
     <div class="address">
         <h3>Balance: {{ balance }}</h3>
         <h3>Transactions:</h3>
+        <loading :active='isLoading' :is-full-page="fullPage" :loader='loader' />
         <el-row>
             <el-col :span="6">
             <el-select v-model="roles" placeholder="Select Role">
@@ -63,6 +64,9 @@ export default {
             previousOffset: 0,
             previousLimit: 30,
             roles: '',
+            isLoading: false,
+            fullPage: false,
+            loader: "bars"
         };
     },
     mounted() {
@@ -70,6 +74,7 @@ export default {
     },
     methods: {
         fetchAddress() {
+            this.isLoading = true;
             const address = this.$route.params.address;
             const offset = this.previousOffset;
             const limit = this.previousLimit;
@@ -84,9 +89,12 @@ export default {
                     this.previousLimit = limit;
 
                     this.updateDisplayedTransactions();
+
+                    this.isLoading = false;
                 })
                 .catch(error => {
                     console.log(error);
+                    this.isLoading = false
                 });
         },
 
