@@ -75,12 +75,10 @@ export const getAddressHistory = async ({
   FROM view_transactions t1
         LEFT JOIN view_transactions t2
                   ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout)
-
-
   SELECT a.height,
   b.ntime,
   LOWER(HEX(a.txid))                               txid,
-  CAST(SUM(a.value) / 100000000 AS DECIMAL(16, 8)) amount,
+  CAST(AVG(a.value) / 100000000 AS DECIMAL(16, 8)) amount,
   a.is_coinbase,
   a.role,
   IF(t.unspent = b'01', TRUE, FALSE)               unspent

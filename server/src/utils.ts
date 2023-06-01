@@ -25,11 +25,12 @@ export function mapBlockTransactions(
 ): BlockTransactions {
   const tx = _tx.map(t => ({
     ...t,
-    to_addr: t.to_addr || 'OP_RETURN',
+    to_addr: t.to_addr || '',
   }));
   let coinbaseTxid = '';
   const coinbase: CoinbaseTransaction[] = tx
-    .filter(t => t.from_addr === null)
+    // TODO maybe improve this
+    .filter(t => t.from_addr === null && t.to_addr !== '')
     .sort((a, b) => a.to_idxout - b.to_idxout)
     .map(t => {
       coinbaseTxid = t.curr_txid;
