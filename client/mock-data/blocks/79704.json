@@ -1,0 +1,27 @@
+{
+  "data": [
+    {
+      "id": 131598,
+      "hash": "00000000f335673296173ad4a580b20ad6ab502aae4305665fa6836c550f94ec",
+      "height": 79704,
+      "version": 536870912,
+      "blocksize": 250,
+      "hashprev": "00000000da4d03bcf850db5d344df44a5e36fba35661b73617683db8ff430c16",
+      "hashmerkleroot": "9e72c57b879cd7cc0d5527e9fb3051f51663f90e37b213f27a6a3ae04d7b2284",
+      "ntime": 1685595244,
+      "nbits": 486604799,
+      "nnonce": 39336193,
+      "coinbase": {
+        "txid": "9e72c57b879cd7cc0d5527e9fb3051f51663f90e37b213f27a6a3ae04d7b2284",
+        "outputs": [
+          {
+            "to_addr": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
+            "output_amount": 5e-7,
+            "idx": 0
+          }
+        ]
+      },
+      "transactions": []
+    }
+  ]
+}

@@ -96,32 +96,19 @@ export const getBlock = async ({
   }
   const block = blocks[0];
   const tq = `
-  WITH trans
-  AS (SELECT t.hashblock,
-             t.txid,
-             i.hashprevout,
-             i.indexprevout,
-             o.indexout,
-             o.VALUE,
-             o.address
-        FROM transactions t
-             JOIN tx_in i
-               ON t.txid = i.txid
-             JOIN tx_out o
-               ON t.txid = o.txid)
   SELECT LOWER(HEX(t1.txid))                                       curr_txid,
-      LOWER(HEX(t1.hashprevout))                                prev_txid,
-      t1.indexout                                               to_idxout,
-      CAST(t1.VALUE / 100000000 AS DECIMAL(16, 8))              output_amount,
-      t1.address                                                to_addr,
-      COALESCE(t2.indexout, 0)                                  from_idxout,
-      COALESCE(CAST(t2.VALUE / 100000000 AS DECIMAL(16, 8)), 0) input_amount,
-      t2.address                                                from_addr
-  FROM trans t1
-      LEFT JOIN trans t2
-            ON t1.hashprevout = t2.txid
-                AND t1.indexprevout = t2.indexout
-  WHERE t1.hashblock = x'${block.hash}'  
+  LOWER(HEX(t1.hashprevout))                                prev_txid,
+  t1.indexout                                               to_idxout,
+  CAST(t1.value / 100000000 AS DECIMAL(16, 8))              output_amount,
+  t1.address                                                to_addr,
+  COALESCE(t2.indexout, 0)                                  from_idxout,
+  COALESCE(CAST(t2.value / 100000000 AS DECIMAL(16, 8)), 0) input_amount,
+  t2.address                                                from_addr
+  FROM view_transactions t1
+      LEFT JOIN view_transactions t2
+                ON t1.hashprevout = t2.txid
+                    AND t1.indexprevout = t2.indexout
+  WHERE t1.height = ${block.height}
   `;
 
   const [_transactions] = await db

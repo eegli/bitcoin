@@ -1,0 +1,27 @@
+{
+  "data": {
+    "address": "bc1q02q5afwjfwn8gxh6fapl5qnvukvn6jjyrvqvu8",
+    "balance": 19.509521,
+    "pagination": {
+      "limit": 30,
+      "offset": 0,
+      "sort": "desc",
+      "total": 1
+    },
+    "filters": {
+      "role": "all",
+      "no_coinbase": false
+    },
+    "transactions": [
+      {
+        "height": 79709,
+        "ntime": 1685596472,
+        "txid": "642248c09c262df047fc1ab08035335d3d6b30050abe0150724f3dcb7303e8e7",
+        "role": "receiver",
+        "is_coinbase": false,
+        "amount": 19.509521,
+        "unspent": true
+      }
+    ]
+  }
+}

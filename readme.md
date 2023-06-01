@@ -59,7 +59,7 @@ With the default environment variables (in `.env`), this will:
 
 1. Start a MySQL server on port 3306 with the block data
 2. Start a Node.js REST API on port 8000
-3. Start a Vue client on port 3000
+3. Start a Vue client on port 3000 (TODO)
 
 All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:3000`](http://localhost:3000).
 
@@ -72,7 +72,7 @@ If you want to use the existing image that includes **only** the MySQL database,
 ```sh
 docker run --name=btcsql \
    -p 3306:3306 \
-   -d eegli/btcsql:0.0.2
+   -d eegli/btcsql:0.0.5
 ```
 
 Note that only running only the database will require you to compile and run the API and FE client locally using Node.js. Once the database is running, you can skip to the [Webserver Setup](#webserver-setup) and [Client Setup](#client-setup) sections.
@@ -203,7 +203,7 @@ Both `/address/:address` and `/blocks` support basic filtering and pagination. T
 - `offset` (int) [how many items to skip]
 - `sort` ("asc" or "desc") [sort order]
 
-Both endpoints have sensible defaults (`asc` sort, limit `30`, offset `0`) and do not support a limit > 100.
+Both endpoints have sensible defaults (sort `desc`, limit `30`, offset `0`) and do not support a `limit` > 100.
 
 In addition, `/address/:address` supports the following two query parameters:
 
@@ -224,13 +224,14 @@ Since the UZH blockchain is rather sparse in terms of transactions, the followin
 | 14513  | 4                   |
 | 17076  | 3                   |
 | 10600  | 2 (multiple inputs) |
+| 77484  | 2 (multiple inputs) |
 
 Along with the following addresses:
 
-- `bc1q39waylre62fwrnff7n637c9yyh0jdaealr9d3g`
-- `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
-- `bc1qdfvx7x0d4hxmwsndr4xvykv08exlfdz05lgz34qggl`
+- `bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3`
 - `bc1qzf5tqh0kaqnv4859k28axyqlc7j57z5ngshzua`
+- `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
+- `bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep`
 - `bc1quwf6mgkug469jgzm8flrz39c7d3uqr6wseuh6w`
 
 E.g., with a running server (and Python installed for pretty-printing):
