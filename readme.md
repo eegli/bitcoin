@@ -72,7 +72,7 @@ If you want to use the existing image that includes **only** the MySQL database,
 ```sh
 docker run --name=btcsql \
    -p 3306:3306 \
-   -d eegli/btcsql:0.0.4
+   -d eegli/btcsql:0.0.5
 ```
 
 Note that only running only the database will require you to compile and run the API and FE client locally using Node.js. Once the database is running, you can skip to the [Webserver Setup](#webserver-setup) and [Client Setup](#client-setup) sections.
@@ -229,6 +229,7 @@ Since the UZH blockchain is rather sparse in terms of transactions, the followin
 Along with the following addresses:
 
 - `bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3`
+- `bc1qzf5tqh0kaqnv4859k28axyqlc7j57z5ngshzua`
 - `bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk`
 - `bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep`
 - `bc1quwf6mgkug469jgzm8flrz39c7d3uqr6wseuh6w`

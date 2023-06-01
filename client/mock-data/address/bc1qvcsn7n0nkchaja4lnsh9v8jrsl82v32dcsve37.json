@@ -1,12 +1,12 @@
 {
   "data": {
     "address": "bc1qvcsn7n0nkchaja4lnsh9v8jrsl82v32dcsve37",
-    "balance": 469100.0000141,
+    "balance": 497600.0000141,
     "pagination": {
       "limit": 30,
       "offset": 0,
       "sort": "desc",
-      "total": 9382
+      "total": 9952
     },
     "filters": {
       "role": "all",
@@ -14,244 +14,274 @@
     },
     "transactions": [
       {
-        "height": 77485,
-        "ntime": 1684914968,
-        "txid": "ed944e7cdc9e219b15e870afc98f09274a11a875b45ca24e1cc9253a7df7afaa",
+        "height": 79712,
+        "ntime": 1685597024,
+        "txid": "6dd6710cc3d4a7e013ecdfd5cb72fd4d837bddeea2ca83c6b28325334b30f743",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77473,
-        "ntime": 1684910945,
-        "txid": "de23ec9511b18ff4b3c242f489f68049a476eddd03900f69aed0c2e6bb8f508c",
+        "height": 79705,
+        "ntime": 1685595293,
+        "txid": "c2551fe5c76ceaec0dbdadaa4c0634f6a6fb3796a69ee4fb66276c9277e265d0",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77472,
-        "ntime": 1684910615,
-        "txid": "ded3931cc679215a131705c6e2b4b77a333427ee0a172e04031c162a257ca3d1",
+        "height": 79702,
+        "ntime": 1685593639,
+        "txid": "1095c125dc3074bf5384ec1ecf15565c139277987ce0239255e6596126eb917d",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77469,
-        "ntime": 1684909755,
-        "txid": "c50f92f6bb4a8f2c8c80ba5d35654da50bfc897f51e03f7893a2b2c4cdfe440d",
+        "height": 79701,
+        "ntime": 1685593369,
+        "txid": "293acf018933906429f6ec26c4dae6401ec5419dc8ad648c444d019ce8bd90db",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77464,
-        "ntime": 1684907455,
-        "txid": "8bc27b96b181faf07e632bcca44b9ea41c7b3b02c6838ce108f2a07b00660952",
+        "height": 79700,
+        "ntime": 1685593100,
+        "txid": "bffeb0dac9b7c6e21ad86fb02b891ec0a8270ab272829bfba02668ec309987e7",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77462,
-        "ntime": 1684906828,
-        "txid": "a69b2017a153faeced521992863b4fc6c5d56596b8cf846e04055acce81ba1e1",
+        "height": 79698,
+        "ntime": 1685591735,
+        "txid": "10149cbad5426264e00abba2ded4cb5a90f0876791e4c236e498b4a5f59aa4a6",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77459,
-        "ntime": 1684906473,
-        "txid": "00c47c8a044ce4e25647f0483871766832678ec994e4ad75a0cf837cfa0cb061",
+        "height": 79695,
+        "ntime": 1685590735,
+        "txid": "71a7307faaadc34e9760bf6f89c7c3ca27cbe1d2157cdc064deb08fc1279f69f",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77451,
-        "ntime": 1684904266,
-        "txid": "422ab24187922a14955d72080f778f99f1ce4e6985f26ac4c822c41d4635e43d",
+        "height": 79690,
+        "ntime": 1685588897,
+        "txid": "01e0f6e4f5c44c80e2aa290e72c4885e45dcada316a936943131c4b2a6b7b340",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77449,
-        "ntime": 1684903528,
-        "txid": "c5cd520e5f94d1b39e56fb3d42a8ec474e1f90cbbf113ba74bc626e70c440da1",
+        "height": 79677,
+        "ntime": 1685586402,
+        "txid": "38c53b3f59678d4bbcab1296c3252faa8e4dfcb2132fc589b69513dbc7b27739",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77448,
-        "ntime": 1684902853,
-        "txid": "8798999774abfe2100fa22e600b3b3cf246b2a34e4d0ededf29864f36c6eb87c",
+        "height": 79676,
+        "ntime": 1685586207,
+        "txid": "4ee57f401a0ec293136d075ad510813734b6c4384a78e84e0dd8a208f0e6d8b2",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77447,
-        "ntime": 1684902688,
-        "txid": "28833db6f1924bcb3d7a9f718e43bcc6555be1ab400467e74caea080e48333c4",
+        "height": 79670,
+        "ntime": 1685584962,
+        "txid": "1ea51eba302f1de49546d00b397f35b45f64aea0aae593d749f9b0d17ab4fbe9",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77445,
-        "ntime": 1684902243,
-        "txid": "0d95c9ce49b44140b92f9bf1c93ceec4d21477b8f0c1ae394acabcdcdebcf3f2",
+        "height": 79666,
+        "ntime": 1685584406,
+        "txid": "d4eaee527f7b380b90ea801844d0ae0243cf1d927ddeca1d4f3ac4e43116970d",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77442,
-        "ntime": 1684902117,
-        "txid": "fccc91aaea05aba07a5960788523c0cc5f554daba34de35ee1e2a69c93d29b35",
+        "height": 79665,
+        "ntime": 1685584107,
+        "txid": "2b12cbf7e8d015ef23f76edfc9541cda5e373644ecd15d38a2d93e4b1616cca0",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77441,
-        "ntime": 1684901766,
-        "txid": "1efc1edbb0083becf585ad66dfd6f4dad55d99a5d9e5459e1c665550ae0fe810",
+        "height": 79662,
+        "ntime": 1685582773,
+        "txid": "53ee5baf75eb19ebcef2bbd08f81e6603c42a94b7c6211a4ef3dee6f942ef9b7",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77439,
-        "ntime": 1684901478,
-        "txid": "03961e048ef78bf3d914f86273eb694f10fafc19839fa214d53ee0f05816b53f",
+        "height": 79660,
+        "ntime": 1685581481,
+        "txid": "7c2ab10f98d8ff684db8e51cf93b190476706a5e699f255a80d1669b924096ea",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77436,
-        "ntime": 1684899868,
-        "txid": "030f3a22951cb1f348827dd60ee33dfe11fb848da567690029578c979161f9a3",
+        "height": 79658,
+        "ntime": 1685580415,
+        "txid": "5088bea3d6a05ab8ebde0c25bef57df2b30e42c34029c881c5a83b2c70d70d39",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77431,
-        "ntime": 1684898479,
-        "txid": "bbeb6e565786fbf1875eb9c7b2e216e467ce688125d6beee9e3c4b801effbea3",
+        "height": 79656,
+        "ntime": 1685580192,
+        "txid": "c53f22e293f7a5102a376859c42efbb64f8c896d2c27d35acc7cd04bbb710c9c",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77429,
-        "ntime": 1684898171,
-        "txid": "19dd363dba99020259518990941ad48ea607f2f2b73df2fdff5a4a648dd0e9bc",
+        "height": 79654,
+        "ntime": 1685579021,
+        "txid": "fbe7d86f1e2b12d499a8ddeda833299f80960d730ed73ed7144acd728fe28ff2",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77428,
-        "ntime": 1684897901,
-        "txid": "5da265230e0be093768dcbec65ce61084ef61769bf626b7e0baadea2678e8932",
+        "height": 79651,
+        "ntime": 1685578215,
+        "txid": "f307c6a26b2546b210707835dd0872d3030dd8d76a16fa5e0e134fb1f10db5c6",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77425,
-        "ntime": 1684897593,
-        "txid": "a49d2cd65449d36c372ac50beb1ddc0d2d3a05594892d5bfb27c3315a3fd9785",
+        "height": 79647,
+        "ntime": 1685577668,
+        "txid": "dc4c565bae6c06acfc1a6ffeda06a2804dcacd614eda23bfce7f801855959ed7",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77419,
-        "ntime": 1684896134,
-        "txid": "bee5027e873f0ede189f84eb9d5798d160be890a2eb0fa4030f7a14048762af7",
+        "height": 79639,
+        "ntime": 1685576010,
+        "txid": "cf2c4ddf539c8bd6f9b3bc86b6b4834c3d3a06bf3bf9c125e12347635cc01699",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77413,
-        "ntime": 1684893939,
-        "txid": "3ba3c8450e979bf5916b9cdc5b7aa041b24e3b0301321003cdaa563d4e38d90b",
+        "height": 79632,
+        "ntime": 1685574561,
+        "txid": "3fda2361e0da9670dc82ff60aad658213beadb8681042ed30990f028d135b0a0",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77411,
-        "ntime": 1684893255,
-        "txid": "7f1938f14052c0409060c4569921dbe9f487eec2ec4906b30ba7f9ce492ac901",
+        "height": 79631,
+        "ntime": 1685574391,
+        "txid": "3f673940a3581b019c5a40315f58562daccd99fc4175bdbfccebc55e4f8f4b41",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77410,
-        "ntime": 1684892866,
-        "txid": "c7f1d462977ba06973b25611bb8c1ad44d642ab7a933c92c1ff262750a127788",
+        "height": 79630,
+        "ntime": 1685574149,
+        "txid": "e4865c566e209da7a58a438fc80ba03fe9673358d83db5fa30210b2c3b464e5c",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77403,
-        "ntime": 1684891375,
-        "txid": "6fba748bdeac6fc486c3c37921b0b1183e6abf76fcc72dc033dcef0942ea6310",
+        "height": 79627,
+        "ntime": 1685572309,
+        "txid": "037efc48bbb7bd12ee1dfa9a2bb42b264edc4b4d27d3d98761a9469651e45cc9",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77393,
-        "ntime": 1684886922,
-        "txid": "10f697390341cb901f5294271adc06ce7fefb56bc4479798c0d40851ea177e5e",
+        "height": 79626,
+        "ntime": 1685572239,
+        "txid": "22f6e40fe9a690e90b13efe590719a0a1c8056ad5ef7df869663db5c6cd900a5",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77392,
-        "ntime": 1684886747,
-        "txid": "9494b91c95a5e16663ad6c47049cfb0ee076905030aecc88f3ca8f6bea66194f",
+        "height": 79624,
+        "ntime": 1685571716,
+        "txid": "6af2ad9b48ecf2deea17665829c29f0121eeec4b44d09ccca85ed3d83ed536d4",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77387,
-        "ntime": 1684885464,
-        "txid": "87e17db8be0af1c4a382ce3182755d9ca78e42f4fcf14009bd17b5f668027af5",
+        "height": 79617,
+        "ntime": 1685570370,
+        "txid": "b4b0f9c311ddc2abfd05a902c243fa1fc35798e7de78ecee8aba8932d8d15fc1",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77385,
-        "ntime": 1684885083,
-        "txid": "539d7bafa5d3527e8b3786ef9bf1695a3dfc0972bc44ce6cab7a9ff59c7eadb2",
+        "height": 79615,
+        "ntime": 1685569036,
+        "txid": "2fd4a67fb4587bdc47a04cd639c36df8f3f33f3e639abe4dde5ca061f445a126",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       },
       {
-        "height": 77381,
-        "ntime": 1684884351,
-        "txid": "981cf988db436acdc9a33e0411dc400afdb7a48973dfa633d52c65e568d400fa",
+        "height": 79605,
+        "ntime": 1685566375,
+        "txid": "441435dcba8007cd769729dfbdc2a975d243b227a9fb1a1239c6ac263f07a539",
         "role": "receiver",
         "is_coinbase": true,
-        "amount": 50
+        "amount": 50,
+        "unspent": true
       }
     ]
   }

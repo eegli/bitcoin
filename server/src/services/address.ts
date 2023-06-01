@@ -54,34 +54,35 @@ export const getAddressHistory = async ({
   `;
 
   let qtransactions = `
-  WITH addr_io AS (SELECT t1.height,
-    t1.txid,
-    t1.address,
-    t1.hashprevout,
-    t1.value,
-    IF(t2.hashprevout IS NULL, TRUE, FALSE) is_coinbase,
-    'r'                                     role
-  FROM view_transactions t1
-        LEFT JOIN view_transactions t2
-                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout
+  WITH addr_io AS (SELECT height,
+    txid,
+    address,
+    SUM(value) value,
+    FALSE      is_coinbase,
+    's'        role
+  FROM (SELECT DISTINCT t1.height,
+                    t1.txid,
+                    t2.address,
+                    t2.value
+    FROM view_transactions t1
+              JOIN view_transactions t2
+                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout) tmp
+  GROUP BY height, address, txid
   UNION
-  SELECT t1.height,
-      t1.txid,
-      t2.address,
-      t1.hashprevout,
-      t2.value,
-      FALSE,
-      's' role
-  FROM view_transactions t1
-        LEFT JOIN view_transactions t2
-                  ON t1.hashprevout = t2.txid AND t1.indexprevout = t2.indexout)
+  SELECT height,
+      txid,
+      address,
+      value,
+      IF(hashprevout = CAST(0x00 AS BINARY(32)), TRUE, FALSE) is_coinbase,
+      'r'                                                     role
+  FROM view_transactions t1)
   SELECT a.height,
   b.ntime,
-  LOWER(HEX(a.txid))                               txid,
-  CAST(AVG(a.value) / 100000000 AS DECIMAL(16, 8)) amount,
+  LOWER(HEX(a.txid))                 txid,
+  a.value                            amount,
   a.is_coinbase,
   a.role,
-  IF(t.unspent = b'01', TRUE, FALSE)               unspent
+  IF(t.unspent = b'01', TRUE, FALSE) unspent
   FROM addr_io a
   JOIN blocks b ON a.height = b.height
   LEFT JOIN tx_out t ON a.txid = t.txid AND a.address = t.address
@@ -97,10 +98,6 @@ export const getAddressHistory = async ({
   if (no_coinbase) {
     qtransactions += ` AND is_coinbase = false`;
   }
-
-  qtransactions += `
-  GROUP BY a.height, b.ntime, a.txid, a.address, a.is_coinbase, a.role, t.unspent
-  `;
 
   if (sort === 'asc' || sort === 'desc') {
     qtransactions += ` ORDER BY a.height ${sort}`;

@@ -1,0 +1,75 @@
+{
+  "data": [
+    {
+      "id": 131603,
+      "hash": "0000000040235850b00e74eeb845136eda5cec646ce951092250db6787b4163c",
+      "height": 79709,
+      "version": 536870912,
+      "blocksize": 1212,
+      "hashprev": "0000000013a948ee7af8e5fb1386ae3b87d24d0b6a502104eeb81bb93f60fd72",
+      "hashmerkleroot": "49075352d806e2d7b4621da275e4d7c72b669117a62440ac2701e4bc3cdec631",
+      "ntime": 1685596472,
+      "nbits": 486604799,
+      "nnonce": 3060260098,
+      "coinbase": {
+        "txid": "f17ebee4d07dbf961ffd41e81ed8720b87b33d6f1819f5e2f25d05f6722bd554",
+        "outputs": [
+          {
+            "to_addr": "bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk",
+            "output_amount": 5e-7,
+            "idx": 0
+          }
+        ]
+      },
+      "transactions": [
+        {
+          "inputs": [
+            {
+              "txid": "57fca850960decfb6d71738dd7d75bf0df7f81778d7a075751dcd6711c09b40b",
+              "address": "bc1quwf6mgkug469jgzm8flrz39c7d3uqr6wseuh6w",
+              "amount": 5.1e-7,
+              "idx": 1
+            },
+            {
+              "txid": "d72b798beb82075184565d9d40e11cfd30d879c04bb2cbcc9dd27f6c6f195307",
+              "address": "bc1qd6m74gp0e2qgx06jxm55hqxq2p73g3552cwyn3",
+              "amount": 5e-7,
+              "idx": 0
+            },
+            {
+              "txid": "cc554ea93c3ddb0adb8f97695a641b5d0138a565c09da0181d5c692d0d7f4755",
+              "address": "bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep",
+              "amount": 5e-7,
+              "idx": 0
+            },
+            {
+              "txid": "3befb2f5eee2c8ee32da0cfaaaf0a147ea4f85920f2137414790edde583df28b",
+              "address": "bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep",
+              "amount": 5e-7,
+              "idx": 0
+            },
+            {
+              "txid": "b754eaaf3945b20f4734ceafa795c13a999bd7c5e78830b0ea70b3de8c927a19",
+              "address": "bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep",
+              "amount": 5e-7,
+              "idx": 0
+            }
+          ],
+          "outputs": [
+            {
+              "address": "bc1qzf5tqh0kaqnv4859k28axyqlc7j57z5ngshzua",
+              "amount": 0.00000269,
+              "idx": 0
+            },
+            {
+              "address": "bc1q02q5afwjfwn8gxh6fapl5qnvukvn6jjyrvqvu8",
+              "amount": 2e-7,
+              "idx": 1
+            }
+          ],
+          "txid": "642248c09c262df047fc1ab08035335d3d6b30050abe0150724f3dcb7303e8e7"
+        }
+      ]
+    }
+  ]
+}
