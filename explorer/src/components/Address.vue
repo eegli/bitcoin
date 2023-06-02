@@ -1,20 +1,18 @@
 <!-- Address.vue -->
 <template>
-  <HeaderAddress/>
-  <MainBodyAddress/>
+  <HeaderAddress />
+  <MainBodyAddress />
 </template>
 
 <script>
-import HeaderAddress from "../pages/HeaderAddress.vue"
+import HeaderAddress from "../pages/HeaderAddress.vue";
 import MainBodyAddress from "../pages/MainBodyAddress.vue";
 
 export default {
-components:{
+  components: {
     HeaderAddress,
-    MainBodyAddress
-}
-}
-
+    MainBodyAddress,
+  },
+};
 </script>
-<style>
-</style>
+<style></style>
