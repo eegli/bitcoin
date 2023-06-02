@@ -59,9 +59,9 @@ With the default environment variables (in `.env`), this will:
 
 1. Start a MySQL server on port 3306 with the block data
 2. Start a Node.js REST API on port 8000
-3. Start a Vue client on port 4173 (TODO)
+3. Start a Vue client on port 3000
 
-All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:4173`](http://localhost:4173).
+All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:3000`](http://localhost:3000).
 
 ## Pre-Built Database Setup
 

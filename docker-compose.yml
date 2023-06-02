@@ -34,8 +34,9 @@ services:
       context: ./explorer
       dockerfile: Dockerfile
     restart: always
+    env_file: .env
     ports:
-      - 4173:4173
+      - ${FE_PORT}:4173
     depends_on:
       - db
       - api
