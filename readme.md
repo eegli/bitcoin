@@ -59,9 +59,9 @@ With the default environment variables (in `.env`), this will:
 
 1. Start a MySQL server on port 3306 with the block data
 2. Start a Node.js REST API on port 8000
-3. Start a Vue client on port 3000 (TODO)
+3. Start a Vue client on port 4173 (TODO)
 
-All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:3000`](http://localhost:3000).
+All three ports are exposed to the host machine, so you can access them directly. The database user credentials and table name can be seen in the environment variables file (`.env`). Using any MySQL client, you can connect to the database, play with the API at, e.g., [`http://localhost:8000/blocks`](http://localhost:8000/blocks) and access the client at [`http://localhost:4173`](http://localhost:4173).
 
 ## Pre-Built Database Setup
 
@@ -254,39 +254,23 @@ curl -G http://localhost:8000/address/bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk
 ```
 
 ## Client Setup
-This setup is help to build and initialize a vue3 framewoork and open our website on your computer.
-## Frontend Framework
-Vue3: An approachable, performant and versatile framework for building web user interfaces.
-## Prerequisites
-- Node.js version 16.0 or later installed
-- "dependencies": {
-      "axios": "^1.4.0",
-      "element-plus": "^2.3.5",
-      "swiper": "^8.1.6",
-      "vue": "^3.3.2",
-      "vue-router": "^4.2.1",
-      "vue-loading-overlay"
-   }
 
-  ```sh
-  npm install -save packagename
-  ```
+This setup is help to build and initialize a Vue3 framework and open our website on your computer. Vue3 is an approachable, performant and versatile framework for building web user interfaces.
 
-## Explorer Setup
+### Installation
+
+Run the client in development mode:
+
 ```sh
-cd explorer \
-npm install \ 
+cd explorer
+npm install
 npm run dev
 ```
-Then copy the web link to any explorer. Usually it is http://localhost:5173/. 
 
-The configuration is necessary when making cross-origin requests from a web application to a server, add the below code in server route files:
-```sh
-res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-```
-## Description of Folder Contents
+Then, copy and open the link in your browser: http://localhost:5173/.
+
+### Folder Structure
+
 - /public: store test data.
 - /src/api: store router and address, handle system corresponding.
 - /src/assets: store open source resource(existing when download)

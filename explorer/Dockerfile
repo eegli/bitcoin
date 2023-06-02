@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --omit=dev
+# Install dependencies - Vue3 needs dev deps as well somehow...
+RUN npm install 
 
 # Copy the rest of the backend code
 COPY . .
