@@ -36,7 +36,7 @@ services:
     restart: always
     env_file: .env
     ports:
-      - ${FE_PORT}:4173
+      - 4173:4173
     depends_on:
       - db
       - api
