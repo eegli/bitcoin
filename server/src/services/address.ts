@@ -63,6 +63,7 @@ export const getAddressHistory = async ({
   FROM (SELECT DISTINCT t1.height,
                     t1.txid,
                     t2.address,
+                    t2.txid txid2,
                     t2.value
     FROM view_transactions t1
               JOIN view_transactions t2
