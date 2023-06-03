@@ -21,16 +21,12 @@ export const maybeParseInt = (val: string | undefined): number | undefined => {
 };
 
 export function mapBlockTransactions(
-  _tx: RawBlockTransactionInfo[]
+  tx: RawBlockTransactionInfo[]
 ): BlockTransactions {
-  const tx = _tx.map(t => ({
-    ...t,
-    to_addr: t.to_addr || '',
-  }));
   let coinbaseTxid = '';
   const coinbase: CoinbaseTransaction[] = tx
     // TODO maybe improve this
-    .filter(t => t.from_addr === null && t.to_addr !== '')
+    .filter(t => t.from_addr === '')
     .sort((a, b) => a.to_idxout - b.to_idxout)
     .map(t => {
       coinbaseTxid = t.curr_txid;
@@ -41,7 +37,7 @@ export function mapBlockTransactions(
       };
     });
 
-  const transactions = tx.filter(t => t.from_addr !== null);
+  const transactions = tx.filter(t => t.from_addr !== '');
   const map = new Map<
     string,
     {
@@ -89,9 +85,11 @@ export function mapBlockTransactions(
       const inputs = Array.from(v.inputs.values()).flat();
       const outputs = Array.from(v.outputs.values()).flat();
       return {
+        txid: v.txid,
+        input_amount: inputs.reduce((acc, curr) => acc + curr.amount, 0),
+        output_amount: outputs.reduce((acc, curr) => acc + curr.amount, 0),
         inputs,
         outputs,
-        txid: v.txid,
       };
     }),
   };

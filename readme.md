@@ -189,11 +189,11 @@ npm run dev
 
 ### API Routes
 
-| Resource         | Path                | Description                | Example response                                                                        |
-| ---------------- | ------------------- | -------------------------- | --------------------------------------------------------------------------------------- |
-| Block data       | `/blocks`           | General                    | [Sample JSON](client/mock-data/blocks.json)                                             |
-| Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON](client/mock-data/blocks/77487.json)                                       |
-| Address data     | `/address/:address` | Address history            | [Sample JSON](client/mock-data/address/bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep.json) |
+| Resource         | Path                | Description                | Example response                                                                      |
+| ---------------- | ------------------- | -------------------------- | ------------------------------------------------------------------------------------- |
+| Block data       | `/blocks`           | General                    | [Sample JSON](explorer/mocks/block.json)                                              |
+| Transaction data | `/blocks/:height`   | Transaction data per block | [Sample JSON](explorer/mocks/blocks/77487.json)                                       |
+| Address data     | `/address/:address` | Address history            | [Sample JSON](explorer/mocks/address/bc1qyqqlm0t2y2kguyle8efadrxvqe2hsedc7s8kep.json) |
 
 ### Filtering
 

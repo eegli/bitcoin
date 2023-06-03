@@ -20,8 +20,8 @@ export interface RawBlock extends RowDataPacket, Block {}
 export interface RawBlockTransactionInfo extends RowDataPacket {
   curr_txid: string;
   prev_txid: string;
-  to_addr: string | null;
-  from_addr: string | null;
+  to_addr: string;
+  from_addr: string;
   output_amount: string;
   input_amount: string;
   to_idxout: number;
@@ -31,7 +31,7 @@ export interface RawBlockTransactionInfo extends RowDataPacket {
 export interface BlockTransactionInput {
   txid: string;
   idx: number;
-  address: string | null;
+  address: string;
   amount: number;
 }
 
@@ -44,6 +44,8 @@ export interface BlockTransactionOutput {
 export interface DetailedBlockTransaction {
   inputs: BlockTransactionInput[];
   outputs: BlockTransactionOutput[];
+  input_amount: number;
+  output_amount: number;
   txid: string;
 }
 
