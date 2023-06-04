@@ -5,16 +5,16 @@
   <div class="blocklist">
     <el-row justify="center" class="search">
       <el-input
-        v-model="searchNumber"
-        placeholder="Insert Block Height"
+        v-model="searchInput"
+        placeholder="Insert Block Height or an Address"
         @keyup.enter="goToBlock"
       />
-      <el-button class="search-button" type="primary" @click="goToBlock"
-        >Search</el-button
-      >
+      <el-button class="search-button" type="primary" @click="goToBlock">
+        Search
+      </el-button>
     </el-row>
     <el-row justify="center">
-      <el-table :data="displayedBlocks" stripe style="width: 60%">
+      <el-table :data="displayedBlocks" stripe style="width: 50%">
         <el-table-column prop="height" label="Height" width="180">
           <template #default="{ row }">
             <router-link
@@ -35,7 +35,7 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column prop="ntime" label="Time" width="180">
+        <el-table-column prop="ntime" label="Time" width="280">
           <template #default="{ row }">
             {{ formatTime(row.ntime) }}
           </template>
@@ -93,7 +93,7 @@ export default {
       pageSize: 30,
       total: 0,
       popoverVisible: false,
-      searchNumber: "",
+      searchInput: "",
       displayedBlocks: [],
       previousOffset: 0,
       previousLimit: 30,
@@ -153,19 +153,44 @@ export default {
       this.updateDisplayedBlocks();
       // this.fetchBlocks();
     },
+    // goToBlock() {
+    //   const number = parseInt(this.searchNumber);
+    //   if (!isNaN(number)) {
+    //     if (number > this.total) {
+    //       ElMessage.error("Block does not exit");
+    //     } else {
+    //       this.$router.push({
+    //         name: "transactions",
+    //         params: { height: number },
+    //       });
+    //     }
+    //   } else {
+    //     ElMessage.error("please insert a number");
+    //   }
+    // },
     goToBlock() {
-      const number = parseInt(this.searchNumber);
-      if (!isNaN(number)) {
-        if (number > this.total) {
-          ElMessage.error("Block does not exit");
-        } else {
+      const input = this.searchInput.trim();
+      if (input !== "") {
+        if (/^\d+$/.test(input)) {
+          const number = parseInt(input);
+          if (number > this.total) {
+            ElMessage.error("Block does not exist");
+          } else {
+            this.$router.push({
+              name: "transactions",
+              params: { height: number },
+            });
+          }
+        } else if (/^[a-zA-Z0-9]+$/.test(input)) {
           this.$router.push({
-            name: "transactions",
-            params: { height: number },
+            name: "address",
+            params: { address: input },
           });
+        } else {
+          ElMessage.error("Please insert a valid Block Height or Address");
         }
       } else {
-        ElMessage.error("please insert a number");
+        ElMessage.error("Please insert a Block Height or Address");
       }
     },
 
@@ -186,7 +211,7 @@ export default {
 
 <style scoped>
 .search {
-  width: 250px;
+  width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
