@@ -22,7 +22,7 @@ services:
       - DB_HOST=db
       - DB_PORT=${DB_PORT}
     ports:
-      - ${API_PORT}:${API_PORT}
+      - ${API_PORT}:${API_PORT} # TODO: Connect fe via internal network instead
     expose:
       - ${API_PORT}:${API_PORT}
     networks:
