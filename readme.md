@@ -52,7 +52,7 @@ This allows you to run everything (MySQL DB, REST API, FE client) at once using 
 In the root directory, run:
 
 ```sh
-docker-compose up
+docker-compose up --build
 ```
 
 With the default environment variables (in `.env`), this will:
