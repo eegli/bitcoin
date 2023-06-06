@@ -13,7 +13,7 @@ export const firstQueryParam = (
 ): string | undefined => {
   const q = req[key];
   const val = Array.isArray(q) ? q[0] : q;
-  return typeof val === 'string' ? val : undefined;
+  return typeof val === 'string' ? val.toLowerCase() : undefined;
 };
 
 export const maybeParseInt = (val: string | undefined): number | undefined => {
