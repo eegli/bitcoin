@@ -14,8 +14,8 @@
       <el-col :span="6">
         <el-select v-model="no_coinbases" placeholder="Select Coinbase">
           <el-option label="All" value=""></el-option>
-          <el-option label="Coinbase" value="true"></el-option>
-          <el-option label="No Coinbase" value="false"></el-option>
+          <el-option label="No coinbase" value="true"></el-option>
+          <el-option label="Coinbase" value="false"></el-option>
         </el-select>
       </el-col>
       <el-col :span="4">
