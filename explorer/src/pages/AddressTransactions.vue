@@ -1,8 +1,8 @@
 <template>
   <div class="address">
+    <loading :active="isLoading" :is-full-page="true" :loader="loader" />
     <h3>Balance: {{ balance }}</h3>
     <h3>Transactions:</h3>
-    <loading :active="isLoading" :is-full-page="fullPage" :loader="loader" />
     <el-row>
       <el-col :span="6">
         <el-select v-model="roles" placeholder="Select Role">
@@ -11,13 +11,13 @@
           <el-option label="Receiver" value="receiver"></el-option>
         </el-select>
       </el-col>
-      <!-- <el-col :span="6">
-            <el-select v-model="coinbase" placeholder="Select Coinbase">
-                <el-option label="All" value=""></el-option>
-                <el-option label="Coinbase" value="true"></el-option>
-                <el-option label="No Coinbase" value="false"></el-option>
-            </el-select>
-            </el-col> -->
+      <el-col :span="6">
+        <el-select v-model="no_coinbases" placeholder="Select Coinbase">
+          <el-option label="All" value=""></el-option>
+          <el-option label="Coinbase" value="true"></el-option>
+          <el-option label="No Coinbase" value="false"></el-option>
+        </el-select>
+      </el-col>
       <el-col :span="4">
         <el-button type="primary" @click="fetchAddress">Search</el-button>
       </el-col>
@@ -25,7 +25,7 @@
     <div v-if="transactions.length === 0">No transactions found.</div>
     <div v-else>
       <div
-        v-for="transaction in displayedTransactions"
+        v-for="transaction in transactions"
         :key="transaction.txid"
         :class="getTransactionClass(transaction.role)"
         class="transaction-item"
@@ -49,7 +49,7 @@
             @current-change="handlePageChange"
             background
             :current-page="currentPage"
-            :page-size="previousLimit"
+            :page-size="pageSize"
             :total="total"
             layout="prev, pager, next"
           />
@@ -67,12 +67,11 @@ export default {
       address: "",
       balance: 0,
       transactions: [],
-      displayedTransactions: [],
       currentPage: 1,
+      pageSize: 30,
       total: 0,
-      previousOffset: 0,
-      previousLimit: 30,
       roles: "",
+      no_coinbases: "",
       isLoading: false,
       fullPage: false,
       loader: "bars",
@@ -85,21 +84,17 @@ export default {
     fetchAddress() {
       this.isLoading = true;
       const address = this.$route.params.address;
-      const offset = this.previousOffset;
-      const limit = this.previousLimit;
+      const offset = (this.currentPage - 1) * this.pageSize;
+      const limit = this.pageSize;
       const role = this.roles;
+      const no_coinbase = this.no_coinbases
 
       api
-        .getAddress(address, { limit, offset, role })
+        .getAddress(address, offset, limit, role, no_coinbase)
         .then((response) => {
           this.balance = response.data.data.balance;
           this.transactions = response.data.data.transactions;
           this.total = response.data.data.pagination.total;
-          this.previousOffset = offset + this.previousLimit;
-          this.previousLimit = limit;
-
-          this.updateDisplayedTransactions();
-
           this.isLoading = false;
         })
         .catch((error) => {
@@ -108,17 +103,9 @@ export default {
         });
     },
 
-    updateDisplayedTransactions() {
-      const startIndex = (this.currentPage - 1) * this.previousLimit;
-      const endIndex = startIndex + this.previousLimit;
-      this.displayedTransactions = this.transactions.slice(
-        startIndex,
-        endIndex
-      );
-    },
     handlePageChange(currentPage) {
       this.currentPage = currentPage;
-      this.updateDisplayedTransactions();
+      this.fetchAddress();
     },
     getTransactionClass(role) {
       return role === "receiver"

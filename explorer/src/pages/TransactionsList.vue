@@ -1,7 +1,7 @@
 <!-- TransactionsList.vue -->
 
 <template>
-  <loading :active="isLoading" :is-full-page="fullPage" :loader="loader" />
+  <loading :active="isLoading" :is-full-page="true" :loader="loader" />
   <div class="title">Coinbase Transaction</div>
   <div class="transactionList">
     <div v-if="block">

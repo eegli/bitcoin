@@ -22,9 +22,8 @@ export default {
 
   getBlock(offset, limit) {
     const params = new URLSearchParams();
-    params.append("limit", limit);
     params.append("offset", offset);
-
+    params.append("limit", limit);
     const url = `${path.server_block}?${params.toString()}`;
     return axios.get(url);
   },
@@ -33,11 +32,12 @@ export default {
     const url = `${path.server_height}${height}`;
     return axios.get(url);
   },
-  getAddress(address, limit, offset, role) {
+  getAddress(address, offset, limit, role, no_coinbase) {
     const params = new URLSearchParams();
-    params.append("limit", limit);
     params.append("offset", offset);
+    params.append("limit", limit);
     params.append("role", role);
+    params.append("no_coinbase", no_coinbase);
 
     const url = `${path.server_address}${address}?${params.toString()}`;
     return axios.get(url);
