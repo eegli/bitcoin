@@ -238,18 +238,18 @@ E.g., with a running server (and Python installed for pretty-printing):
 
 ```sh
 # get the latest block
-curl -G http://localhost:8000/blocks/latest | python -mjson.tool
+curl -G http://localhost:8000/blocks/latest -s | python -mjson.tool
 
 # get the genesis block
-curl -G http://localhost:8000/blocks \
+curl -G http://localhost:8000/blocks -s \
    -d 'limit=1' -d 'sort=asc' | python -mjson.tool
 
 # get the block with height 51376
-curl -G http://localhost:8000/blocks/51376 | python -mjson.tool
+curl -G http://localhost:8000/blocks/51376 -s | python -mjson.tool
 
 # get latest 5 transactions for an addres and balance info
 curl -G http://localhost:8000/address/bc1q9ef0gsfjwy0cllfvxrtnc0w9j6sxvakjtekmjk \
-   -d 'limit=5' -d 'sort=desc' \
+   -d 'limit=5' -d 'sort=desc' -s \
    | python -mjson.tool
 ```
 
