@@ -19,7 +19,7 @@
         </el-select>
       </el-col>
       <el-col :span="4">
-        <el-button type="primary" @click="fetchAddress">Search</el-button>
+        <el-button type="primary" @click="handleFilter">Search</el-button>
       </el-col>
     </el-row>
     <div v-if="transactions.length === 0">No transactions found.</div>
@@ -105,6 +105,11 @@ export default {
 
     handlePageChange(currentPage) {
       this.currentPage = currentPage;
+      this.fetchAddress();
+    },
+    handleFilter() {
+      this.offset = 0;
+      this.currentPage = 1;
       this.fetchAddress();
     },
     getTransactionClass(role) {
